@@ -5,7 +5,7 @@ structure, This project is part of the [Developer Tools for Python][4]
 **dtools** namespace projects.
 
 - **Repositories**
-  - [dtools.circular-array][1] project on *PyPI*
+  - [fpythonic.circular-array][1] project on *PyPI*
   - [Source code][2] on *GitHub*
 - **Detailed documentation**
   - [Detailed API documentation][3] on *GH-Pages*
@@ -72,7 +72,7 @@ cases.
     assert len(ca2) == 0
 ```
 
-[1]: https://pypi.org/project/dtools.circular-array
-[2]: https://github.com/grscheller/dtools-circular-array
-[3]: https://grscheller.github.io/dtools-namespace-projects/circular-array
-[4]: https://github.com/grscheller/dtools-namespace-projects/blob/main/README.md
+[1]: https://pypi.org/project/fpythonic.circular-array
+[2]: https://github.com/grscheller/fpythonic-circular-array
+[3]: https://grscheller.github.io/fpythonic-namespace-projects/circular-array
+[4]: https://github.com/grscheller/fpythonic-namespace-projects/blob/main/README.md
