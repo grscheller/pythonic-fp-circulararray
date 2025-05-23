@@ -1,8 +1,7 @@
 # Developer Tools - Circular Array
 
 Python package containing a module implementing a circular array data
-structure, This project is part of the [Developer Tools for Python][4]
-**dtools** namespace projects.
+structure, part of the [PyPI fpythonic Namespace Projects][4].
 
 - **Repositories**
   - [fpythonic.circular-array][1] project on *PyPI*
@@ -74,5 +73,5 @@ cases.
 
 [1]: https://pypi.org/project/fpythonic.circular-array
 [2]: https://github.com/grscheller/fpythonic-circular-array
-[3]: https://grscheller.github.io/fpythonic-namespace-projects/circular-array
-[4]: https://github.com/grscheller/fpythonic-namespace-projects/blob/main/README.md
+[3]: https://grscheller.github.io/fpythonic/circular-array
+[4]: https://github.com/grscheller/fpythonic/blob/main/README.md
