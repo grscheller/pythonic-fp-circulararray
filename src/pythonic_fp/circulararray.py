@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""An indexable circular array data structure.
+"""Pythonic FP namespace project - Circular Array data structure.
 
 - generic, stateful, invariant data structure
 - amortized O(1) pushing and popping from either end
@@ -20,9 +20,6 @@
 - will resize itself as needed
 - sliceable
 - makes defensive copies of contents for the purposes of iteration
-- in boolean context returns
-    - `True` when not empty
-    - `False` when empty
 - in comparisons compare identity before equality, like builtins do
 
 """

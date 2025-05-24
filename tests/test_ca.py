@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from __future__ import annotations
-from fpythonic.circular_array import CA, ca
+from pythonic_fp.circulararray import CA, ca
 
 
 class TestCircularArray:

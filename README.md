@@ -1,10 +1,10 @@
-# Developer Tools - Circular Array
+# Pythonic FP Tools - Circular Array
 
 Python package containing a module implementing a circular array data
-structure, part of the [PyPI fpythonic Namespace Projects][4].
+structure, part of the [PyPI pythonic-fp Namespace Projects][4].
 
 - **Repositories**
-  - [fpythonic.circular-array][1] project on *PyPI*
+  - [pythonic-fp.circulararray][1] project on *PyPI*
   - [Source code][2] on *GitHub*
 - **Detailed documentation**
   - [Detailed API documentation][3] on *GH-Pages*

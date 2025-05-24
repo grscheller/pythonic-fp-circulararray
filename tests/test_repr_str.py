@@ -14,7 +14,7 @@
 
 from __future__ import annotations
 
-from fpythonic.circular_array import ca, CA
+from pythonic_fp.circulararray import ca, CA
 
 class TestRepr:
     """Functionality testing"""
