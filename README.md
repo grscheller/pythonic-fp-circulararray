@@ -1,13 +1,13 @@
-# Pythonic FP Tools - Circular Array
+# Pythonic FP - Circular Array
 
-Python package containing a module implementing a circular array data
-structure, part of the [PyPI pythonic-fp Namespace Projects][4].
+A stateful circular array data structure, part of the
+[PyPI pythonic-fp Namespace Projects][1].
 
 - **Repositories**
-  - [pythonic-fp.circulararray][1] project on *PyPI*
-  - [Source code][2] on *GitHub*
+  - [pythonic-fp.circulararray][2] project on *PyPI*
+  - [Source code][3] on *GitHub*
 - **Detailed documentation**
-  - [Detailed API documentation][3] on *GH-Pages*
+  - [Detailed API documentation][4] on *GH-Pages*
 
 ## Overview
 
@@ -24,7 +24,7 @@ be mutated.
 Useful either if used directly like a Python list, or in a "has-a"
 relationship when implementing other data structures.
 
-- *module* dtools.circular_array
+- *module* dtools.circulararray
   - *class* `CA:` circular array data structure
     - initializer takes 1 or 0 iterators
       - like `list` or `set` does
@@ -38,7 +38,7 @@ cases.
 #### Usage
 
 ```python
-    from dtools.circular_array import CA, ca
+    from pythonic_fp.circulararray import CA, ca
     
     ca1 = ca(1, 2, 3)
     assert ca1.popl() == 1
@@ -71,7 +71,7 @@ cases.
     assert len(ca2) == 0
 ```
 
-[1]: https://pypi.org/project/fpythonic.circular-array
-[2]: https://github.com/grscheller/fpythonic-circular-array
-[3]: https://grscheller.github.io/fpythonic/circular-array
-[4]: https://github.com/grscheller/fpythonic/blob/main/README.md
+[1]: https://github.com/grscheller/pythonic-fp/blob/main/README.md
+[2]: https://pypi.org/project/pythonic-fp.circulararray
+[3]: https://github.com/grscheller/pythonic-fp-circulararray
+[4]: https://grscheller.github.io/pythonic-fp/maintained/circulararray
