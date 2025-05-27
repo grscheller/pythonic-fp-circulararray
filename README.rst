@@ -94,7 +94,7 @@ Contributers
 CHANGELOG
 ---------
 
-See the `CHANGELOG <https://github.com/grscheller/pythonic-fp-circulararray/CHANGELOG.rst>`_.
+See the `CHANGELOG <https://github.com/grscheller/pythonic-fp-circulararray/blob/main/CHANGELOG.rst>`_
 
 License
 -------
