@@ -12,7 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Pythonic FP namespace project - Circular Array data structure.
+"""
+Pythonic FP namespace project - Circular Array data structure.
 
 - generic, stateful, invariant data structure
 - amortized O(1) pushing and popping from either end
@@ -47,11 +48,11 @@ class CA[D]:
     - sliceable
     - makes defensive copies of contents for the purposes of iteration
     - in boolean context returns
-      - `True` when not empty
-      - `False` when empty
+
+      - ``True`` when not empty
+      - ``False`` when empty
+
     - in comparisons compare identity before equality, like builtins do
-    - raises `IndexError` for out-of-bounds indexing
-    - raises `ValueError` for popping from or folding an empty `CA`
 
     """
 
@@ -61,14 +62,20 @@ class CA[D]:
     R = TypeVar('R')
     U = TypeVar('U')
 
-    def __init__(self, *dss: Iterable[D]) -> None:
-        if len(dss) < 2:
-            self._data: list[D | None] = (
-                [None] + cast(list[D | None], list(*dss)) + [None]
-            )
+    def __init__(self, ds: Iterable[D] | None = None) -> None:
+        """
+        Initialize CA with optional initial values.
+
+        Parameters:
+            ds (Optional(Iterable[D])): push values on from the right.
+
+        Raises:
+            TypeError: If ds is not Iterable.
+        """
+        if ds is None:
+            self._data: list[D | None] = [None, None]
         else:
-            msg = f'CA expected at most 1 argument, got {len(dss)}'
-            raise TypeError(msg)
+            self._data = [None] + list(ds) + [None]
         self._cap = cap = len(self._data)
         self._cnt = cap - 2
         if cap == 2:
@@ -514,5 +521,11 @@ class CA[D]:
 
 
 def ca[D](*ds: D) -> CA[D]:
-    """Function to produce a `CA` array from a variable number of arguments."""
+    """Function to produce a `CA` array from a variable number of arguments.
+
+    ```
+        ca(): CA[~D] -> ca_0: CA[~D]
+        ca(*ds: ~D) -> ca_d: CA[~D]
+    ```
+    """
     return CA(ds)
