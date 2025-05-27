@@ -5,8 +5,8 @@ Pythonic FP - Circular Array
 A stateful circular array data structure, part of the
 `PyPI pythonic-fp Namespace Projects <https://github.com/grscheller/pythonic-fp/blob/main/README.md>`_.
 
-Features
---------
+Features:
+---------
 
 Full featured auto resizing circular array data structure. Double sided,
 indexable, sliceable, and iterable. When iterated, uses cached copies of its
@@ -33,8 +33,8 @@ Detailed API
 `documentation <https://grscheller.github.io/pythonic-fp/maintained/circulararray>`_
 on *GH-Pages*.
 
-Usage
------
+Usage:
+------
 
 | from pythonic_fp.circulararray import CA, ca
 |
@@ -68,13 +68,13 @@ Usage
 | assert ca3.popld(42) == 42
 | assert len(ca2) == 0
 
-Installation
-------------
+Installation:
+-------------
 
 | $ pip install pythonic-fp.circulararray
 
-Support
--------
+Support:
+--------
 
 If you have any questions or issues with the software, feel free to reach out
 to the maintainer at geoffrey@scheller.com, or submit an issue on GitHub's issue
@@ -96,8 +96,8 @@ CHANGELOG
 
 See the `CHANGELOG <https://github.com/grscheller/pythonic-fp-circulararray/blob/main/CHANGELOG.rst>`_
 
-License
--------
+License:
+--------
 
 This project is licensed under the Apache License Version 2.0, January 2004.
 See the `LICENCE file <https://github.com/grscheller/pythonic-fp-circulararray/blob/main/LICENSE>`_
