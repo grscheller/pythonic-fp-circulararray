@@ -81,18 +81,18 @@ to the maintainer at geoffrey@scheller.com, or submit an issue on GitHub's issue
 tracker.
 
 Contribute
-----------
+^^^^^^^^^^
 
 - Issue Tracker: https://github.com/grscheller/pythonic-fp-circulararray/issues
 - Pull Requests: https://github.com/grscheller/pythonic-fp-circulararray/pulls
 
 Contributers
-------------
+^^^^^^^^^^^^
 
 - `@grscheller <https://github.com/grscheller>`_ (Geoffrey R. Scheller - maintainer)
 
 CHANGELOG
----------
+^^^^^^^^^
 
 See the `CHANGELOG <https://github.com/grscheller/pythonic-fp-circulararray/blob/main/CHANGELOG.rst>`_
 
