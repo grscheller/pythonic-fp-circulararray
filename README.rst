@@ -3,7 +3,7 @@ Pythonic FP - Circular Array
 ============================
 
 A stateful circular array data structure, part of the
-`PyPI pythonic-fp Namespace Projects <https://github.com/grscheller/pythonic-fp/blob/main/README.md>`_.
+`PyPI pythonic-fp Namespace Projects <https://github.com/grscheller/pythonic-fp/blob/main/README.rst>`_.
 
 Detailed API
 `documentation <https://grscheller.github.io/pythonic-fp/maintained/circulararray>`_
