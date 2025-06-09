@@ -10,29 +10,27 @@ license = { file = "LICENSE" }
 readme = "README.rst"
 requires-python = ">=3.12"
 classifiers = [
-    "Development Status :: 5 - Production/Stable",
-    "Framework :: Pytest",
-    "Intended Audience :: Developers",
-    "License :: OSI Approved :: Apache Software License",
-    "Operating System :: OS Independent",
-    "Programming Language :: Python :: 3.13",
-    "Typing :: Typed",
+  "Development Status :: 5 - Production/Stable",
+  "Framework :: Pytest",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: Apache Software License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3.13",
+  "Typing :: Typed",
 ]
 dynamic = ["description"]
 keywords = [
-    "circular array",
-    "dequeue",
-    "pop",
-    "push",
-    "indexable",
-    "auto resizing",
+  "circular array",
+  "dequeue",
+  "pop",
+  "push",
+  "indexable",
+  "auto resizing",
 ]
 dependencies = []
 
 [project.optional-dependencies]
-test = [
-    "pytest >=8.3.5",
-]
+test = ["pytest >=8.3.5"]
 
 [project.urls]
 Homepage = "https://github.com/grscheller/pythonic-fp/blob/main/README.rst"
