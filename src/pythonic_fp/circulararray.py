@@ -380,7 +380,7 @@ class CA[D]:
     def poplt(self, maximum: int, /) -> tuple[D, ...]:
         """Pop multiple values from left side of the circular array.
 
-        :param maximum: Pop no more than ``maximum`` values 
+        :param maximum: Pop no more than ``maximum`` values
         :return: A tuple of the values popped from left side of circular array.
         """
         ds: list[D] = []
@@ -398,7 +398,7 @@ class CA[D]:
     def poprt(self, maximum: int, /) -> tuple[D, ...]:
         """Pop multiple values from right side of the circular array.
 
-        :param maximum: Pop no more than ``maximum`` values 
+        :param maximum: Pop no more than ``maximum`` values
         :return: A tuple of the values popped from right side of circular array.
         """
         ds: list[D] = []
