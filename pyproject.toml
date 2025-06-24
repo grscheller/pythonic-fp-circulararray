@@ -1,14 +1,18 @@
-[build-system]
-requires = ["flit_core>=3.4,<4"]
-build-backend = "flit_core.buildapi"
-
 [project]
 name = "pythonic-fp.circulararray"
 version = "5.1.0"
-authors = [{ name = "Geoffrey R. Scheller", email = "geoffrey@scheller.com" }]
-license = { file = "LICENSE" }
 readme = "README.rst"
 requires-python = ">=3.12"
+license = { file = "LICENSE" }
+authors = [{ name = "Geoffrey R. Scheller", email = "geoffrey@scheller.com" }]
+keywords = [
+  "auto resizing",
+  "circular array",
+  "dequeue",
+  "indexable",
+  "pop",
+  "push",
+]
 classifiers = [
   "Development Status :: 5 - Production/Stable",
   "Framework :: Pytest",
@@ -18,40 +22,24 @@ classifiers = [
   "Programming Language :: Python :: 3.13",
   "Typing :: Typed",
 ]
-dynamic = ["description"]
-keywords = [
-  "circular array",
-  "dequeue",
-  "pop",
-  "push",
-  "indexable",
-  "auto resizing",
-]
 dependencies = []
+dynamic = ["description"]
+
+[project.urls]
+Changelog = "https://github.com/grscheller/pythonic-fp-circulararray/blob/main/CHANGELOG.rst"
+Documentation = "https://grscheller.github.io/pythonic-fp/maintained/circulararray"
+Homepage = "https://github.com/grscheller/pythonic-fp/blob/main/README.rst"
+Source = "https://github.com/grscheller/pythonic-fp-circulararray"
 
 [project.optional-dependencies]
 test = ["pytest >=8.3.5"]
 
-[project.urls]
-Homepage = "https://github.com/grscheller/pythonic-fp/blob/main/README.rst"
-Source = "https://github.com/grscheller/pythonic-fp-circulararray"
-Changelog = "https://github.com/grscheller/pythonic-fp-circulararray/blob/main/CHANGELOG.rst"
-Documentation = "https://grscheller.github.io/pythonic-fp/maintained/circulararray"
+[build-system]
+requires = ["flit_core>=3.4,<4"]
+build-backend = "flit_core.buildapi"
 
 [tool.flit.sdist]
 exclude = ["dist", "tests", ".gitignore", ".mypy_cache", ".pytest_cache"]
-
-[tool.pytest.ini_options]
-consider_namespace_packages = true
-
-[tool.pylsp-mypy]
-enabled = true
-live-mode = true
-strict = true
-report_progress = true
-
-[pylsp]
-python_path = ["/home/grs/devel/pypi/fptools/pythonic-fp-circulararray/src"]
 
 [tool.mypy]
 enable_incomplete_feature = ["NewGenericSyntax"]
@@ -60,6 +48,18 @@ local_partial_types = true
 warn_redundant_casts = true
 warn_return_any = true
 warn_unused_configs = true
+
+[tool.pylsp]
+python_path = ["/home/grs/devel/pypi/fptools/pythonic-fp-circulararray/src"]
+
+[tool.pylsp-mypy]
+enabled = true
+live-mode = true
+strict = true
+report_progress = true
+
+[tool.pytest.ini_options]
+consider_namespace_packages = true
 
 [tool.ruff]
 target-version = "py313"
