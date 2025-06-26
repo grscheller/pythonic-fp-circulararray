@@ -22,7 +22,7 @@ class TestCircularArray:
     def test_mutate_returns_none(self) -> None:
         """Test for builtin behaviors"""
         ca1: CA[int] = ca()
-        assert ca1.pushl(1) is None  # type: ignore[func-returns-value]
+        assert ca1.pushl(1) is None
         ca1.pushl(0)
         ca1.pushr(2)
         ca1.pushr(3)
