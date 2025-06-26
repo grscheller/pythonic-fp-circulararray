@@ -5,10 +5,10 @@ A stateful circular array data structure, part of the PyPI
 Namespace Projects.
 
 Detailed API
-[documentatio](https://grscheller.github.io/pythonic-fp/maintained/circulararray)
+[documentation](https://grscheller.github.io/pythonic-fp/maintained/circulararray)
 on *GH-Pages*.
 
-## Features
+## Features:
 
 Full featured auto resizing circular array data structure. Double sided,
 indexable, sliceable, and iterable. When iterated, uses cached copies of its
@@ -22,7 +22,7 @@ present state so that the circular array itself can safely be mutated.
 Useful either if used directly like a Python list, or in a "has-a"
 relationship when implementing other data structures.
 
-Usage:
+### Usage
 
 ```
     from pythonic_fp.circulararray import CA, ca
@@ -58,13 +58,13 @@ Usage:
     assert len(ca2) == 0
 ```
 
-## Installation
+## Installation:
 
 ```
     $ pip install pythonic-fp.circulararray
 ```
 
-## Contribute
+## Contribute:
 
 - Project on PyPI: https://pypi.org/project/pythonic-fp.circulararray
 - Source Code: https://github.com/grscheller/pythonic-fp-circulararray
@@ -74,7 +74,7 @@ Usage:
 
 | Contributors | Name | Role |
 |:------------ |:---- |:---- |
-| [@grscheller](https://github.com/grscheller) | Geoffrey R. Scheller | author, maintainer |
+| [grscheller](https://github.com/grscheller) | Geoffrey R. Scheller | author, maintainer |
 
 ### License Information
 
