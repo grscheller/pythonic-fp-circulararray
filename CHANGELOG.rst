@@ -4,11 +4,11 @@ CHANGELOG: Pythonic FP Circular Array
 
 PyPI pythonic-fp.circulararray project.
 
-- Strict 3 digit semantic versioning (adopted 2025-05-19)
+Strict 3 digit semantic versioning (adopted 2025-05-19).
 
-  - MAJOR version for incompatible API changes
-  - MINOR version for backward compatible added functionality
-  - PATCH version for backward compatible bug fixes
+- **MAJOR** version incremented for incompatible API changes
+- **MINOR** version incremented for backward compatible added functionality
+- **PATCH** version incremented for backward compatible bug fixes
 
 See `Semantic Versioning 2.0.0 <https://semver.org>`_.
 
@@ -18,11 +18,13 @@ Releases and Important Milestones
 Version 5.1.0 - PyPI release date TBD
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-  - switched from pdoc to sphinx for document generation
+  - switched from ``pdoc`` to ``sphinx`` for document generation
 
-    - created docs/ directory for document generation
-    - no longer source code controlling generated HTML (too wasteful)
-    - using sphinx.ext.githubpages extension to publish from this repo
+    - created ``docs/`` directory for document generation
+
+      - no longer source code controlling generated HTML (too wasteful)
+      - will use ``sphinx.ext.githubpages`` extension to publish from this repo
+      - will use ``sphinx.ext.autodoc`` to generate detailed API documentation
 
   - some formatting changes, but no actual code changes
   - made pyproject.toml improvements
@@ -31,6 +33,19 @@ Version 5.1.0 - PyPI release date TBD
     - removed all version caps from pyproject.toml
 
       - see `this blog post <https://iscinumpy.dev/post/bound-version-constraints>_.
+
+Version 5.0.0 - PyPI release date 2025-05-23
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  - first release as pythonic-fp.circular-array
+
+    - there was already a PyPI project with the dtools name
+    - the name pythonic-fp was not taken
+      
+      - using it as the namespace name for the entire group
+      - does exist as an "skeleton" repository just to claim the name
+      - installing it will break all the namespace packages
+      - didn't want any confusion caused by someone else claiming the name
 
 Version 3.14.0 - PyPI release date 2025-05-10
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -132,8 +147,8 @@ Fixed pdoc issues with new typing notation.
 Version 3.9.0 - PyPI release date 2025-01-16
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Final release as dtools.circular-array, - was previously
-grscheller.circular-array.
+First release as dtools.circular-array,
+was previously grscheller.circular-array.
 
 Version 3.8.0 - PyPI release date 2025-01-03
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
