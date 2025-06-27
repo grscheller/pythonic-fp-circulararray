@@ -43,7 +43,7 @@ Version 5.0.0 - PyPI release date 2025-05-23
     - the name pythonic-fp was not taken
       
       - using it as the namespace name for the entire group
-      - does exist as an "skeleton" repository just to claim the name
+      - does exist as an "skeleton" project just to claim the name
       - installing it will break all the namespace packages
       - didn't want any confusion caused by someone else claiming the name
 
@@ -202,10 +202,11 @@ No future changes planned for the foreseeable future
 Version 3.5.0 - PyPI release date 2024-09-21
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-  - made the `double` method p- O(1) amortized pushes and pops either end.
+  - made the `double` method
+  - O(1) amortized pushes and pops either end.
   - O(1) indexing
   - fully supports slicing
-  - safely mutates over previous staterivate, now called `_double_storage_capacity`
+  - safely mutates over previous cached state, now called `_double_storage_capacity`
   - major docstring improvements
   - improved indentation and code alignment, now much more Pythonic
 
@@ -243,7 +244,7 @@ Changes made:
   - remove `_sentinel` and `_storable` slots from CA class
   - remove copy method, just use `ca2 = CA(*ca1)` to make a shallow copy
   - adjust `__repr__` and `__str__` methods
-  - experimenting with Spinx syntax in docstrings (still using pdoc3)
+  - experimenting with Sphinx syntax in docstrings (still using pdoc3)
   - changed nomenclature from "left/right" to "front/rear"
   - unsafe and safe versions of pop & fold functionality
   - left and right folds improvements
@@ -273,7 +274,7 @@ for this.
 Version 3.1.0 - PyPI release date 2024-07-11
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Generic typing now being used, first PyPI release where multiplw values can be
+Generic typing now being used, first PyPI release where multiple values can be
 pushed on CircularArray.
 
 Version 3.0.0 - commit date 2024-06-28
@@ -315,7 +316,7 @@ Version 1.1.0.0 - commit date 2024-03-08
   - made some major code API changes
 
     - upon initialization minimizing size of the CircularArray
-    - have some ideas on how to to improve API for resizing CircularArrays
+    - have some ideas on how to improve API for resizing CircularArrays
     - need to test my other 2 PyPI projects
 
       - both use circular-array as a dependency
@@ -358,5 +359,5 @@ Version 0.0.2 - commit date 2024-01-28
 Version 0.0.1 - commit date 2024-01-28
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Decided to split Circulararray class out of datastructures, will make it its own
-PyPI project. Got it working with datastructures locally.
+Decided to split Circulararray class out of grscheller.datastructures, will make it its own PyPI
+project. Got it working with datastructures locally.
