@@ -80,54 +80,89 @@ class CA[D]:
 
     def _double_storage_capacity(self) -> None:
         if self._front <= self._rear:
-            self._data += [None] * self._cap
-            self._cap *= 2
+            (
+                    self._data,
+                    self._cap,
+            ) = (
+                    self._data + [None] * self._cap,
+                    self._cap * 2,
+                )
         else:
-            self._data = (
-                self._data[: self._front]
-                + [None] * self._cap
-                + self._data[self._front :]
-            )
-            self._front, self._cap = self._front + self._cap, 2 * self._cap
+            (
+                    self._data,
+                    self._front,
+                    self._cap,
+            ) = (
+                    self._data[: self._front] + [None]*self._cap + self._data[self._front:],
+                    self._front + self._cap,
+                    2*self._cap,
+                )
 
     def _compact_storage_capacity(self) -> None:
         match self._cnt:
             case 0:
-                self._cap, self._front, self._rear, self._data = 2, 0, 1, [None, None]
+                (
+                        self._cap,
+                        self._front,
+                        self._rear,
+                        self._data,
+                ) = (
+                        2,
+                        0,
+                        1,
+                        [None, None],
+                    )
             case 1:
-                self._cap, self._front, self._rear, self._data = (
-                    3,
-                    1,
-                    1,
-                    [None, self._data[self._front], None],
-                )
+                (
+                        self._cap,
+                        self._front,
+                        self._rear,
+                        self._data,
+                ) = (
+                        3,
+                        1,
+                        1,
+                        [None, self._data[self._front], None],
+                    )
             case _:
                 if self._front <= self._rear:
-                    self._cap, self._front, self._rear, self._data = (
-                        self._cnt + 2,
-                        1,
-                        self._cnt,
-                        [None] + self._data[self._front : self._rear + 1] + [None],
-                    )
+                    ( 
+                            self._cap,
+                            self._front,
+                            self._rear,
+                            self._data,
+                    ) = (
+                            self._cnt + 2,
+                            1,
+                            self._cnt,
+                            [None] + self._data[self._front : self._rear + 1] + [None],
+                        )
                 else:
-                    self._cap, self._front, self._rear, self._data = (
-                        self._cnt + 2,
-                        1,
-                        self._cnt,
-                        [None]
-                        + self._data[self._front :]
-                        + self._data[: self._rear + 1]
-                        + [None],
-                    )
+                    (
+                            self._cap,
+                            self._front,
+                            self._rear,
+                            self._data,
+                    ) = (
+                            self._cnt + 2,
+                            1,
+                            self._cnt,
+                            [None] + self._data[self._front :] + self._data[: self._rear + 1] + [None],
+                        )
 
     def __iter__(self) -> Iterator[D]:
         if self._cnt > 0:
-            capacity, rear, position, current_state = (
-                self._cap,
-                self._rear,
-                self._front,
-                self._data.copy(),
-            )
+            (
+                    capacity,
+                    rear,
+                    position,
+                    current_state,
+            ) = (
+                    self._cap,
+                    self._rear,
+                    self._front,
+                    self._data.copy(),
+                )
 
             while position != rear:
                 yield cast(D, current_state[position])
@@ -136,12 +171,17 @@ class CA[D]:
 
     def __reversed__(self) -> Iterator[D]:
         if self._cnt > 0:
-            capacity, front, position, current_state = (
-                self._cap,
-                self._front,
-                self._rear,
-                self._data.copy(),
-            )
+            (
+                    capacity,
+                    front,
+                    position,
+                    current_state,
+            ) = (
+                    self._cap,
+                    self._front,
+                    self._rear,
+                    self._data.copy(),
+                )
 
             while position != front:
                 yield cast(D, current_state[position])
@@ -197,18 +237,18 @@ class CA[D]:
                 data[idx] = vals
                 _ca = CA(data)
                 (
-                    self._data,
-                    self._cnt,
-                    self._cap,
-                    self._front,
-                    self._rear,
+                        self._data,
+                        self._cnt,
+                        self._cap,
+                        self._front,
+                        self._rear,
                 ) = (
-                    _ca._data,
-                    _ca._cnt,
-                    _ca._cap,
-                    _ca._front,
-                    _ca._rear,
-                )
+                        _ca._data,
+                        _ca._cnt,
+                        _ca._cap,
+                        _ca._front,
+                        _ca._rear,
+                    )
                 return
 
             msg = 'must assign iterable to extended slice'
@@ -221,9 +261,8 @@ class CA[D]:
             self._data[(self._front + cnt + idx) % self._cap] = cast(D, vals)
         else:
             if cnt < 1:
-                msg0 = 'Trying to set a value from an empty CA.'
+                msg0 = 'Trying to index into an empty CA.'
                 raise IndexError(msg0)
-
             msg1 = 'Out of bounds: '
             msg2 = f'index = {idx} not between {-cnt} and {cnt - 1} '
             msg3 = 'while setting value from a CA.'
@@ -238,13 +277,19 @@ class CA[D]:
         data = list(self)
         del data[idx]
         _ca = CA(data)
-        (self._data, self._cnt, self._cap, self._front, self._rear) = (
-            _ca._data,
-            _ca._cnt,
-            _ca._cap,
-            _ca._front,
-            _ca._rear,
-        )
+        (
+                self._data,
+                self._cnt,
+                self._cap,
+                self._front,
+                self._rear,
+        ) = (
+                _ca._data,
+                _ca._cnt,
+                _ca._cap,
+                _ca._front,
+                _ca._rear,
+            )
 
     def __eq__(self, other: object, /) -> bool:
         if self is other:
@@ -252,28 +297,28 @@ class CA[D]:
         if not isinstance(other, type(self)):
             return False
 
-        (front1, count1, capacity1, front2, count2, capacity2) = (
-            self._front,
-            self._cnt,
-            self._cap,
-            other._front,
-            other._cnt,
-            other._cap,
-        )
+        (
+                front1,count1,
+                capacity1,
+                front2,
+                count2,
+                capacity2,
+        ) = (
+                self._front,
+                self._cnt,
+                self._cap,
+                other._front,
+                other._cnt,
+                other._cap,
+            )
 
         if count1 != count2:
             return False
 
         for nn in range(count1):
-            if (
-                self._data[(front1 + nn) % capacity1]
-                is other._data[(front2 + nn) % capacity2]
-            ):
+            if self._data[(front1 + nn) % capacity1] is other._data[(front2 + nn) % capacity2]:
                 continue
-            if (
-                self._data[(front1 + nn) % capacity1]
-                != other._data[(front2 + nn) % capacity2]
-            ):
+            if self._data[(front1 + nn) % capacity1] != other._data[(front2 + nn) % capacity2]:
                 return False
         return True
 
@@ -286,8 +331,15 @@ class CA[D]:
         for d in ds:
             if self._cnt == self._cap:
                 self._double_storage_capacity()
-            self._front = (self._front - 1) % self._cap
-            self._data[self._front], self._cnt = d, self._cnt + 1
+            (
+                    self._front,
+                    self._data[self._front],
+                    self._cnt,
+            ) = (
+                    (self._front - 1) % self._cap,
+                    d,
+                    self._cnt + 1,
+                )
 
     def pushr(self, *ds: D) -> None:
         """Push right.
@@ -298,8 +350,15 @@ class CA[D]:
         for d in ds:
             if self._cnt == self._cap:
                 self._double_storage_capacity()
-            self._rear = (self._rear + 1) % self._cap
-            self._data[self._rear], self._cnt = d, self._cnt + 1
+            (
+                    self._rear,
+                    self._data[self._rear],
+                    self._cnt,
+            ) = (
+                    (self._rear + 1) % self._cap,
+                    d,
+                    self._cnt + 1,
+                )
 
     def popl(self) -> D | Never:
         """Pop left.
@@ -310,30 +369,30 @@ class CA[D]:
         """
         if self._cnt > 1:
             (
-                d,
-                self._data[self._front],
-                self._front,
-                self._cnt,
+                    d,
+                    self._data[self._front],
+                    self._front,
+                    self._cnt,
             ) = (
-                self._data[self._front],
-                None,
-                (self._front + 1) % self._cap,
-                self._cnt - 1,
-            )
+                    self._data[self._front],
+                    None,
+                    (self._front + 1) % self._cap,
+                    self._cnt - 1,
+                )
         elif self._cnt == 1:
             (
-                d,
-                self._data[self._front],
-                self._cnt,
-                self._front,
-                self._rear,
+                    d,
+                    self._data[self._front],
+                    self._cnt,
+                    self._front,
+                    self._rear,
             ) = (
-                self._data[self._front],
-                None,
-                0,
-                0,
-                self._cap - 1,
-            )
+                    self._data[self._front],
+                    None,
+                    0,
+                    0,
+                    self._cap - 1,
+                )
         else:
             msg = 'Method popl called on an empty CA'
             raise ValueError(msg)
@@ -348,30 +407,30 @@ class CA[D]:
         """
         if self._cnt > 1:
             (
-                d,
-                self._data[self._rear],
-                self._rear,
-                self._cnt,
+                    d,
+                    self._data[self._rear],
+                    self._rear,
+                    self._cnt,
             ) = (
-                self._data[self._rear],
-                None,
-                (self._rear - 1) % self._cap,
-                self._cnt - 1,
-            )
+                    self._data[self._rear],
+                    None,
+                    (self._rear - 1) % self._cap,
+                    self._cnt - 1,
+                )
         elif self._cnt == 1:
             (
-                d,
-                self._data[self._front],
-                self._cnt,
-                self._front,
-                self._rear,
+                    d,
+                    self._data[self._front],
+                    self._cnt,
+                    self._front,
+                    self._rear,
             ) = (
-                self._data[self._front],
-                None,
-                0,
-                0,
-                self._cap - 1,
-            )
+                    self._data[self._front],
+                    None,
+                    0,
+                    0,
+                    self._cap - 1,
+                )
         else:
             msg = 'Method popr called on an empty CA'
             raise ValueError(msg)
@@ -435,7 +494,6 @@ class CA[D]:
                 break
             else:
                 maximum -= 1
-
         return tuple(ds)
 
     def rotl(self, n: int = 1, /) -> None:
@@ -525,14 +583,14 @@ class CA[D]:
     def empty(self) -> None:
         """Empty the circular array, keep current capacity."""
         (
-            self._data,
-            self._front,
-            self._rear,
+                self._data,
+                self._front,
+                self._rear,
         ) = (
-            [None] * self._cap,
-            0,
-            self._cap,
-        )
+                [None] * self._cap,
+                0,
+                self._cap,
+            )
 
     def fraction_filled(self) -> float:
         """Find fraction of capacity filled.
@@ -551,12 +609,12 @@ class CA[D]:
         self._compact_storage_capacity()
         if (min_cap := minimum_capacity) > self._cap:
             (
-                self._cap,
-                self._data,
+                    self._cap,
+                    self._data,
             ) = (
-                min_cap,
-                self._data + [None] * (min_cap - self._cap),
-            )
+                    min_cap,
+                    self._data + [None] * (min_cap - self._cap),
+                )
             if self._cnt == 0:
                 self._front, self._rear = 0, self._cap - 1
 
