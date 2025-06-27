@@ -10,21 +10,27 @@ PyPI pythonic-fp.circulararray project.
   - MINOR version for backward compatible added functionality
   - PATCH version for backward compatible bug fixes
 
+See `Semantic Versioning 2.0.0 <https://semver.org>`_.
+
 Releases and Important Milestones
 ---------------------------------
 
-Adapting strict Semantic from this point on - date 2025-05-19
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Version 5.1.0 - PyPI release date TBD
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Semantic Versioning 2.0.0 see https://semver.org/
+- switched from pdoc to sphinx for document generation
 
-See top of file.
+  - created docs/ directory for document generation
+  - no longer source code controlling generated HTML (too wasteful)
+  - using sphinx.ext.githubpages extension to publish from this repo
 
-- previous versioning scheme used
+- some formatting changes, but no actual code changes
+- made pyproject.toml improvements
 
-  - first digit - major event, epoch, or paradigm shift
-  - second digit - breaking API changes, major changes
-  - third digit - bug fixes, API additions
+  - better tooling configurations
+  - removed all version caps from pyproject.toml
+
+    - see `this blog post <https://iscinumpy.dev/post/bound-version-constraints>_.
 
 Version 3.14.0 - PyPI release date 2025-05-10
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -181,7 +187,10 @@ No future changes planned for the foreseeable future
 Version 3.5.0 - PyPI release date 2024-09-21
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-- made the `double` method private, now called `_double_storage_capacity`
+- made the `double` method p- O(1) amortized pushes and pops either end.
+- O(1) indexing
+- fully supports slicing
+- safely mutates over previous staterivate, now called `_double_storage_capacity`
 - major docstring improvements
 - improved indentation and code alignment, now much more Pythonic
 
