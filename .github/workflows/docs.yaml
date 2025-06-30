@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-env:
-  PYTHONPATH: src/pythonic_fp
 
 jobs:
   publish_sphinx_docs:
@@ -23,6 +21,8 @@ jobs:
           pip install python-sphinx-doc sphinx-rtd-theme piccolo_theme
 
       - name: Sphinx build
+        env:
+          PYTHONPATH: src/pythonic_fp
         run: |
           sphinx-build -M docs/source docs/build
       - name: Deploy
