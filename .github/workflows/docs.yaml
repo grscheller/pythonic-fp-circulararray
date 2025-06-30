@@ -9,7 +9,7 @@ jobs:
   publish_sphinx_docs:
     runs-on: ubuntu-latest
     env:
-      PYTHONPATHld =
+      PYTHONPATH = src/pythonic_fp/
     permissions:
       contents: write
     steps:
