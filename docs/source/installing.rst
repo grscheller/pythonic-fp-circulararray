@@ -21,7 +21,7 @@ Import the ``CA`` class and ``ca`` "factory function" into your code.
 
 .. Note::
 
-   Like the built-in Python list, ``CA`` takes up to one iterable, while
-   the ``ca`` function behaves like Python's ``[]`` syntax. ``ca`` creates
-   a ``CA`` object from the arguments past to it.
+   Like Python's built-in list, ``CA`` takes up to one iterable. The ``ca``
+   function behaves like Python's ``[]`` syntax where ``ca`` creates a ``CA``
+   object from the arguments passed to it.
 
