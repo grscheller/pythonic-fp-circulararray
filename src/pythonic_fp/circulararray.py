@@ -12,17 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Pythonic FP namespace project - Circular Array data structure.
-
-- generic, stateful, invariant data structure
-- amortized O(1) pushing and popping from either end
-- O(1) random access any element
-- will resize itself as needed
-- sliceable
-- makes defensive copies of contents for the purposes of iteration
-- in comparisons compare identity before equality, like builtins do
-
-"""
+"""Pythonic FP namespace project - Circular Array data structure"""
 
 from __future__ import annotations
 
@@ -31,22 +21,19 @@ __copyright__ = 'Copyright (c) 2023-2025 Geoffrey R. Scheller'
 __license__ = 'Apache License 2.0'
 
 from collections.abc import Callable, Iterable, Iterator
-from typing import cast, Never, overload, TypeVar
+from typing import cast, Never, overload
 
 __all__ = ['CA', 'ca']
-
-D = TypeVar('D')
-
 
 class CA[D]:
     """Indexable circular array data structure
 
-    - amortized O(1) pushing and popping from either end
-    - O(1) random access any element
-    - will resize itself as needed
-    - sliceable
-    - makes defensive copies of contents for the purposes of iteration
-    - in comparisons compare identity before equality, like builtins do
+    - O(1) pops either end 
+    - O(1) amortized pushes either end 
+    - O(1) indexing, fully supports slicing
+    - Auto-resizing larger when necessary, manually compatible
+    - Iterable, can safely mutate while iterators continue iterating over previous state
+    - comparisons compare identity before equality, like builtins do
     - in boolean context returns
 
       - ``True`` when not empty
@@ -54,10 +41,6 @@ class CA[D]:
     """
 
     __slots__ = '_data', '_cnt', '_cap', '_front', '_rear'
-
-    L = TypeVar('L')
-    R = TypeVar('R')
-    U = TypeVar('U')
 
     def __init__(self, ds: Iterable[D] | None = None) -> None:
         """Initialize circular array with optional initial values.
@@ -298,7 +281,8 @@ class CA[D]:
             return False
 
         (
-                front1,count1,
+                front1,
+                count1,
                 capacity1,
                 front2,
                 count2,
