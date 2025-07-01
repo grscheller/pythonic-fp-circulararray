@@ -28,13 +28,15 @@ h3 {
 }
 
 dt {
-    color: #acafac;
-    margin-left: 20px;
-    margin-top: 5px;
+    color: #c5c9c5;
+    margin-left: 40px;
+    margin-top: 10px;
+    margin-bottom: 4px;
+    font-weight: 600;
 }
 
 dd {
     color: #c5c9c5;
-    margin-left: 20px;
-    padding-left: 15px;
+    margin-left: 55px;
+    font-weight: 300;
 }
