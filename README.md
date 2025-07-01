@@ -15,11 +15,8 @@ This PyPI project is part of of the grscheller
 
 ## Documentation
 
-Sphinx documentation for current
-[development](https://grscheller.github.io/pythonic-fp-circulararray/)
-environment.
-
-Documentation for past PyPI releases: TODO
+Documentation hosted on
+[GitHub Pages](https://grscheller.github.io/pythonic-fp-circulararray/).
 
 ## Copyright and License
 
