@@ -5,23 +5,36 @@ body {
 }
 
 a:link {
-  color: #7e9cd8;
-  text-decoration: none;
+    color: #6884c0;
+    text-decoration: none;
 }
 
 a:visited {
-  color: #bc8f8f;
-  text-decoration: none;
+    color: #7e9cd8;
+    text-decoration: none;
 }
 
 a:hover {
   text-decoration: underline;
 }
 
-p {
-  margin-left: 30px;
-}
-
 h2 {
   color: #b6927b;
+}
+
+h3 {
+    color: #b6927b;
+    margin-left: 20px;
+}
+
+dt {
+    color: #acafac;
+    margin-left: 20px;
+    margin-top: 5px;
+}
+
+dd {
+    color: #c5c9c5;
+    margin-left: 20px;
+    padding-left: 15px;
 }
