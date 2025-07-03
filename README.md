@@ -16,8 +16,7 @@ This PyPI project is part of of the grscheller
 ## Documentation
 
 Documentation hosted on
-[GitHub
-Pages](https://grscheller.github.io/pythonic-fp-circulararray/html).
+[GitHub Pages](https://grscheller.github.io/pythonic-fp-circulararray/html).
 
 ## Copyright and License
 
