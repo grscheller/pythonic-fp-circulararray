@@ -6,7 +6,7 @@
 Pythonic FP - Circular Array project
 ====================================
 
-Part of of the `pythonic-fp namespace projects <https://grscheller.github.io/pythonic-fp/>`_.
+Part of of the `pythonic-fp namespace projects <https://github.com/grscheller/pythonic-fp/README.md>`_.
 
 Overview
 --------
