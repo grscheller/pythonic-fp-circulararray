@@ -1,7 +1,7 @@
 # Pythonic FP - Circular Array
 
 PyPI project
-[pythonic.circular-array](https://pypi.org/project/pythonic-fp.circulararray/)
+[pythonic.fp.circulararray](https://pypi.org/project/pythonic-fp.circulararray/)
 implements a stateful circular array data structure.
 
 - O(1) pops either end
