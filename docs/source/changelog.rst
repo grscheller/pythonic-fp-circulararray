@@ -15,13 +15,21 @@ Strict 3 digit semantic versioning adopted 2025-05-19.
 
 See `Semantic Versioning 2.0.0 <https://semver.org>`_.
 
-Releases
-========
+Releases and Important Milestones
+=================================
+
+5.1.1 - TBA
+-----------
+
+Devel environment changes.
+
+- updated changelog.rst
+
 
 5.1.0 - 2025-07-04
 ------------------
 
-PyPI release date still to be determined.
+First PyPI Release with Sphinx replacing pdoc.
 
 - switched from ``pdoc`` to ``sphinx`` for document generation
 
