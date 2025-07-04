@@ -2,10 +2,10 @@
 CHANGELOG
 *********
 
+PyPI pythonic-fp.circulararray project changelog.
+
 Semantic Versioning
 ===================
-
-PyPI pythonic-fp.circulararray project changelog.
 
 Strict 3 digit semantic versioning adopted 2025-05-19.
 
@@ -24,6 +24,9 @@ Releases and Important Milestones
 Devel environment changes.
 
 - updated changelog.rst
+- Pythonic FP homepage now points to its GitHub README.md
+
+  - used to point to its GH-Pages
 
 
 5.1.0 - 2025-07-04

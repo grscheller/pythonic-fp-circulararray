@@ -11,7 +11,7 @@ implements a stateful circular array data structure.
 - Iterable, can safely mutate while iterators continue iterating over previous state
 
 This PyPI project is part of of the grscheller
-[pythonic-fp namespace projects](https://grscheller.github.io/pythonic-fp/).
+[pythonic-fp namespace projects](https://github.com/grscheller/pythonic-fp/blob/main/README.md).
 
 ## Documentation
 
