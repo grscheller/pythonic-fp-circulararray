@@ -21,9 +21,11 @@ __copyright__ = 'Copyright (c) 2023-2025 Geoffrey R. Scheller'
 __license__ = 'Apache License 2.0'
 
 from collections.abc import Callable, Iterable, Iterator
-from typing import cast, Never, overload
+from typing import cast, Never, overload, TypeVar
 
 __all__ = ['CA', 'ca']
+
+D = TypeVar('D')
 
 class CA[D]:
     """Indexable circular array data structure
@@ -36,8 +38,8 @@ class CA[D]:
     - comparisons compare identity before equality, like builtins do
     - in boolean context returns
 
-      - ``True`` when not empty
-      - ``False`` when empty
+      - True when not empty
+      - False when empty
     """
 
     __slots__ = '_data', '_cnt', '_cap', '_front', '_rear'
@@ -310,7 +312,6 @@ class CA[D]:
         """Push left.
 
         :param ds: data pushed from left onto circular array
-
         """
         for d in ds:
             if self._cnt == self._cap:
@@ -329,7 +330,6 @@ class CA[D]:
         """Push right.
 
         :param ds: data pushed from right onto circular array
-
         """
         for d in ds:
             if self._cnt == self._cap:
@@ -349,7 +349,6 @@ class CA[D]:
 
         :return: value popped from left side of circular array
         :raises ValueError: when called on an empty circular array
-
         """
         if self._cnt > 1:
             (
@@ -387,7 +386,6 @@ class CA[D]:
 
         :return: value popped from right side of circular array
         :raises ValueError: when called on an empty circular array
-
         """
         if self._cnt > 1:
             (
@@ -426,7 +424,6 @@ class CA[D]:
 
         :param default: value returned if circular array is empty
         :return: value popped from left side
-
         """
         try:
             return self.popl()
@@ -435,11 +432,10 @@ class CA[D]:
 
     def poprd(self, default: D, /) -> D:
         """Pop one value from right side of the circular array, provide a
-        mandatory default value. "Safe" version of ``popr``.
+        mandatory default value. "Safe" version of popr.
 
         :param default: value returned if circular array is empty
         :return: value popped from right side
-
         """
         try:
             return self.popr()
@@ -449,7 +445,7 @@ class CA[D]:
     def poplt(self, maximum: int, /) -> tuple[D, ...]:
         """Pop multiple values from left side of the circular array.
 
-        :param maximum: pop no more than ``maximum`` values
+        :param maximum: pop no more than maximum values
         :return: tuple of values popped from left side
         """
         ds: list[D] = []
@@ -467,7 +463,7 @@ class CA[D]:
     def poprt(self, maximum: int, /) -> tuple[D, ...]:
         """Pop multiple values from right side of the circular array.
 
-        :param maximum: pop no more than ``maximum`` values
+        :param maximum: pop no more than maximum values
         :return: tuple of values popped from right side
         """
         ds: list[D] = []
@@ -501,18 +497,17 @@ class CA[D]:
             self.pushl(self.popr())
 
     def map[U](self, f: Callable[[D], U], /) -> CA[U]:
-        """Apply function ``f`` over the circular array's contents,
+        """Apply function f over the circular array's contents,
 
         :param f: function from type D to type U
         :return: new circular array instance.
-
         """
         return CA(map(f, self))
 
     def foldl[L](self, f: Callable[[L, D], L], initial: L | None = None, /) -> L:
         """Left fold with a function and optional initial value.
 
-        :param f: first argument to ``f`` is for the accumulated value
+        :param f: first argument to f is for the accumulated value
         :param initial: optional initial value
         :raises ValueError: when circular array empty and no initial value given
         """
@@ -588,7 +583,6 @@ class CA[D]:
         To just compact the circular array, do not provide a minimum capacity.
 
         :param minimum_capacity: minimum value to compact the circular array
-
         """
         self._compact_storage_capacity()
         if (min_cap := minimum_capacity) > self._cap:
