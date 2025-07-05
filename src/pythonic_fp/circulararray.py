@@ -44,6 +44,10 @@ class CA[D]:
 
     __slots__ = '_data', '_cnt', '_cap', '_front', '_rear'
 
+    L = TypeVar('L')
+    R = TypeVar('R')
+    U = TypeVar('U')
+
     def __init__(self, ds: Iterable[D] | None = None) -> None:
         """Initialize circular array with optional initial values.
 
