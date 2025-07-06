@@ -5,10 +5,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>pythonic-fp.circulararray API &#8212; Pythonic FP - Circular Array 5.1.0 documentation</title>
+    <title>pythonic-fp.circulararray API &#8212; Pythonic FP - Circular Array 5.1.1 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
     <link rel="stylesheet" type="text/css" href="_static/basic_mod.css?v=9b2032db" />
-    <script src="_static/documentation_options.js?v=bfa18cfb"></script>
+    <link rel="stylesheet" type="text/css" href="_static/css/sphinx-toolbox.css" />
+    <script src="_static/documentation_options.js?v=1bd908e2"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
@@ -30,7 +31,7 @@
         <p id="toggle_sidebar">
             <a href="#" title="Toggle sidebar">|||</a>
         </p>
-        <h1><a href="index.html" title="Go to homepage">Pythonic FP - Circular Array 5.1.0 documentation</a></h1>
+        <h1><a href="index.html" title="Go to homepage">Pythonic FP - Circular Array 5.1.1 documentation</a></h1>
 
         <a id="mode_toggle" href="#" @click.prevent="handleClick" :title="mode">
     <template v-if="mode == 'light'">
@@ -153,20 +154,24 @@
 <li><p>Auto-resizing larger when necessary, manually compatible</p></li>
 <li><p>Iterable, can safely mutate while iterators continue iterating over previous state</p></li>
 <li><p>comparisons compare identity before equality, like builtins do</p></li>
-<li><p>in boolean context returns</p>
-<ul>
-<li><p>True when not empty</p></li>
-<li><p>False when empty</p></li>
+<li><p>in boolean context returns <cite>True</cite> when not empty, <cite>False</cite> when empty</p></li>
 </ul>
-</li>
-</ul>
+<p>Initialize circular array with optional initial values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ds</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">~D</span></code>]]) – Optional iterable to initial populate the circular array.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>TypeError</strong> – if ds is not Iterable.</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="pythonic_fp.circulararray.CA.capacity">
 <span class="sig-name descname"><span class="pre">capacity</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pythonic_fp.circulararray.CA.capacity" title="Link to this definition">¶</a></dt>
 <dd><p>Find current storage capacity of the circular array.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>current capacity of the circular array</p>
@@ -180,7 +185,7 @@
 <dd><p>Empty the circular array, keep current capacity.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -188,19 +193,19 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="pythonic_fp.circulararray.CA.foldl">
 <span class="sig-name descname"><span class="pre">foldl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pythonic_fp.circulararray.CA.foldl" title="Link to this definition">¶</a></dt>
-<dd><p>Left fold with a function and optional initial value.</p>
+<dd><p>Fold left with a function and optional initial value.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>f</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">L</span></code>), <code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">D</span></code>)], <code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">L</span></code>)]</span>) – first argument to f is for the accumulated value</p></li>
-<li><p><strong>initial</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">L</span></code>)]</span>) – optional initial value</p></li>
+<li><p><strong>f</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Callable</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">L</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">~D</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">L</span></code>]) – first argument to f is for the accumulated value</p></li>
+<li><p><strong>initial</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">L</span></code>]) – optional initial value</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>ValueError</strong> – when circular array empty and no initial value given</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">L</span></code>)</span></p>
+<dd class="field-odd"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">L</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -208,19 +213,19 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="pythonic_fp.circulararray.CA.foldr">
 <span class="sig-name descname"><span class="pre">foldr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pythonic_fp.circulararray.CA.foldr" title="Link to this definition">¶</a></dt>
-<dd><p>Right fold with a function and an optional initial value.</p>
+<dd><p>Fold right with a function and an optional initial value.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>f</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">D</span></code>), <code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">R</span></code>)], <code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">R</span></code>)]</span>) – second argument to <cite>f</cite> is for the accumulated value</p></li>
-<li><p><strong>initial</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">R</span></code>)]</span>) – optional initial value</p></li>
+<li><p><strong>f</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Callable</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">~D</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">R</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">R</span></code>]) – second argument to <cite>f</cite> is for the accumulated value</p></li>
+<li><p><strong>initial</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">R</span></code>]) – optional initial value</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>ValueError</strong> – when circular array empty and no initial value given</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">R</span></code>)</span></p>
+<dd class="field-odd"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">R</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -231,7 +236,7 @@
 <dd><p>Find fraction of capacity filled.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span></p>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>the ratio cnt/capacity</p>
@@ -245,13 +250,13 @@
 <dd><p>Apply function f over the circular array’s contents,</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>f</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">D</span></code>)], <code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">U</span></code>)]</span>) – function from type D to type U</p>
+<dd class="field-odd"><p><strong>f</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Callable</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">~D</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">U</span></code>]) – function from type D to type U</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#pythonic_fp.circulararray.CA" title="pythonic_fp.circulararray.CA"><code class="xref py py-class docutils literal notranslate"><span class="pre">CA</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">U</span></code>)]</span></p>
+<dd class="field-even"><p><a class="reference internal" href="#pythonic_fp.circulararray.CA" title="pythonic_fp.circulararray.CA"><code class="xref py py-class docutils literal notranslate"><span class="pre">CA</span></code></a>[<code class="xref py py-data docutils literal notranslate"><span class="pre">U</span></code>]</p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>new circular array instance.</p>
+<dd class="field-odd"><p>new circular array instance</p>
 </dd>
 </dl>
 </dd></dl>
@@ -262,7 +267,7 @@
 <dd><p>Pop left.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">D</span></code>), <code class="xref py py-class docutils literal notranslate"><span class="pre">Never</span></code>]</span></p>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">~D</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Never</span></code>]</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>value popped from left side of circular array</p>
@@ -280,10 +285,10 @@
 mandatory default value. “Safe” version of popl.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>default</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">D</span></code>)</span>) – value returned if circular array is empty</p>
+<dd class="field-odd"><p><strong>default</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">~D</span></code>) – value returned if circular array is empty</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">D</span></code>)</span></p>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">~D</span></code></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>value popped from left side</p>
@@ -294,16 +299,13 @@ mandatory default value. “Safe” version of popl.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="pythonic_fp.circulararray.CA.poplt">
 <span class="sig-name descname"><span class="pre">poplt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">maximum</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pythonic_fp.circulararray.CA.poplt" title="Link to this definition">¶</a></dt>
-<dd><p>Pop multiple values from left side of the circular array.</p>
+<dd><p>Pop multiple values from left side of circular array.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>maximum</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – pop no more than maximum values</p>
+<dd class="field-odd"><p><strong>maximum</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – pop no more than maximum values</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">D</span></code>), <code class="xref py py-data docutils literal notranslate"><span class="pre">...</span></code>]</span></p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>tuple of values popped from left side</p>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">~D</span></code>, …]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -314,7 +316,7 @@ mandatory default value. “Safe” version of popl.</p>
 <dd><p>Pop right.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">D</span></code>), <code class="xref py py-class docutils literal notranslate"><span class="pre">Never</span></code>]</span></p>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">~D</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Never</span></code>]</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>value popped from right side of circular array</p>
@@ -332,10 +334,10 @@ mandatory default value. “Safe” version of popl.</p>
 mandatory default value. “Safe” version of popr.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>default</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">D</span></code>)</span>) – value returned if circular array is empty</p>
+<dd class="field-odd"><p><strong>default</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">~D</span></code>) – value returned if circular array is empty</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">D</span></code>)</span></p>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">~D</span></code></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>value popped from right side</p>
@@ -346,16 +348,13 @@ mandatory default value. “Safe” version of popr.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="pythonic_fp.circulararray.CA.poprt">
 <span class="sig-name descname"><span class="pre">poprt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">maximum</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pythonic_fp.circulararray.CA.poprt" title="Link to this definition">¶</a></dt>
-<dd><p>Pop multiple values from right side of the circular array.</p>
+<dd><p>Pop multiple values from right side of circular array.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>maximum</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – pop no more than maximum values</p>
+<dd class="field-odd"><p><strong>maximum</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – pop no more than maximum values</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">D</span></code>), <code class="xref py py-data docutils literal notranslate"><span class="pre">...</span></code>]</span></p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>tuple of values popped from right side</p>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">~D</span></code>, …]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -366,10 +365,10 @@ mandatory default value. “Safe” version of popr.</p>
 <dd><p>Push left.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>ds</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">D</span></code>)</span>) – data pushed from left onto circular array</p>
+<dd class="field-odd"><p><strong>ds</strong> – data pushed onto circular array from left</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+<dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -380,10 +379,10 @@ mandatory default value. “Safe” version of popr.</p>
 <dd><p>Push right.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>ds</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">D</span></code>)</span>) – data pushed from right onto circular array</p>
+<dd class="field-odd"><p><strong>ds</strong> – data pushed onto circular array from right</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+<dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -395,10 +394,10 @@ mandatory default value. “Safe” version of popr.</p>
 To just compact the circular array, do not provide a minimum capacity.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>minimum_capacity</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – minimum value to compact the circular array</p>
+<dd class="field-odd"><p><strong>minimum_capacity</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – minimum value to compact the circular array</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+<dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -409,10 +408,10 @@ To just compact the circular array, do not provide a minimum capacity.</p>
 <dd><p>Rotate circular array elements left.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>n</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – number of times to shift elements to the left</p>
+<dd class="field-odd"><p><strong>n</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – number of times to shift elements to the left</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+<dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -423,10 +422,10 @@ To just compact the circular array, do not provide a minimum capacity.</p>
 <dd><p>Rotate circular array elements right.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>n</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – number of times to shift elements to the right</p>
+<dd class="field-odd"><p><strong>n</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – number of times to shift elements to the right</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+<dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -439,10 +438,10 @@ To just compact the circular array, do not provide a minimum capacity.</p>
 <dd><p>Function to produce a circular array from a variable number of arguments.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>ds</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">D</span></code>)</span>) – initial values to push onto a new circular array from right to left</p>
+<dd class="field-odd"><p><strong>ds</strong> – initial values to push onto a new circular array from right to left</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#pythonic_fp.circulararray.CA" title="pythonic_fp.circulararray.CA"><code class="xref py py-class docutils literal notranslate"><span class="pre">CA</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">D</span></code>)]</span></p>
+<dd class="field-even"><p><a class="reference internal" href="#pythonic_fp.circulararray.CA" title="pythonic_fp.circulararray.CA"><code class="xref py py-class docutils literal notranslate"><span class="pre">CA</span></code></a>[<code class="xref py py-data docutils literal notranslate"><span class="pre">D</span></code>]</p>
 </dd>
 </dl>
 </dd></dl>

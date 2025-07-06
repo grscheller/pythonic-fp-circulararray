@@ -36,10 +36,7 @@ class CA[D]:
     - Auto-resizing larger when necessary, manually compatible
     - Iterable, can safely mutate while iterators continue iterating over previous state
     - comparisons compare identity before equality, like builtins do
-    - in boolean context returns
-
-      - True when not empty
-      - False when empty
+    - in boolean context returns `True` when not empty, `False` when empty
     """
 
     __slots__ = '_data', '_cnt', '_cap', '_front', '_rear'
@@ -315,7 +312,7 @@ class CA[D]:
     def pushl(self, *ds: D) -> None:
         """Push left.
 
-        :param ds: data pushed from left onto circular array
+        :param ds: data pushed onto circular array from left
         """
         for d in ds:
             if self._cnt == self._cap:
@@ -333,7 +330,7 @@ class CA[D]:
     def pushr(self, *ds: D) -> None:
         """Push right.
 
-        :param ds: data pushed from right onto circular array
+        :param ds: data pushed onto circular array from right
         """
         for d in ds:
             if self._cnt == self._cap:
@@ -447,10 +444,9 @@ class CA[D]:
             return default
 
     def poplt(self, maximum: int, /) -> tuple[D, ...]:
-        """Pop multiple values from left side of the circular array.
+        """Pop multiple values from left side of circular array.
 
         :param maximum: pop no more than maximum values
-        :return: tuple of values popped from left side
         """
         ds: list[D] = []
 
@@ -465,10 +461,9 @@ class CA[D]:
         return tuple(ds)
 
     def poprt(self, maximum: int, /) -> tuple[D, ...]:
-        """Pop multiple values from right side of the circular array.
+        """Pop multiple values from right side of circular array.
 
         :param maximum: pop no more than maximum values
-        :return: tuple of values popped from right side
         """
         ds: list[D] = []
         while maximum > 0:
@@ -504,12 +499,12 @@ class CA[D]:
         """Apply function f over the circular array's contents,
 
         :param f: function from type D to type U
-        :return: new circular array instance.
+        :return: new circular array instance
         """
         return CA(map(f, self))
 
     def foldl[L](self, f: Callable[[L, D], L], initial: L | None = None, /) -> L:
-        """Left fold with a function and optional initial value.
+        """Fold left with a function and optional initial value.
 
         :param f: first argument to f is for the accumulated value
         :param initial: optional initial value
@@ -533,7 +528,7 @@ class CA[D]:
         return acc
 
     def foldr[R](self, f: Callable[[D, R], R], initial: R | None = None, /) -> R:
-        """Right fold with a function and an optional initial value.
+        """Fold right with a function and an optional initial value.
 
         :param f: second argument to `f` is for the accumulated value
         :param initial: optional initial value

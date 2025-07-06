@@ -18,12 +18,13 @@ See `Semantic Versioning 2.0.0 <https://semver.org>`_.
 Releases and Important Milestones
 =================================
 
-5.1.1 - TBA
------------
+5.1.1 - 2025-07-06
+------------------
 
-Devel environment changes.
+Devel environment and documentation changes only.
 
-- updated changelog.rst
+- documentation improvements
+- forgot to updated changelog.rst before PyPI release
 - Pythonic FP homepage now points to its GitHub README.md
 
   - used to point to its GH-Pages
