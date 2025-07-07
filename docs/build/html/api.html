@@ -5,11 +5,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>pythonic-fp.circulararray API &#8212; Pythonic FP - Circular Array 5.1.1 documentation</title>
+    <title>pythonic-fp.circulararray API &#8212; Pythonic FP - Circular Array 5.1.2 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
     <link rel="stylesheet" type="text/css" href="_static/basic_mod.css?v=9b2032db" />
     <link rel="stylesheet" type="text/css" href="_static/css/sphinx-toolbox.css" />
-    <script src="_static/documentation_options.js?v=1bd908e2"></script>
+    <script src="_static/documentation_options.js?v=2c218288"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
@@ -31,7 +31,7 @@
         <p id="toggle_sidebar">
             <a href="#" title="Toggle sidebar">|||</a>
         </p>
-        <h1><a href="index.html" title="Go to homepage">Pythonic FP - Circular Array 5.1.1 documentation</a></h1>
+        <h1><a href="index.html" title="Go to homepage">Pythonic FP - Circular Array 5.1.2 documentation</a></h1>
 
         <a id="mode_toggle" href="#" @click.prevent="handleClick" :title="mode">
     <template v-if="mode == 'light'">
@@ -142,7 +142,7 @@
 <h1>pythonic-fp.circulararray API<a class="headerlink" href="#pythonic-fp-circulararray-api" title="Link to this heading">¶</a></h1>
 <section id="module-pythonic_fp.circulararray">
 <span id="detailed-documentation"></span><h2>Detailed Documentation<a class="headerlink" href="#module-pythonic_fp.circulararray" title="Link to this heading">¶</a></h2>
-<p>Pythonic FP namespace project - Circular Array data structure</p>
+<p>Pythonic FP - Circular Array data structure</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="pythonic_fp.circulararray.CA">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pythonic_fp.circulararray.</span></span><span class="sig-name descname"><span class="pre">CA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pythonic_fp.circulararray.CA" title="Link to this definition">¶</a></dt>
@@ -159,7 +159,7 @@
 <p>Initialize circular array with optional initial values.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>ds</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">~D</span></code>]]) – Optional iterable to initial populate the circular array.</p>
+<dd class="field-odd"><p><strong>ds</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">~D</span></code>]]) – optional iterable to initial populate the circular array.</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>TypeError</strong> – if ds is not Iterable.</p>
@@ -434,14 +434,14 @@ To just compact the circular array, do not provide a minimum capacity.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pythonic_fp.circulararray.ca">
-<span class="sig-prename descclassname"><span class="pre">pythonic_fp.circulararray.</span></span><span class="sig-name descname"><span class="pre">ca</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">ds</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pythonic_fp.circulararray.ca" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">pythonic_fp.circulararray.</span></span><span class="sig-name descname"><span class="pre">ca</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">ts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pythonic_fp.circulararray.ca" title="Link to this definition">¶</a></dt>
 <dd><p>Function to produce a circular array from a variable number of arguments.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>ds</strong> – initial values to push onto a new circular array from right to left</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="#pythonic_fp.circulararray.CA" title="pythonic_fp.circulararray.CA"><code class="xref py py-class docutils literal notranslate"><span class="pre">CA</span></code></a>[<code class="xref py py-data docutils literal notranslate"><span class="pre">D</span></code>]</p>
+<dd class="field-even"><p><a class="reference internal" href="#pythonic_fp.circulararray.CA" title="pythonic_fp.circulararray.CA"><code class="xref py py-class docutils literal notranslate"><span class="pre">CA</span></code></a>[<code class="xref py py-data docutils literal notranslate"><span class="pre">T</span></code>]</p>
 </dd>
 </dl>
 </dd></dl>

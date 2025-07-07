@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Pythonic FP namespace project - Circular Array data structure"""
+"""Pythonic FP - Circular Array data structure"""
 
 from __future__ import annotations
 
@@ -26,6 +26,7 @@ from typing import cast, Never, overload, TypeVar
 __all__ = ['CA', 'ca']
 
 D = TypeVar('D')
+T = TypeVar('T')
 
 class CA[D]:
     """Indexable circular array data structure
@@ -48,7 +49,7 @@ class CA[D]:
     def __init__(self, ds: Iterable[D] | None = None) -> None:
         """Initialize circular array with optional initial values.
 
-        :param ds: Optional iterable to initial populate the circular array.
+        :param ds: optional iterable to initial populate the circular array.
         :raises TypeError: if ds is not Iterable.
         """
         if ds is None:
@@ -596,9 +597,9 @@ class CA[D]:
                 self._front, self._rear = 0, self._cap - 1
 
 
-def ca[D](*ds: D) -> CA[D]:
+def ca[T](*ts: T) -> CA[T]:
     """Function to produce a circular array from a variable number of arguments.
 
     :param ds: initial values to push onto a new circular array from right to left
     """
-    return CA(ds)
+    return CA(ts)
