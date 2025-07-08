@@ -1,12 +1,11 @@
-.. Pythonic FP - Circular Array documentation master file, created by
-   sphinx-quickstart on Fri Jun 27 11:13:22 2025.
-   To regenerate the documentation do: ``$ Sphinx-build -M html docs/source/ docs/build/``
-   from the root repo directory.
+..
+   Pythonic FP - Circular Array documentation master file. To regenerate the sphinx
+   documentation do: ``$ make html`` from the ``docs/`` directory.
 
-Pythonic FP - Circular Array project
-====================================
+Pythonic FP - Circular Array
+============================
 
-Part of of the `pythonic-fp namespace projects <https://github.com/grscheller/pythonic-fp/README.md>`_.
+Part of of the `pythonic-fp namespace projects <https://github.com/grscheller/pythonic-fp/blob/main/README.md>`_.
 
 Overview
 --------
@@ -23,19 +22,24 @@ implements a full featured, generic, stateful circular array data structure.
 Documentation
 -------------
 
-:doc:`Installation <installing>`
+:doc:`Installation <installing>`_
     Installing and importing the module.
 
-:doc:`API docs <api>`
-    Detailed API documentation.
+:doc:`PyPI Release APIs <api_pypi>`_
+    PyPI release documentation.
 
 Development
 -----------
 
-:doc:`changelog`
-    CHANGELOG for the current and predecessor projects.
+:doc:`Current Development API <api_devel>`_
+    Development environment API documentation.
 
-.. Hidden TOCs
+:doc:`CHANGELOG <changelog>`_
+    For the current and predecessor projects.
+
+.. toctree::
+   :caption: Overview
+   :maxdepth: 2
 
 .. toctree::
    :caption: Documentation
@@ -43,12 +47,13 @@ Development
    :hidden:
 
    installing
-   api
+   api_pypi
 
 .. toctree::
    :caption: Development
    :maxdepth: 2
    :hidden:
 
+   api_devel
    changelog
 
