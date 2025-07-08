@@ -1,11 +1,10 @@
-*********
-CHANGELOG
-*********
+changelog
+=========
 
 PyPI pythonic-fp.circulararray project changelog.
 
 Semantic Versioning
-===================
+-------------------
 
 Strict 3 digit semantic versioning adopted 2025-05-19.
 
@@ -16,10 +15,10 @@ Strict 3 digit semantic versioning adopted 2025-05-19.
 See `Semantic Versioning 2.0.0 <https://semver.org>`_.
 
 Releases and Important Milestones
-=================================
+---------------------------------
 
 5.1.1 - 2025-07-06
-------------------
+~~~~~~~~~~~~~~~~~~
 
 Devel environment and documentation changes only.
 
@@ -31,7 +30,7 @@ Devel environment and documentation changes only.
 
 
 5.1.0 - 2025-07-04
-------------------
+~~~~~~~~~~~~~~~~~~
 
 First PyPI Release with Sphinx replacing pdoc.
 
@@ -57,7 +56,7 @@ First PyPI Release with Sphinx replacing pdoc.
     `blog post <https://iscinumpy.dev/post/bound-version-constraints>`_.
 
 5.0.0 - 2025-05-23
-------------------
+~~~~~~~~~~~~~~~~~~
 
 First PyPI release as ``pythonic-fp.circular-array``.
 
@@ -70,7 +69,7 @@ First PyPI release as ``pythonic-fp.circular-array``.
   - didn't want any confusion caused by someone else claiming the name
 
 3.14.0 - 2025-05-10
--------------------
+~~~~~~~~~~~~~~~~~~~
 
 Made package just a single module.
 
@@ -78,7 +77,7 @@ Made package just a single module.
 - docstring consolidations/updates
 
 3.13.0 - 2025-05-06
--------------------
+~~~~~~~~~~~~~~~~~~~
 
 Version no longer determined dynamically.
 
@@ -91,13 +90,13 @@ Version no longer determined dynamically.
   - the next PyPI release - what development is working toward
 
 3.12.1 - 2025-04-22
--------------------
+~~~~~~~~~~~~~~~~~~~
 
 - docstring changes
 - pyproject.toml standardization
 
 3.12.0 - 2025-04-07
--------------------
+~~~~~~~~~~~~~~~~~~~
 
 API change.
 
@@ -105,7 +104,7 @@ API change.
 - typing improvements
 
 3.11.0 - 2025-04-06
--------------------
+~~~~~~~~~~~~~~~~~~~
 
 Major API change.
 
@@ -133,7 +132,7 @@ Major API change.
   - typing improvements
 
 3.10.1 - 2025-04-03
--------------------
+~~~~~~~~~~~~~~~~~~~
 
 Major API changes.
 
@@ -159,7 +158,7 @@ Major API changes.
   - to better match other dtools namespace projects
 
 3.9.1 - 2025-02-16
-------------------
+~~~~~~~~~~~~~~~~~~
 
 Fixed pdoc issues with new typing notation.
 
@@ -167,29 +166,29 @@ Fixed pdoc issues with new typing notation.
 - had to add TypeVars
 
 3.9.0 - 2025-01-16
-------------------
+~~~~~~~~~~~~~~~~~~
 
 First release as dtools.circular-array,
 was previously grscheller.circular-array.
 
 3.8.0 - 2025-01-03
-------------------
+~~~~~~~~~~~~~~~~~~
 
 Now circular-array indexing methods fully support slicing, also added
 the rotL(n) and rotR(n) methods.
 
 3.7.1 - 2024-11-18
-------------------
+~~~~~~~~~~~~~~~~~~
 
 For internal changes. Mostly for consistency across PyPI namespace projects
 
 3.7.0 - 2024-10-26
-------------------
+~~~~~~~~~~~~~~~~~~
 
 Regenerated docs for PyPI release.
 
 3.6.3.2 - 2024-10-20
---------------------
+~~~~~~~~~~~~~~~~~~~~
 
 Just a commit, preparing for a 3.7.0 PyPI release.
 
@@ -198,19 +197,19 @@ Just a commit, preparing for a 3.7.0 PyPI release.
 - generated docs in docs repo
 
 3.6.2 - 2024-10-20
-------------------
+~~~~~~~~~~~~~~~~~~
 
 Removed docs from repo, now docs for all grscheller namespace projects located
 [here](https://grscheller.github.io/grscheller-pypi-namespace-docs/).
 
 3.6.1 - 2024-10-18
-------------------
+~~~~~~~~~~~~~~~~~~
 
 Infrastructure and minor docstring changes. Should be compatible with
 version 3.6.0.
 
 3.6.0 - 2024-09-21
-------------------
+~~~~~~~~~~~~~~~~~~
 
 No future changes planned for the foreseeable future
 
@@ -222,7 +221,7 @@ No future changes planned for the foreseeable future
 - made the `compact` method private, now called `_compact_storage_capacity`
 
 3.5.0 - 2024-09-21
-------------------
+~~~~~~~~~~~~~~~~~~
 
 - made the `double` method
 - O(1) amortized pushes and pops either end.
@@ -233,13 +232,13 @@ No future changes planned for the foreseeable future
 - improved indentation and code alignment, now much more Pythonic
 
 3.4.1 - 2024-08-17
-------------------
+~~~~~~~~~~~~~~~~~~
 
 - updated README.md to reflect name changes of CA methods
 - docstring improvements
 
 3.4.0 - 2024-08-15
-------------------
+~~~~~~~~~~~~~~~~~~
 
 Updated `__eq__` comparisons.
 
@@ -251,7 +250,7 @@ Updated `__eq__` comparisons.
 - standardizing docstrings across grscheller PyPI projects
 
 3.3.0.1 - 2024-08-05
---------------------
+~~~~~~~~~~~~~~~~~~~~
 
 Just a commit, made a paradigm "regression".
 
@@ -287,19 +286,19 @@ The changes made were
       - seems to work properly from iPython
 
 3.2.0 - 2024-07-26
-------------------
+~~~~~~~~~~~~~~~~~~
 
 The class name was changed ``CircularArray -> CA`` Now takes a "sentinel" or "fallback" value in its
 initializer, formally used ``None`` for this.
 
 3.1.0 - 2024-07-11
-------------------
+~~~~~~~~~~~~~~~~~~
 
 Generic typing now being used, first PyPI release where multiple values can be
 pushed on CircularArray.
 
 3.0.0 - 2024-06-28
-------------------
+~~~~~~~~~~~~~~~~~~
 Just a commit, not a PyPI release.
 
 CircularArray class now using Generic Type Parameter. new epoch in development,
@@ -313,7 +312,7 @@ API changes:
 - ``foldR1(self, f: Callable[[T, S], S], initial: S) -> S``
 
 2.0.0 - 2024-03-08
-------------------
+~~~~~~~~~~~~~~~~~~
 
 New "epoch" due to resizing bug fixed on previous commit.
 
@@ -323,7 +322,7 @@ New "epoch" due to resizing bug fixed on previous commit.
 - method `resize(new_size)` now resizes to at least new_size
 
 1.1.0.0 - 2024-03-08
---------------------
+~~~~~~~~~~~~~~~~~~~~
 
 Just a commit to prepare for PyPI release 2.0.0!!!
 
@@ -340,41 +339,41 @@ Just a commit to prepare for PyPI release 2.0.0!!!
   - need to test my other 2 PyPI projects, both use circular-array as a dependency
 
 1.0.1 - 2024-03-01
-------------------
+~~~~~~~~~~~~~~~~~~
 
 Docstring updates to match other grscheller PyPI repos.
 
 1.0.0 - 2024-02-10
-------------------
+~~~~~~~~~~~~~~~~~~
 
 First stable PyPI release, dropped minimum Python requirement to 3.10.
 
 0.1.1 - 2024-01-30
-------------------
+~~~~~~~~~~~~~~~~~~
 
 Changed circular-array from a package to just a module, actually a breaking API
 change. Version number should have been 0.2.0 Also, gave CircularArray class
 `foldL` & `foldR` methods.
 
 0.1.0 - 2024-01-28
-------------------
+~~~~~~~~~~~~~~~~~~
 
 - initial PyPI grscheller.circular-array release
 - migrated Circulararray class from grscheller.datastructures
 - update docstrings to reflect current nomenclature
 
 0.0.3 - 2024-01-28
-------------------
+~~~~~~~~~~~~~~~~~~
 
 Got gh-pages working for the repo.
 
 0.0.2 - 2024-01-28
-------------------
+~~~~~~~~~~~~~~~~~~
 
 Pushed repo up to GitHub, created README.md file for project.
 
 0.0.1 - 2024-01-28
-------------------
+~~~~~~~~~~~~~~~~~~
 
 Decided to split Circulararray class out of grscheller.datastructures, will make it its own PyPI
 project. Got it working with datastructures locally.

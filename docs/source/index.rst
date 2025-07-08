@@ -5,12 +5,8 @@
 Pythonic FP - Circular Array
 ============================
 
-Part of of the `pythonic-fp namespace projects <https://github.com/grscheller/pythonic-fp/blob/main/README.md>`_.
-
-Overview
---------
-
-PyPI project `pythonic.circular-array <https://pypi.org/project/pythonic-fp.circulararray/>`_
+PyPI project
+`pythonic.circular-array <https://pypi.org/project/pythonic-fp.circulararray/>`_
 implements a full featured, generic, stateful circular array data structure.
 
 - O(1) amortized pushes and pops either end 
@@ -19,27 +15,26 @@ implements a full featured, generic, stateful circular array data structure.
 - Iterable, can safely be mutated while iterators continue iterating over previous state
 - Fully supports slicing
 
+Part of of the
+`pythonic-fp namespace projects <https://github.com/grscheller/pythonic-fp/blob/main/README.md>`_.
+
 Documentation
 -------------
 
-:doc:`Installation <installing>`_
+:doc:`installing`
     Installing and importing the module.
 
-:doc:`PyPI Release APIs <api_pypi>`_
+:doc:`api_pypi`
     PyPI release documentation.
 
 Development
 -----------
 
-:doc:`Current Development API <api_devel>`_
+:doc:`Current Development API <api_devel>`
     Development environment API documentation.
 
-:doc:`CHANGELOG <changelog>`_
+:doc:`changelog`
     For the current and predecessor projects.
-
-.. toctree::
-   :caption: Overview
-   :maxdepth: 2
 
 .. toctree::
    :caption: Documentation
@@ -57,3 +52,9 @@ Development
    api_devel
    changelog
 
+.. toctree::
+   :caption: Back to start
+   :maxdepth: 1
+   :hidden:
+
+   self
