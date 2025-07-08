@@ -43,13 +43,13 @@ Development
 
    installing
    api_pypi
+   api_devel
 
 .. toctree::
    :caption: Development
-   :maxdepth: 2
+   :maxdepth: 1
    :hidden:
 
-   api_devel
    changelog
 
 .. toctree::
