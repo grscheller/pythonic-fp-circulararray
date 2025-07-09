@@ -1,8 +1,8 @@
-Development API docs
-====================
+pythonic_fp.circulararray API
+=============================
 
-Circular Array
---------------
+Circular Array Module
+---------------------
 
 .. automodule:: pythonic_fp.circulararray
    :members:
