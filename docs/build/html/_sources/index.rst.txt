@@ -1,6 +1,6 @@
 ..
    Pythonic FP - Circular Array documentation master file. To regenerate the sphinx
-   documentation do: ``$ make html`` from the ``docs/`` directory.
+   documentation do: "$ make html" from the "docs/" directory.
 
 Pythonic FP - Circular Array
 ============================
