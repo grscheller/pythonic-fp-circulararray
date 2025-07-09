@@ -30,10 +30,10 @@ Documentation
 Development
 -----------
 
-:doc:`Current Development API <api_devel>`
+:doc:`Current Development API <api>`
     Development environment API documentation.
 
-:doc:`changelog`
+:doc:`CHANGELOG <changelog>`
     For the current and predecessor projects.
 
 .. toctree::
@@ -43,7 +43,7 @@ Development
 
    installing
    api_pypi
-   api_devel
+   api
 
 .. toctree::
    :caption: Development
