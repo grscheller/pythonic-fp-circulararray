@@ -1,6 +1,6 @@
 [project]
 name = "pythonic-fp.circulararray"
-version = "5.2.0"
+version = "5.2.1"
 readme = "README.md"
 requires-python = ">=3.12"
 license = { file = "LICENSE" }
@@ -26,8 +26,8 @@ dependencies = []
 dynamic = ["description"]
 
 [project.urls]
-Changelog = "https://grscheller.github.io/pythonic-fp-circulararray/html/changelog.html"
-Documentation = "https://grscheller.github.io/pythonic-fp-circulararray/html/"
+Changelog = "https://github.com/grscheller/pythonic-fp-circulararray/blob/main/CHANGELOG.rst"
+Documentation = "https://grscheller.github.io/pythonic-fp/circulararray/API/v5.2.1/build/html/"
 Homepage = "https://github.com/grscheller/pythonic-fp/blob/main/README.md"
 Source = "https://github.com/grscheller/pythonic-fp-circulararray"
 

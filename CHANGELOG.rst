@@ -17,7 +17,7 @@ See `Semantic Versioning 2.0.0 <https://semver.org>`_.
 Releases and Important Milestones
 ---------------------------------
 
-5.2.0 - TBA
+5.2.0 - 2025-07-13
 ~~~~~~~~~~~~~~~~~~
 
 API addition, removed position only parameters from API `/` 
@@ -26,6 +26,7 @@ API addition, removed position only parameters from API `/`
 - adapted overall Sphinx documentation structure from pythonic-fp.queues
   - document generation now done in pythonic-fp repo
   - pythonic_fp.circulararray docstrings still a bit rough
+- fixed broken PyPI links
 
 5.1.2 - 2025-07-06
 ~~~~~~~~~~~~~~~~~~
