@@ -1,4 +1,4 @@
-changelog
+CHANGELOG
 =========
 
 PyPI pythonic-fp.circulararray project changelog.
