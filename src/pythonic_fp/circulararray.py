@@ -188,11 +188,11 @@ class CA[D]:
         return self._cnt
 
     @overload
-    def __getitem__(self, idx: int, /) -> D: ...
+    def __getitem__(self, idx: int) -> D: ...
     @overload
-    def __getitem__(self, idx: slice, /) -> CA[D]: ...
+    def __getitem__(self, idx: slice) -> CA[D]: ...
 
-    def __getitem__(self, idx: int | slice, /) -> D | CA[D]:
+    def __getitem__(self, idx: int | slice) -> D | CA[D]:
         if isinstance(idx, slice):
             return CA(list(self)[idx])
 
@@ -213,11 +213,11 @@ class CA[D]:
         raise IndexError(msg1 + msg2 + msg3)
 
     @overload
-    def __setitem__(self, idx: int, vals: D, /) -> None: ...
+    def __setitem__(self, idx: int, vals: D) -> None: ...
     @overload
-    def __setitem__(self, idx: slice, vals: Iterable[D], /) -> None: ...
+    def __setitem__(self, idx: slice, vals: Iterable[D]) -> None: ...
 
-    def __setitem__(self, idx: int | slice, vals: D | Iterable[D], /) -> None:
+    def __setitem__(self, idx: int | slice, vals: D | Iterable[D]) -> None:
         if isinstance(idx, slice):
             if isinstance(vals, Iterable):
                 data = list(self)
@@ -256,11 +256,11 @@ class CA[D]:
             raise IndexError(msg1 + msg2 + msg3)
 
     @overload
-    def __delitem__(self, idx: int, /) -> None: ...
+    def __delitem__(self, idx: int) -> None: ...
     @overload
-    def __delitem__(self, idx: slice, /) -> None: ...
+    def __delitem__(self, idx: slice) -> None: ...
 
-    def __delitem__(self, idx: int | slice, /) -> None:
+    def __delitem__(self, idx: int | slice) -> None:
         data = list(self)
         del data[idx]
         _ca = CA(data)
@@ -278,7 +278,7 @@ class CA[D]:
                 _ca._rear,
             )
 
-    def __eq__(self, other: object, /) -> bool:
+    def __eq__(self, other: object) -> bool:
         if self is other:
             return True
         if not isinstance(other, type(self)):
@@ -420,7 +420,7 @@ class CA[D]:
             raise ValueError(msg)
         return cast(D, d)
 
-    def popld(self, default: D, /) -> D:
+    def popld(self, default: D) -> D:
         """Pop one value from left side of the circular array, provide a
         mandatory default value. "Safe" version of popl.
 
@@ -432,7 +432,7 @@ class CA[D]:
         except ValueError:
             return default
 
-    def poprd(self, default: D, /) -> D:
+    def poprd(self, default: D) -> D:
         """Pop one value from right side of the circular array, provide a
         mandatory default value. "Safe" version of popr.
 
@@ -444,7 +444,7 @@ class CA[D]:
         except ValueError:
             return default
 
-    def poplt(self, maximum: int, /) -> tuple[D, ...]:
+    def poplt(self, maximum: int) -> tuple[D, ...]:
         """Pop multiple values from left side of circular array.
 
         :param maximum: pop no more than maximum values
@@ -461,7 +461,7 @@ class CA[D]:
 
         return tuple(ds)
 
-    def poprt(self, maximum: int, /) -> tuple[D, ...]:
+    def poprt(self, maximum: int) -> tuple[D, ...]:
         """Pop multiple values from right side of circular array.
 
         :param maximum: pop no more than maximum values
@@ -476,7 +476,7 @@ class CA[D]:
                 maximum -= 1
         return tuple(ds)
 
-    def rotl(self, n: int = 1, /) -> None:
+    def rotl(self, n: int = 1) -> None:
         """Rotate circular array elements left.
 
         :param n: number of times to shift elements to the left
@@ -486,7 +486,7 @@ class CA[D]:
         for _ in range(n, 0, -1):
             self.pushr(self.popl())
 
-    def rotr(self, n: int = 1, /) -> None:
+    def rotr(self, n: int = 1) -> None:
         """Rotate circular array elements right.
 
         :param n: number of times to shift elements to the right
@@ -496,7 +496,7 @@ class CA[D]:
         for _ in range(n, 0, -1):
             self.pushl(self.popr())
 
-    def map[U](self, f: Callable[[D], U], /) -> CA[U]:
+    def map[U](self, f: Callable[[D], U]) -> CA[U]:
         """Apply function f over the circular array's contents,
 
         :param f: function from type D to type U
@@ -504,7 +504,7 @@ class CA[D]:
         """
         return CA(map(f, self))
 
-    def foldl[L](self, f: Callable[[L, D], L], initial: L | None = None, /) -> L:
+    def foldl[L](self, f: Callable[[L, D], L], initial: L | None = None) -> L:
         """Fold left with a function and optional initial value.
 
         :param f: first argument to f is for the accumulated value
@@ -528,7 +528,7 @@ class CA[D]:
             acc = f(acc, d)
         return acc
 
-    def foldr[R](self, f: Callable[[D, R], R], initial: R | None = None, /) -> R:
+    def foldr[R](self, f: Callable[[D, R], R], initial: R | None = None) -> R:
         """Fold right with a function and an optional initial value.
 
         :param f: second argument to `f` is for the accumulated value

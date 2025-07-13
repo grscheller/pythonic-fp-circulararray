@@ -17,12 +17,15 @@ See `Semantic Versioning 2.0.0 <https://semver.org>`_.
 Releases and Important Milestones
 ---------------------------------
 
-5.1.3 - TBA
+5.2.0 - TBA
 ~~~~~~~~~~~~~~~~~~
 
-Adapted the overall Sphinx documentation structure from pythonic-fp.queues
+API addition, removed position only parameters from API `/` 
 
-- pythonic_fp.circulararray docstrings still a bit rough
+- new API should not affect old code
+- adapted overall Sphinx documentation structure from pythonic-fp.queues
+  - document generation now done in pythonic-fp repo
+  - pythonic_fp.circulararray docstrings still a bit rough
 
 5.1.2 - 2025-07-06
 ~~~~~~~~~~~~~~~~~~
