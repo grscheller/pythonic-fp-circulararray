@@ -20,9 +20,8 @@ Releases and Important Milestones
 5.1.3 - TBA
 ~~~~~~~~~~~~~~~~~~
 
-Overall structure of the Sphinx documentation coming together
+Adapted the overall Sphinx documentation structure from pythonic-fp.queues
 
-- will use this project as a prototype for the other namespace projects
 - pythonic_fp.circulararray docstrings still a bit rough
 
 5.1.2 - 2025-07-06
