@@ -33,9 +33,11 @@ __copyright__ = 'Copyright (c) 2023-2025 Geoffrey R. Scheller'
 __license__ = 'Apache License 2.0'
 
 from collections.abc import Callable, Iterable, Iterator
-from typing import cast, Never, overload
+from typing import cast, Never, overload, TypeVar
 
 __all__ = ['CA', 'ca']
+
+D = TypeVar('D')
 
 class CA[D]:
     """Circular array data structure."""
