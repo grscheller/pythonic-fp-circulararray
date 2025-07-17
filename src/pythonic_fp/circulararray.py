@@ -12,9 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-Module for a circular array data structure
-------------------------------------------
+"""Circular array data structure
 
 - O(1) pops either end 
 - O(1) amortized pushes either end 
@@ -37,9 +35,10 @@ from typing import cast, Never, overload, TypeVar
 
 __all__ = ['CA', 'ca']
 
-D = TypeVar('D')
+D = TypeVar('D')  # needed by Sphinx autodoc
 
-class CA[D]:
+
+class CA[D]():
     """Circular array data structure."""
 
     __slots__ = '_data', '_cnt', '_cap', '_front', '_rear'
