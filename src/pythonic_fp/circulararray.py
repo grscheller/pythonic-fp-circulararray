@@ -12,15 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Circular array data structure
+"""Pythonic FP - Circular Array
+
+Python module implementing a stateful circular array data structure.
 
 - O(1) pops either end 
 - O(1) amortized pushes either end 
 - O(1) indexing, fully supports slicing
 - Auto-resizing larger when necessary, manually compatible
-- Iterable, can safely mutate while iterators continue iterating over previous state
-- comparisons compare identity before equality, like builtins do
-- in boolean context returns `True` when not empty, `False` when empty
+- iterable, can safely mutate while iterators continue iterating over previous state
+- comparisons compare identity before equality, like builtins
+- in boolean context returns true when not empty, false when empty
 
 """
 
