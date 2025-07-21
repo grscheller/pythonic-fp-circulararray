@@ -12,25 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Pythonic FP - Circular Array
-
-Python module implementing a stateful circular array data structure.
-
-- O(1) pops either end 
-- O(1) amortized pushes either end 
-- O(1) indexing, fully supports slicing
-- Auto-resizing larger when necessary, manually compatible
-- iterable, can safely mutate while iterators continue iterating over previous state
-- comparisons compare identity before equality, like builtins
-- in boolean context returns true when not empty, false when empty
-
-"""
-
 from __future__ import annotations
-
-__author__ = 'Geoffrey R. Scheller'
-__copyright__ = 'Copyright (c) 2023-2025 Geoffrey R. Scheller'
-__license__ = 'Apache License 2.0'
 
 from collections.abc import Callable, Iterable, Iterator
 from typing import cast, Never, overload, TypeVar
@@ -45,17 +27,17 @@ class CA[D]():
 
     __slots__ = '_data', '_cnt', '_cap', '_front', '_rear'
 
-    def __init__(self, ds: Iterable[D] | None = None) -> None:
+    def __init__(self, data: Iterable[D] | None = None) -> None:
         """Initialize circular array with optional initial values.
 
         :param ds: optional iterable to initial populate the circular array.
         :raises TypeError: if ds is not Iterable.
 
         """
-        if ds is None:
+        if data is None:
             self._data: list[D | None] = [None, None]
         else:
-            self._data = [None] + list(ds) + [None]
+            self._data = [None] + list(data) + [None]
         self._cap = cap = len(self._data)
         self._cnt = cap - 2
         if cap == 2:
@@ -643,10 +625,12 @@ class CA[D]():
                 self._data,
                 self._front,
                 self._rear,
+                self._cnt,
         ) = (
                 [None] * self._cap,
                 0,
-                self._cap,
+                self._cap - 1,
+                0,
             )
 
     def fraction_filled(self) -> float:

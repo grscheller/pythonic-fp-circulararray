@@ -14,9 +14,9 @@
 
 from __future__ import annotations
 
-from pythonic_fp.circulararray import ca, CA
+from pythonic_fp.circulararray.resizing import ca, CA
 
-class TestRepr:
+class TestReprResizing:
     """Functionality testing"""
     def test_repr(self) -> None:
         """Functionality test"""

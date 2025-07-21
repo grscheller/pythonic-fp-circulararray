@@ -13,24 +13,24 @@
 # limitations under the License.
 
 from __future__ import annotations
-from pythonic_fp.circulararray import ca, CA
+from pythonic_fp.circulararray.fixed_capacity import ca_fix, CAFix
 
 
-class TestCapacity:
+class TestCapacityFixed:
     """Functionality testing"""
     def test_capacity_original(self) -> None:
         """Functionality test"""
-        ca0: CA[int] = CA()
+        ca0: CAFix[int] = CAFix()
         assert ca0.capacity() == 2
 
-        ca0 = ca(1, 2)
-        assert ca0.fraction_filled() == 2 / 4
+        ca0 = ca_fix(1, 2, capacity=8)
+        assert ca0.fraction_filled() == 2 / 8
 
         ca0.pushl(0)
-        assert ca0.fraction_filled() == 3 / 4
+        assert ca0.fraction_filled() == 3 / 8
 
         ca0.pushr(3)
-        assert ca0.fraction_filled() == 4 / 4
+        assert ca0.fraction_filled() == 4 / 8
 
         ca0.pushr(4)
         assert ca0.fraction_filled() == 5 / 8
@@ -40,14 +40,6 @@ class TestCapacity:
 
         assert len(ca0) == 6
         assert ca0.capacity() == 8
-
-        ca0.resize()
-        assert ca0.fraction_filled() == 6 / 8
-
-        ca0.resize(30)
-        assert ca0.fraction_filled() == 6 / 30
-
-        ca0.resize(3)
         assert ca0.fraction_filled() == 6 / 8
 
         ca0.popld(0)
@@ -55,62 +47,56 @@ class TestCapacity:
         ca0.popld(0)
         ca0.poprd(0)
         assert ca0.fraction_filled() == 2 / 8
-        ca0.resize(3)
-        assert ca0.fraction_filled() == 2 / 4
-        ca0.resize(7)
-        assert ca0.fraction_filled() == 2 / 7
 
     def test_empty(self) -> None:
         """Functionality test"""
-        c: CA[int] = ca()
-        assert c == ca()
-        assert c.capacity() == 2
-        c.pushl(1, 2, 3, 4, 5)
-        assert c.capacity() == 8
+        c: CAFix[int] = ca_fix(capacity=401)
+        assert c == ca_fix()
+        assert len(c) == 0
+        for ii in 1, 2, 3, 4, 5:
+            c.pushl(ii)
+        assert len(c) == 5
         assert c.poplt(2) == (5, 4)
-        c.resize()
-        assert c.capacity() == 5
-        c.resize(11)
-        assert c.capacity() == 11
         assert len(c) == 3
-        c.pushl(*range(8))
-        assert c.capacity() == 11
-        c.pushr(*range(2))
-        assert c.capacity() == 22
+        for kk in range(800):
+            if not c:
+                break
+            c.pushl(kk)
+        assert c.capacity() == 401
+        c.empty()
+        c.pushr(0)
+        for kk in range(1, 800):
+            if not c:
+                break
+            c.pushl(kk)
+        assert c[0] == 400
+        assert c[-1] == 0
 
     def test_one(self) -> None:
         """Functionality test"""
-        c = ca(42)
-        assert c.capacity() == 3
-        c.resize()
-        assert c.capacity() == 3
-        c.resize(8)
-        assert c.capacity() == 8
+        c = ca_fix(42, capacity=5)
+        assert c.capacity() == 5
         assert len(c) == 1
         popped = c.popld(0)
         assert popped == 42
         assert len(c) == 0
-        assert c.capacity() == 8
+        assert c.capacity() == 5
 
         try:
             c.popl()
         except ValueError as ve:
-            assert str(ve) == 'Method popl called on an empty CA'
+            assert str(ve) == 'Method popl called on an empty CAFix'
         else:
             assert False
 
         try:
             c.popr()
         except ValueError as ve:
-            assert str(ve) == 'Method popr called on an empty CA'
+            assert str(ve) == 'Method popr called on an empty CAFix'
         else:
             assert False
 
         c.pushr(popped)
         assert len(c) == 1
-        assert c.capacity() == 8
-        c.resize(5)
         assert c.capacity() == 5
         assert len(c) == 1
-        c.resize()
-        assert c.capacity() == 3

@@ -13,16 +13,16 @@
 # limitations under the License.
 
 from __future__ import annotations
-from pythonic_fp.circulararray import CA, ca
+from pythonic_fp.circulararray.resizing import CA, ca
 
 
-class TestCircularArray:
+class TestCircularArrayResizing:
     """Functionality testing"""
 
     def test_mutate_returns_none(self) -> None:
         """Test for builtin behaviors"""
         ca1: CA[int] = ca()
-        assert ca1.pushl(1) is None
+        assert ca1.pushl(1) is None  # type: ignore[func-returns-value]
         ca1.pushl(0)
         ca1.pushr(2)
         ca1.pushr(3)
