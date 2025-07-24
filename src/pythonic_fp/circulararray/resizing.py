@@ -30,8 +30,12 @@ class CA[D]():
     def __init__(self, data: Iterable[D] | None = None) -> None:
         """Initialize circular array with optional initial values.
 
-        :param ds: optional iterable to initial populate the circular array.
-        :raises TypeError: if ds is not Iterable.
+        .. code:: python
+
+            CA[D](data: Iterable[D] | None)
+
+        :param data: optional iterable to initial populate the circular array.
+        :raises TypeError: if data is not Iterable.
 
         """
         if data is None:
@@ -297,7 +301,7 @@ class CA[D]():
 
         .. code:: python
 
-            def pushl(*ds: D) -> None
+            def pushl(self, *ds: D) -> None
 
         :param ds: data pushed onto circular array from left
 
@@ -320,7 +324,7 @@ class CA[D]():
 
         .. code:: python
 
-            def pushr(*ds: D) -> None
+            def pushr(self, *ds: D) -> None
 
         :param ds: data pushed onto circular array from right
 
@@ -505,7 +509,7 @@ class CA[D]():
 
         .. code:: python
 
-            def rotl(self, n: int) -> tuple[D, ...]
+            def rotl(self, n: int) -> None
 
         :param n: number of times to shift elements to the left
 
@@ -520,7 +524,7 @@ class CA[D]():
 
         .. code:: python
 
-            def rotr(self, n: int) -> tuple[D, ...]
+            def rotr(self, n: int) -> None
 
         :param n: number of times to shift elements to the right
 
@@ -651,7 +655,7 @@ class CA[D]():
 
         .. code:: python
 
-            def resize(self) -> None
+            def resize(self, minimum_capacity) -> None
 
         :param minimum_capacity: minimum value to compact the circular array
 

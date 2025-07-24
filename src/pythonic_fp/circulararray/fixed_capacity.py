@@ -15,7 +15,7 @@
 from __future__ import annotations
 
 from collections.abc import Callable, Iterable, Iterator
-from typing import cast, Never, TypeVar
+from typing import cast, Final, Never, TypeVar
 
 __all__ = ['CAFix', 'ca_fix']
 
@@ -34,6 +34,10 @@ class CAFix[D]():
         ) -> None:
         """Initialize fixed sized circular.
 
+        .. code:: python
+
+            CA[D](data: Iterable[D] | None, capacity: int = 2)
+
         :param ds: optional iterable to initial populate circular array.
         :raises TypeError: if ds is not Iterable.
 
@@ -47,7 +51,7 @@ class CAFix[D]():
             count = len(ds)
             capacity = max(count, capacity)
             self._data = ds + [None]*(capacity - count)
-        self._cap = capacity
+        self._cap: Final[int] = capacity
         self._cnt = count
         if count == 0:
             self._front = 0
@@ -145,13 +149,11 @@ class CAFix[D]():
         (
                 self._data,
                 self._cnt,
-                self._cap,
                 self._front,
                 self._rear,
         ) = (
                 _ca._data,
                 _ca._cnt,
-                _ca._cap,
                 _ca._front,
                 _ca._rear,
             )
@@ -193,7 +195,7 @@ class CAFix[D]():
 
         .. code:: python
 
-            def pushl(d: D) -> None
+            def pushl(self, d: D) -> None
 
         :param ds: data pushed onto circular array from left
         :param d data item to push onto circular array from left
@@ -219,7 +221,7 @@ class CAFix[D]():
 
         .. code:: python
 
-            def pushr(d: D) -> None
+            def pushr(self, d: D) -> None
 
         :param d data item to push onto circular array from right
         :raises ValueError: when called on a full CAFix.
@@ -406,7 +408,7 @@ class CAFix[D]():
 
         .. code:: python
 
-            def rotl(self, n: int) -> tuple[D, ...]
+            def rotl(self, n: int) -> None
 
         :param n: number of times to shift elements to the left
 
@@ -421,7 +423,7 @@ class CAFix[D]():
 
         .. code:: python
 
-            def rotr(self, n: int) -> tuple[D, ...]
+            def rotr(self, n: int) -> None
 
         :param n: number of times to shift elements to the right
 
@@ -503,19 +505,19 @@ class CAFix[D]():
         return acc
 
     def capacity(self) -> int:
-        """Find the capacity of the fixed circular array.
+        """Return the capacity of the fixed circular array.
 
         .. code:: python
 
             def capacity(self) -> int
 
-        :return: current capacity of the circular array
+        :return: current capacity of the fixed circular array
 
         """
         return self._cap
 
     def empty(self) -> None:
-        """Empty the circular array.
+        """Empty the circular array, keep current capacity.
 
         .. code:: python
 
