@@ -19,25 +19,13 @@ Modules implementing stateful circular array data structures.
 **Module: pythonic_fp.circulararray.resizing**
 
 - Class CA
+- Function ca
 
-  - O(1) pops either end 
-  - O(1) amortized pushes either end 
-  - O(1) indexing, fully supports slicing
-  - Auto-resizing larger when necessary, manually compatible
-  - iterable, can safely mutate while iterators continue iterating over previous state
-  - comparisons compare identity before equality, like builtins
-  - in boolean context returns true when not empty, false when empty
 
 **Module: pythonic_fp.circulararray.fixed_capacity**
 
 - Class CAFix
-
-  - O(1) pops and pushes either end 
-  - O(1) indexing, does not support slicing
-  - fixed size
-  - iterable, can safely mutate while iterators continue iterating over previous state
-  - comparisons compare identity before equality, like builtins
-  - in boolean context returns false when either empty or full, otherwise true
+- Function ca_fix
 
 """
 

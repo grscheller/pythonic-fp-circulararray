@@ -12,6 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""Fixed Capacity Circular Array
+
+- O(1) pops and pushes either end 
+- O(1) indexing, does not support slicing
+- fixed capacity
+- iterable, can safely mutate while iterators continue iterating over previous state
+- comparisons compare identity before equality, like builtins
+- in boolean context returns false when either empty or full, otherwise true
+
+"""
 from __future__ import annotations
 
 from collections.abc import Callable, Iterable, Iterator
@@ -197,9 +207,8 @@ class CAFix[D]():
 
             def pushl(self, d: D) -> None
 
-        :param ds: data pushed onto circular array from left
-        :param d data item to push onto circular array from left
-        :raises ValueError: when called on a full CAFix.
+        :param d: data pushed onto circular array from left
+        :raises ValueError: when called on a full CAFix
 
         """
         if self._cnt == self._cap:

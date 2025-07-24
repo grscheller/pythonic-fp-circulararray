@@ -12,6 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""Resizing Circular Array
+
+- O(1) pops either end 
+- O(1) amortized pushes either end 
+- O(1) indexing, fully supports slicing
+- Auto-resizing larger when necessary, manually compatible
+- iterable, can safely mutate while iterators continue iterating over previous state
+- comparisons compare identity before equality, like builtins
+- in boolean context returns true when not empty, false when empty
+
+"""
 from __future__ import annotations
 
 from collections.abc import Callable, Iterable, Iterator
