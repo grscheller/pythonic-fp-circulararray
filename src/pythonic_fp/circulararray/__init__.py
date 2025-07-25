@@ -14,20 +14,20 @@
 
 """Modules implementing stateful circular array data structures.
 
-**pythonic_fp.circulararray.auto**
+Module **pythonic_fp.circulararray.auto**
 
-Will automatically increase its total capacity as needed. Can be
-manually resized smaller.
+``CA`` objects automatically increase their total storage capacity as
+needed. They can be manually resized smaller.
 
-- Class CA
-- Function ca
+- class ``CA``
+- factory function ``ca``
 
-**pythonic_fp.circulararray.fixed**
+Module **pythonic_fp.circulararray.fixed**
 
-Total capacity fixed when instantiated.
+The total capacity of ``CAF`` objects is fixed at object instantiation.
 
-- Class CAF
-- Function caf
+- class ``CAF``
+- factory function ``caf``
 
 """
 

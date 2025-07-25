@@ -15,11 +15,11 @@
 """Fixed Capacity Circular Array
 
 - O(1) pops and pushes either end 
-- O(1) indexing, does not support slicing
-- fixed capacity
+- O(1) indexing, does not support slicing nor deleting elements
+- fixed total capacity
 - iterable, can safely mutate while iterators continue iterating over previous state
 - comparisons compare identity before equality, like builtins
-- in boolean context returns false when either empty or full, otherwise true
+- in boolean context, falsy when either empty or full, otherwise truthy
 
 """
 from __future__ import annotations
