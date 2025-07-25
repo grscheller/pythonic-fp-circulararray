@@ -12,17 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Pythonic FP - Circular Array
+"""Modules implementing stateful circular array data structures.
 
-Modules implementing stateful circular array data structures.
-
-**Module: pythonic_fp.circulararray.resizing**
+**pythonic_fp.circulararray.resizing:** Will increase total capacity
+if needed
 
 - Class CA
 - Function ca
 
-
-**Module: pythonic_fp.circulararray.fixed_capacity**
+**pythonic_fp.circulararray.fixed_capacity:** Total capacity fixed
+when instantiated.
 
 - Class CAFix
 - Function ca_fix

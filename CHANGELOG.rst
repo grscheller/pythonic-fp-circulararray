@@ -1,7 +1,9 @@
 CHANGELOG
 =========
 
-PyPI pythonic-fp.circulararray project changelog.
+Latest version of
+`PyPI pythonic-fp.circulararray project changelog
+<https://github.com/grscheller/pythonic-fp-circulararray/blob/main/README.rst>`_.
 
 Semantic Versioning
 -------------------
@@ -16,6 +18,14 @@ See `Semantic Versioning 2.0.0 <https://semver.org>`_.
 
 Releases and Important Milestones
 ---------------------------------
+
+5.3.0 - TBD
+~~~~~~~~~~~
+
+Added a second version of circulararray which has a fixed capacity.
+
+Also, significant docstring changes as the maintainer irons out
+how best to leverage Sphinx.
 
 5.2.0 - 2025-07-13
 ~~~~~~~~~~~~~~~~~~
