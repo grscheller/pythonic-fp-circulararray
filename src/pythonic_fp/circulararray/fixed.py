@@ -12,11 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Fixed Capacity Circular Array
+"""Fixed storage capacity circular array.
 
 - O(1) pops and pushes either end 
-- O(1) indexing, does not support slicing nor deleting elements
-- fixed total capacity
+- O(1) indexing, does not support slicing
+- fixed total storage capacity
 - iterable, can safely mutate while iterators continue iterating over previous state
 - comparisons compare identity before equality, like builtins
 - in boolean context, falsy when either empty or full, otherwise truthy
@@ -42,14 +42,13 @@ class CAF[D]():
             data: Iterable[D] | None = None,
             capacity: int = 2
         ) -> None:
-        """Initialize fixed sized circular.
-
+        """
         .. code:: python
 
             CA[D](data: Iterable[D] | None, capacity: int = 2)
 
-        :param ds: optional iterable to initial populate circular array.
-        :raises TypeError: if ds is not Iterable.
+        :param data: optional iterable to initial populate circular array
+        :raises TypeError: if data is not Iterable
 
         """
         capacity = max(2, capacity)
@@ -201,13 +200,12 @@ class CAF[D]():
         return True
 
     def pushl(self, d: D) -> None:
-        """Push left.
-
+        """
         .. code:: python
 
             def pushl(self, d: D) -> None
 
-        :param d: data pushed onto circular array from left
+        :param d: single item pushed onto circular array from left
         :raises ValueError: when called on a full CAF
 
         """
@@ -226,13 +224,12 @@ class CAF[D]():
             )
 
     def pushr(self, d: D) -> None:
-        """Push right.
-
+        """
         .. code:: python
 
             def pushr(self, d: D) -> None
 
-        :param d data item to push onto circular array from right
+        :param d: single item pushed onto circular array from right
         :raises ValueError: when called on a full CAF.
 
         """
@@ -251,13 +248,12 @@ class CAF[D]():
             )
 
     def popl(self) -> D | Never:
-        """Pop left.
-
+        """
         .. code:: python
 
             def popl(self) -> D | Never
 
-        :return: value popped from left side of circular array
+        :return: item popped from left side of circular array
         :raises ValueError: when called on an empty circular array
 
         """
@@ -293,13 +289,12 @@ class CAF[D]():
         return cast(D, d)
 
     def popr(self) -> D | Never:
-        """Pop right.
-
+        """
         .. code:: python
 
             def popr(self) -> D | Never
 
-        :return: value popped from right side of circular array
+        :return: item popped from right side of circular array
         :raises ValueError: when called on an empty circular array
 
         """
@@ -335,15 +330,16 @@ class CAF[D]():
         return cast(D, d)
 
     def popld(self, default: D) -> D:
-        """Pop one value from left side of the circular array, provide a
-        mandatory default value. "Safe" version of popl.
-
+        """
         .. code:: python
 
             def popld(self, default: D) -> D
 
-        :param default: value returned if circular array is empty
-        :return: value popped from left side
+        Pop one item from left side of the circular array, provide
+        a mandatory default value. "Safe" version of popl.
+
+        :param default: item returned if circular array is empty
+        :return: item popped from left side or default item if empty
 
         """
         try:
@@ -352,15 +348,16 @@ class CAF[D]():
             return default
 
     def poprd(self, default: D) -> D:
-        """Pop one value from right side of the circular array, provide a
-        mandatory default value. "Safe" version of popr.
-
+        """
         .. code:: python
 
             def poprd(self, default: D) -> D
 
-        :param default: value returned if circular array is empty
-        :return: value popped from right side
+        Pop one value from right side of the circular array, provide
+        a mandatory default value. "Safe" version of popr.
+
+        :param default: item returned if circular array is empty
+        :return: item popped from right side or default item if empty
 
         """
         try:
@@ -369,14 +366,15 @@ class CAF[D]():
             return default
 
     def poplt(self, maximum: int) -> tuple[D, ...]:
-        """Pop multiple values from left side of circular array.
-
+        """
         .. code:: python
 
             def poplt(self, maximum: int) -> tuple[D, ...]
 
-        :param maximum: maximum number of values to be popped
-        :return: tuple of popped values in the order popped, left to right
+        Pop multiple items from left side of circular array.
+
+        :param maximum: maximum number of values to pop
+        :return: tuple of popped items in the order popped, left to right
 
         """
         ds: list[D] = []
@@ -392,14 +390,15 @@ class CAF[D]():
         return tuple(ds)
 
     def poprt(self, maximum: int) -> tuple[D, ...]:
-        """Pop multiple values from right side of circular array.
-
+        """
         .. code:: python
 
             def poprt(self, maximum: int) -> tuple[D, ...]
 
-        :param maximum: maximum number of values to be popped
-        :return: tuple of popped values in the order popped, right to left
+        Pop multiple items from right side of circular array.
+
+        :param maximum: maximum number of items to pop
+        :return: tuple of popped items in the order popped, right to left
 
         """
         ds: list[D] = []
@@ -413,11 +412,12 @@ class CAF[D]():
         return tuple(ds)
 
     def rotl(self, n: int = 1) -> None:
-        """Rotate circular array elements left.
-
+        """
         .. code:: python
 
             def rotl(self, n: int) -> None
+
+        Rotate items left.
 
         :param n: number of times to shift elements to the left
 
@@ -428,11 +428,12 @@ class CAF[D]():
             self.pushr(self.popl())
 
     def rotr(self, n: int = 1) -> None:
-        """Rotate circular array elements right.
-
+        """
         .. code:: python
 
             def rotr(self, n: int) -> None
+
+        Rotate items right.
 
         :param n: number of times to shift elements to the right
 
@@ -443,94 +444,101 @@ class CAF[D]():
             self.pushl(self.popr())
 
     def map[U](self, f: Callable[[D], U]) -> CAF[U]:
-        """Apply function f over the fixed circular array's contents,
-
+        """
         .. code:: python
 
             def map(self, f: Callable[[D], U]) -> CAF[U]
 
-        :param f: function from type D to type U
+        Apply function f over the fixed circular array's contents,
+
+        :param f: callable from type D to type U
         :return: new fixed circular array instance
 
         """
         return CAF(map(f, self), self._cap)
 
-    def foldl[L](self, f: Callable[[L, D], L], initial: L | None = None) -> L:
-        """Fold left with a function and optional initial value.
-
+    def foldl[L](self, f: Callable[[L, D], L], start: L | None = None) -> L | Never:
+        """
         .. code:: python
 
-            def foldl(self, f: Callable[[L, D], L], initial: L | None) -> L | None
+            def foldl(self, f: Callable[[L, D], L], start: L | None) -> L | Never
 
-        :param f: first argument to f is for the accumulated value
-        :param initial: optional initial value
-        :raises ValueError: when circular array empty and no initial value given
+        Fold left with a function and optional stating item.
+
+        :param f: first argument to f is for the accumulator
+        :param start: optional starting item
+        :return: reduced value produced by the left fold
+        :raises ValueError: when circular array empty and no starting item given
 
         """
         if self._cnt == 0:
-            if initial is None:
-                msg = 'Method foldl called on an empty CAF without an initial value.'
+            if start is None:
+                msg = 'Method foldl called on an empty CAF without a start item.'
                 raise ValueError(msg)
-            return initial
+            return start
 
-        if initial is None:
+        if start is None:
             acc = cast(L, self[0])  # in this case D = L
             for idx in range(1, self._cnt):
                 acc = f(acc, self[idx])
             return acc
 
-        acc = initial
+        acc = start
         for d in self:
             acc = f(acc, d)
         return acc
 
-    def foldr[R](self, f: Callable[[D, R], R], initial: R | None = None) -> R:
-        """Fold right with a function and an optional initial value.
-
+    def foldr[R](self, f: Callable[[D, R], R], start: R | None = None) -> R | Never:
+        """
         .. code:: python
 
-            def foldr(self, f: Callable[[D, R], R], initial: R | None) -> L | None
+            def foldr(self, f: Callable[[D, R], R], start: R | None) -> R | Never
 
-        :param f: second argument to `f` is for the accumulated value
-        :param initial: optional initial value
-        :raises ValueError: when circular array empty and no initial value given
+        Fold right with a function and an optional starting item.
+
+        :param f: second argument to f is for the accumulator
+        :param start: optional starting item
+        :return: reduced value produced by the right fold
+        :raises ValueError: when circular array empty and no starting item given
 
         """
         if self._cnt == 0:
-            if initial is None:
+            if start is None:
                 msg = 'Method foldr called on empty CAF without initial value.'
                 raise ValueError(msg)
-            return initial
+            return start
 
-        if initial is None:
+        if start is None:
             acc = cast(R, self[-1])  # in this case D = R
             for idx in range(self._cnt - 2, -1, -1):
                 acc = f(self[idx], acc)
             return acc
 
-        acc = initial
+        acc = start
         for d in reversed(self):
             acc = f(d, acc)
         return acc
 
     def capacity(self) -> int:
-        """Return the capacity of the fixed circular array.
-
+        """
         .. code:: python
 
             def capacity(self) -> int
 
-        :return: current capacity of the fixed circular array
+        Return fixed storage capacity of the circular array.
+
+        :return: fixed storage capacity
 
         """
         return self._cap
 
     def empty(self) -> None:
-        """Empty the circular array, keep current capacity.
-
+        """
         .. code:: python
 
             def empty(self) -> None
+
+        Empty the circular array.
 
         """
         (
@@ -551,23 +559,25 @@ class CAF[D]():
 
             def fraction_filled(self) -> float
 
-        Find fraction of capacity filled.
+        Find fraction of the storage capacity which is filled.
 
-        :return: the ratio count/capacity
+        :return: the ratio cnt/capacity
 
         """
         return self._cnt / self._cap
 
 
-def caf[T](*ts: T, capacity: int = 2) -> CAF[T]:
+def caf[T](*items: T, capacity: int = 2) -> CAF[T]:
     """
     .. code:: python
 
-        def caf(*ts: T) -> CAF[T]
+        def caf(*items: T) -> CAF[T]
 
     Function to produce a circular array from a variable number of arguments.
 
-    :param ts: initial values for the new circular array
+    :param items: initial items for a new circular array
+    :param capacity: minimum storage capacity to set
+    :return: new fixed capacity circular array
 
     """
-    return CAF(ts, capacity = capacity)
+    return CAF(items, capacity = capacity)

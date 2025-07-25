@@ -12,12 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Auto-resizing circular array
+"""Auto-resizing circular array.
 
 - O(1) pops either end 
 - O(1) amortized pushes either end 
 - O(1) indexing, fully supports slicing
-- Auto-resizing larger when necessary, manually compactable
+- Auto-resizing more storage capacity when necessary, manually compactable
 - iterable, can safely mutate while iterators continue iterating over previous state
 - comparisons compare identity before equality, like builtins
 - in boolean context, falsy when empty, otherwise truthy
@@ -38,15 +38,19 @@ class CA[D]():
 
     __slots__ = '_data', '_cnt', '_cap', '_front', '_rear'
 
-    def __init__(self, data: Iterable[D] | None = None) -> None:
-        """Initialize circular array with optional initial values.
-
+    def __init__(
+            self,
+            data: Iterable[D] | None = None
+        ) -> None:
+        """
         .. code:: python
 
             CA[D](data: Iterable[D] | None)
 
-        :param data: optional iterable to initial populate the circular array.
-        :raises TypeError: if data is not Iterable.
+        Initialize circular array with optional initial values.
+
+        :param data: optional iterable to initial populate circular array
+        :raises TypeError: if data is not Iterable
 
         """
         if data is None:
@@ -307,17 +311,16 @@ class CA[D]():
                 return False
         return True
 
-    def pushl(self, *ds: D) -> None:
-        """Push left.
-
+    def pushl(self, *data: D) -> None:
+        """
         .. code:: python
 
             def pushl(self, *ds: D) -> None
 
-        :param ds: data pushed onto circular array from left
+        :param data: items pushed onto circular array from left
 
         """
-        for d in ds:
+        for d in data:
             if self._cnt == self._cap:
                 self._double_storage_capacity()
             (
@@ -330,17 +333,16 @@ class CA[D]():
                     self._cnt + 1,
                 )
 
-    def pushr(self, *ds: D) -> None:
-        """Push right.
-
+    def pushr(self, *data: D) -> None:
+        """
         .. code:: python
 
             def pushr(self, *ds: D) -> None
 
-        :param ds: data pushed onto circular array from right
+        :param data: items pushed onto circular array from right
 
         """
-        for d in ds:
+        for d in data:
             if self._cnt == self._cap:
                 self._double_storage_capacity()
             (
@@ -354,13 +356,12 @@ class CA[D]():
                 )
 
     def popl(self) -> D | Never:
-        """Pop left.
-
+        """
         .. code:: python
 
             def popl(self) -> D | Never
 
-        :return: value popped from left side of circular array
+        :return: item popped from left side of circular array
         :raises ValueError: when called on an empty circular array
 
         """
@@ -396,13 +397,12 @@ class CA[D]():
         return cast(D, d)
 
     def popr(self) -> D | Never:
-        """Pop right.
-
+        """
         .. code:: python
 
             def popr(self) -> D | Never
 
-        :return: value popped from right side of circular array
+        :return: item popped from right side of circular array
         :raises ValueError: when called on an empty circular array
 
         """
@@ -438,15 +438,16 @@ class CA[D]():
         return cast(D, d)
 
     def popld(self, default: D) -> D:
-        """Pop one value from left side of the circular array, provide a
-        mandatory default value. "Safe" version of popl.
-
+        """
         .. code:: python
 
             def popld(self, default: D) -> D
 
-        :param default: value returned if circular array is empty
-        :return: value popped from left side
+        Pop one item from left side of the circular array, provide
+        a mandatory default value. "Safe" version of popl.
+
+        :param default: item returned if circular array is empty
+        :return: item popped from left side or default item if empty
 
         """
         try:
@@ -455,15 +456,16 @@ class CA[D]():
             return default
 
     def poprd(self, default: D) -> D:
-        """Pop one value from right side of the circular array, provide a
-        mandatory default value. "Safe" version of popr.
-
+        """
         .. code:: python
 
             def poprd(self, default: D) -> D
 
-        :param default: value returned if circular array is empty
-        :return: value popped from right side
+        Pop one item from right side of the circular array, provide
+        a mandatory default value. "Safe" version of popr.
+
+        :param default: item returned if circular array is empty
+        :return: item popped from right side or default item if empty
 
         """
         try:
@@ -472,14 +474,15 @@ class CA[D]():
             return default
 
     def poplt(self, maximum: int) -> tuple[D, ...]:
-        """Pop multiple values from left side of circular array.
-
+        """
         .. code:: python
 
             def poplt(self, maximum: int) -> tuple[D, ...]
 
-        :param maximum: maximum number of values to be popped
-        :return: tuple of popped values in the order popped, left to right
+        Pop multiple items from left side of circular array.
+
+        :param maximum: maximum number of values to pop
+        :return: tuple of popped items in the order popped, left to right
 
         """
         ds: list[D] = []
@@ -495,14 +498,15 @@ class CA[D]():
         return tuple(ds)
 
     def poprt(self, maximum: int) -> tuple[D, ...]:
-        """Pop multiple values from right side of circular array.
-
+        """
         .. code:: python
 
             def poprt(self, maximum: int) -> tuple[D, ...]
 
-        :param maximum: maximum number of values to be popped
-        :return: tuple of popped values in the order popped, right to left
+        Pop multiple items from right side of circular array.
+
+        :param maximum: maximum number of items to pop
+        :return: tuple of popped items in the order popped, right to left
 
         """
         ds: list[D] = []
@@ -516,11 +520,12 @@ class CA[D]():
         return tuple(ds)
 
     def rotl(self, n: int = 1) -> None:
-        """Rotate circular array elements left.
-
+        """
         .. code:: python
 
             def rotl(self, n: int) -> None
+
+        Rotate items left.
 
         :param n: number of times to shift elements to the left
 
@@ -531,11 +536,12 @@ class CA[D]():
             self.pushr(self.popl())
 
     def rotr(self, n: int = 1) -> None:
-        """Rotate circular array elements right.
-
+        """
         .. code:: python
 
             def rotr(self, n: int) -> None
+
+        Rotate items right.
 
         :param n: number of times to shift elements to the right
 
@@ -546,94 +552,101 @@ class CA[D]():
             self.pushl(self.popr())
 
     def map[U](self, f: Callable[[D], U]) -> CA[U]:
-        """Apply function f over the circular array's contents,
-
+        """
         .. code:: python
 
             def map(self, f: Callable[[D], U]) -> CA[U]
 
-        :param f: function from type D to type U
+        Apply function f over the circular array's contents,
+
+        :param f: callable from type D to type U
         :return: new circular array instance
 
         """
         return CA(map(f, self))
 
-    def foldl[L](self, f: Callable[[L, D], L], initial: L | None = None) -> L:
-        """Fold left with a function and optional initial value.
-
+    def foldl[L](self, f: Callable[[L, D], L], start: L | None = None) -> L | Never:
+        """
         .. code:: python
 
-            def foldl(self, f: Callable[[L, D], L], initial: L | None) -> L | None
+            def foldl(self, f: Callable[[L, D], L], start: L | None) -> L | Never
 
-        :param f: first argument to f is for the accumulated value
-        :param initial: optional initial value
-        :raises ValueError: when circular array empty and no initial value given
+        Fold left with a function and optional starting item.
+
+        :param f: first argument to f is for the accumulator
+        :param start: optional starting item
+        :return: reduced value produced by the left fold
+        :raises ValueError: when circular array empty and no starting item given
 
         """
         if self._cnt == 0:
-            if initial is None:
-                msg = 'Method foldl called on an empty CA without an initial value.'
+            if start is None:
+                msg = 'Method foldl called on an empty CA without a start item.'
                 raise ValueError(msg)
-            return initial
+            return start
 
-        if initial is None:
+        if start is None:
             acc = cast(L, self[0])  # in this case D = L
             for idx in range(1, self._cnt):
                 acc = f(acc, self[idx])
             return acc
 
-        acc = initial
+        acc = start
         for d in self:
             acc = f(acc, d)
         return acc
 
-    def foldr[R](self, f: Callable[[D, R], R], initial: R | None = None) -> R:
-        """Fold right with a function and an optional initial value.
-
+    def foldr[R](self, f: Callable[[D, R], R], start: R | None = None) -> R | Never:
+        """
         .. code:: python
 
-            def foldr(self, f: Callable[[D, R], R], initial: R | None) -> L | None
+            def foldr(self, f: Callable[[D, R], R], start: R | None) -> R | Never
 
-        :param f: second argument to `f` is for the accumulated value
-        :param initial: optional initial value
-        :raises ValueError: when circular array empty and no initial value given
+        Fold right with a function and an optional starting item.
+
+        :param f: second argument to f is for the accumulator
+        :param start: optional starting item
+        :return: reduced value produced by the right fold
+        :raises ValueError: when circular array empty and no starting item given
 
         """
         if self._cnt == 0:
-            if initial is None:
+            if start is None:
                 msg = 'Method foldr called on empty CA without initial value.'
                 raise ValueError(msg)
-            return initial
+            return start
 
-        if initial is None:
+        if start is None:
             acc = cast(R, self[-1])  # in this case D = R
             for idx in range(self._cnt - 2, -1, -1):
                 acc = f(self[idx], acc)
             return acc
 
-        acc = initial
+        acc = start
         for d in reversed(self):
             acc = f(d, acc)
         return acc
 
     def capacity(self) -> int:
-        """Find current storage capacity of the circular array.
-
+        """
         .. code:: python
 
             def capacity(self) -> int
 
-        :return: current capacity of the circular array
+        Return current storage capacity of the circular array.
+
+        :return: current storage capacity
 
         """
         return self._cap
 
     def empty(self) -> None:
-        """Empty the circular array, keep current capacity.
-
+        """
         .. code:: python
 
             def empty(self) -> None
+
+        Empty the circular array, keep current storage capacity.
 
         """
         (
@@ -654,7 +667,7 @@ class CA[D]():
 
             def fraction_filled(self) -> float
 
-        Find fraction of capacity filled.
+        Find fraction of the storage capacity which is filled.
 
         :return: the ratio cnt/capacity
 
@@ -671,7 +684,7 @@ class CA[D]():
         capacity. To just compact the circular array, do not provide
         a minimum capacity.
 
-        :param minimum_capacity: minimum value to compact the circular array
+        :param minimum_capacity: minimum capacity to compact the circular array
 
         """
         self._compact_storage_capacity()
@@ -687,15 +700,16 @@ class CA[D]():
                 self._front, self._rear = 0, self._cap - 1
 
 
-def ca[T](*ts: T) -> CA[T]:
+def ca[T](*items: T) -> CA[T]:
     """
     .. code:: python
 
-        def ca(*ts: T) -> CA[T]
+        def ca(*items: T) -> CA[T]
 
     Function to produce a circular array from a variable number of arguments.
 
-    :param ts: initial values to push onto a new circular array from right to left
+    :param items: initial items for a new circular array
+    :return: new auto-resizing circular array
 
     """
-    return CA(ts)
+    return CA(items)
