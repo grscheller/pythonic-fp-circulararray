@@ -13,17 +13,17 @@
 # limitations under the License.
 
 from __future__ import annotations
-from pythonic_fp.circulararray.fixed_capacity import ca_fix, CAFix
+from pythonic_fp.circulararray.fixed import caf as caf, CAF as CAF
 
 
 class TestCapacityFixed:
     """Functionality testing"""
     def test_capacity_original(self) -> None:
         """Functionality test"""
-        ca0: CAFix[int] = CAFix()
+        ca0: CAF[int] = CAF()
         assert ca0.capacity() == 2
 
-        ca0 = ca_fix(1, 2, capacity=8)
+        ca0 = caf(1, 2, capacity=8)
         assert ca0.fraction_filled() == 2 / 8
 
         ca0.pushl(0)
@@ -50,8 +50,8 @@ class TestCapacityFixed:
 
     def test_empty(self) -> None:
         """Functionality test"""
-        c: CAFix[int] = ca_fix(capacity=401)
-        assert c == ca_fix()
+        c: CAF[int] = caf(capacity=401)
+        assert c == caf()
         assert len(c) == 0
         for ii in 1, 2, 3, 4, 5:
             c.pushl(ii)
@@ -74,7 +74,7 @@ class TestCapacityFixed:
 
     def test_one(self) -> None:
         """Functionality test"""
-        c = ca_fix(42, capacity=5)
+        c = caf(42, capacity=5)
         assert c.capacity() == 5
         assert len(c) == 1
         popped = c.popld(0)
@@ -85,14 +85,14 @@ class TestCapacityFixed:
         try:
             c.popl()
         except ValueError as ve:
-            assert str(ve) == 'Method popl called on an empty CAFix'
+            assert str(ve) == 'Method popl called on an empty CAF'
         else:
             assert False
 
         try:
             c.popr()
         except ValueError as ve:
-            assert str(ve) == 'Method popr called on an empty CAFix'
+            assert str(ve) == 'Method popr called on an empty CAF'
         else:
             assert False
 

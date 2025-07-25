@@ -5,7 +5,7 @@ PyPI project
 `pythonic-fp.circulararray
 <https://pypi.org/project/pythonic-fp.circulararray>`_.
 
-Python module implementing a stateful circular array data structure.
+Python module implementing stateful circular array data structures.
 
 - O(1) pops either end 
 - O(1) amortized pushes either end 

@@ -1,4 +1,4 @@
-# Copyright 2023-2025 Geoffrey R. Scheller
+# Copyright 2023-202 Geoffrey R. Scheller
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -649,11 +649,12 @@ class CA[D]():
             )
 
     def fraction_filled(self) -> float:
-        """Find fraction of capacity filled.
-
+        """
         .. code:: python
 
             def fraction_filled(self) -> float
+
+        Find fraction of capacity filled.
 
         :return: the ratio cnt/capacity
 
@@ -661,12 +662,14 @@ class CA[D]():
         return self._cnt / self._cap
 
     def resize(self, minimum_capacity: int = 2) -> None:
-        """Compact circular array and resize to a minimum capacity if necessary.
-        To just compact the circular array, do not provide a minimum capacity.
-
+        """
         .. code:: python
 
             def resize(self, minimum_capacity) -> None
+
+        Compact circular array and, if necessary, resize to a minimum
+        capacity. To just compact the circular array, do not provide
+        a minimum capacity.
 
         :param minimum_capacity: minimum value to compact the circular array
 
@@ -685,11 +688,12 @@ class CA[D]():
 
 
 def ca[T](*ts: T) -> CA[T]:
-    """Function to produce a circular array from a variable number of arguments.
+    """
+    .. code:: python
 
-        .. code:: python
+        def ca(*ts: T) -> CA[T]
 
-            def ca(*ts: T) -> CA[T]
+    Function to produce a circular array from a variable number of arguments.
 
     :param ts: initial values to push onto a new circular array from right to left
 

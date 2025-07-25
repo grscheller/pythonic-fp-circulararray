@@ -14,27 +14,27 @@
 
 from __future__ import annotations
 
-from pythonic_fp.circulararray.fixed_capacity import ca_fix, CAFix
+from pythonic_fp.circulararray.fixed import caf, CAF
 
 class TestReprFixed:
     """Functionality testing"""
     def test_repr(self) -> None:
         """Functionality test"""
-        ca0: CAFix[int] = CAFix()
-        assert repr(ca0) == 'ca_fix()'
-        foo: CAFix[int] = eval('ca_fix()')
-        bar: CAFix[int] = eval(repr(ca0))
+        ca0: CAF[int] = CAF()
+        assert repr(ca0) == 'caf()'
+        foo: CAF[int] = eval('caf()')
+        bar: CAF[int] = eval(repr(ca0))
         assert foo == bar
 
-        ca1: CAFix[str|int] = CAFix(capacity=10)
-        assert repr(ca1) == 'ca_fix()'
-        ca2: CAFix[int|str] = eval(repr(ca1))
+        ca1: CAF[str|int] = CAF(capacity=10)
+        assert repr(ca1) == 'caf()'
+        ca2: CAF[int|str] = eval(repr(ca1))
         assert ca2 == ca1
         assert ca2 is not ca1
 
         ca1.pushr(1)
         ca1.pushl('foo')
-        assert repr(ca1) == "ca_fix('foo', 1)"
+        assert repr(ca1) == "caf('foo', 1)"
         ca2 = eval(repr(ca1))
         assert ca2 == ca1
         assert ca2 is not ca1
@@ -47,12 +47,12 @@ class TestReprFixed:
         assert ca1.popl() == 1
         ca1.pushl(42)
         ca1.popr()
-        assert repr(ca1) == 'ca_fix(42, 2, 3, 4)'
+        assert repr(ca1) == 'caf(42, 2, 3, 4)'
         ca2 = eval(repr(ca1))
         assert ca2 == ca1
         assert ca2 is not ca1
 
-        ca3: CAFix[int] = ca_fix(1, 10, 0, 42, capacity=10)
+        ca3: CAF[int] = caf(1, 10, 0, 42, capacity=10)
         ca3.pushr(2)
         ca3.pushr(100)
         ca3.pushr(3)
@@ -64,9 +64,9 @@ class TestReprFixed:
         ca3.pushr(1)
         ca3.pushr(2)
         ca3.pushr(3)
-        assert repr(ca3) == 'ca_fix(8, 9, 10, 0, 42, 1, 2, 3)'
+        assert repr(ca3) == 'caf(8, 9, 10, 0, 42, 1, 2, 3)'
 
-        ca4: CAFix[int] = CAFix([1, 10, 0, 42], capacity=100)
+        ca4: CAF[int] = CAF([1, 10, 0, 42], capacity=100)
         ca4.pushr(2)
         ca4.pushr(100)
         ca4.pushr(3)
@@ -78,4 +78,4 @@ class TestReprFixed:
         ca4.pushr(1)
         ca4.pushr(2)
         ca4.pushr(3)
-        assert repr(ca4) == 'ca_fix(8, 9, 10, 0, 42, 1, 2, 3)'
+        assert repr(ca4) == 'caf(8, 9, 10, 0, 42, 1, 2, 3)'

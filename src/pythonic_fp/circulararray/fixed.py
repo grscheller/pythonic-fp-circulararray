@@ -27,12 +27,12 @@ from __future__ import annotations
 from collections.abc import Callable, Iterable, Iterator
 from typing import cast, Final, Never, TypeVar
 
-__all__ = ['CAFix', 'ca_fix']
+__all__ = ['CAF', 'caf']
 
 D = TypeVar('D')  # needed by Sphinx autodoc
 
 
-class CAFix[D]():
+class CAF[D]():
     """Fixed sized circular array data structure."""
 
     __slots__ = '_data', '_cnt', '_cap', '_front', '_rear'
@@ -109,7 +109,7 @@ class CAFix[D]():
             yield cast(D, current_state[position])
 
     def __repr__(self) -> str:
-        return 'ca_fix(' + ', '.join(map(repr, self)) + ')'
+        return 'caf(' + ', '.join(map(repr, self)) + ')'
 
     def __str__(self) -> str:
         return '(|' + ', '.join(map(str, self)) + '|)'
@@ -129,12 +129,12 @@ class CAFix[D]():
             return cast(D, self._data[(self._front + cnt + idx) % self._cap])
 
         if cnt == 0:
-            msg0 = 'Trying to get a value from an empty CAFix.'
+            msg0 = 'Trying to get a value from an empty CAF.'
             raise IndexError(msg0)
 
         msg1 = 'Out of bounds: '
         msg2 = f'index = {idx} not between {-cnt} and {cnt - 1} '
-        msg3 = 'while getting value from a CAFix.'
+        msg3 = 'while getting value from a CAF.'
         raise IndexError(msg1 + msg2 + msg3)
 
     def __setitem__(self, idx: int, val: D) -> None:
@@ -145,17 +145,17 @@ class CAFix[D]():
             self._data[(self._front + cnt + idx) % self._cap] = val
         else:
             if cnt < 1:
-                msg0 = 'Trying to index into an empty CAFix.'
+                msg0 = 'Trying to index into an empty CAF.'
                 raise IndexError(msg0)
             msg1 = 'Out of bounds: '
             msg2 = f'index = {idx} not between {-cnt} and {cnt - 1} '
-            msg3 = 'while setting value from a CAFix.'
+            msg3 = 'while setting value from a CAF.'
             raise IndexError(msg1 + msg2 + msg3)
 
     def __delitem__(self, idx: int) -> None:
         data = list(self)
         del data[idx]
-        _ca = CAFix(data, self._cap)
+        _ca = CAF(data, self._cap)
         (
                 self._data,
                 self._cnt,
@@ -208,11 +208,11 @@ class CAFix[D]():
             def pushl(self, d: D) -> None
 
         :param d: data pushed onto circular array from left
-        :raises ValueError: when called on a full CAFix
+        :raises ValueError: when called on a full CAF
 
         """
         if self._cnt == self._cap:
-            msg = 'Method pushl called on a full CAFix'
+            msg = 'Method pushl called on a full CAF'
             raise ValueError(msg)
 
         (
@@ -233,11 +233,11 @@ class CAFix[D]():
             def pushr(self, d: D) -> None
 
         :param d data item to push onto circular array from right
-        :raises ValueError: when called on a full CAFix.
+        :raises ValueError: when called on a full CAF.
 
         """
         if self._cnt == self._cap:
-            msg = 'Method pushr called on a full CAFix'
+            msg = 'Method pushr called on a full CAF'
             raise ValueError(msg)
 
         (
@@ -288,7 +288,7 @@ class CAFix[D]():
                     self._cap - 1,
                 )
         else:
-            msg = 'Method popl called on an empty CAFix'
+            msg = 'Method popl called on an empty CAF'
             raise ValueError(msg)
         return cast(D, d)
 
@@ -330,7 +330,7 @@ class CAFix[D]():
                     self._cap - 1,
                 )
         else:
-            msg = 'Method popr called on an empty CAFix'
+            msg = 'Method popr called on an empty CAF'
             raise ValueError(msg)
         return cast(D, d)
 
@@ -442,18 +442,18 @@ class CAFix[D]():
         for _ in range(n, 0, -1):
             self.pushl(self.popr())
 
-    def map[U](self, f: Callable[[D], U]) -> CAFix[U]:
+    def map[U](self, f: Callable[[D], U]) -> CAF[U]:
         """Apply function f over the fixed circular array's contents,
 
         .. code:: python
 
-            def map(self, f: Callable[[D], U]) -> CAFix[U]
+            def map(self, f: Callable[[D], U]) -> CAF[U]
 
         :param f: function from type D to type U
         :return: new fixed circular array instance
 
         """
-        return CAFix(map(f, self), self._cap)
+        return CAF(map(f, self), self._cap)
 
     def foldl[L](self, f: Callable[[L, D], L], initial: L | None = None) -> L:
         """Fold left with a function and optional initial value.
@@ -469,7 +469,7 @@ class CAFix[D]():
         """
         if self._cnt == 0:
             if initial is None:
-                msg = 'Method foldl called on an empty CAFix without an initial value.'
+                msg = 'Method foldl called on an empty CAF without an initial value.'
                 raise ValueError(msg)
             return initial
 
@@ -498,7 +498,7 @@ class CAFix[D]():
         """
         if self._cnt == 0:
             if initial is None:
-                msg = 'Method foldr called on empty CAFix without initial value.'
+                msg = 'Method foldr called on empty CAF without initial value.'
                 raise ValueError(msg)
             return initial
 
@@ -546,26 +546,28 @@ class CAFix[D]():
             )
 
     def fraction_filled(self) -> float:
-        """Find fraction of capacity filled.
-
+        """
         .. code:: python
 
             def fraction_filled(self) -> float
 
-        :return: the ratio cnt/capacity
+        Find fraction of capacity filled.
+
+        :return: the ratio count/capacity
 
         """
         return self._cnt / self._cap
 
 
-def ca_fix[T](*ts: T, capacity: int = 2) -> CAFix[T]:
-    """Function to produce a circular array from a variable number of arguments.
+def caf[T](*ts: T, capacity: int = 2) -> CAF[T]:
+    """
+    .. code:: python
 
-        .. code:: python
+        def caf(*ts: T) -> CAF[T]
 
-            def ca_fix(*ts: T) -> CAFix[T]
+    Function to produce a circular array from a variable number of arguments.
 
-    :param ts: initial values to push onto a new circular array from right to left
+    :param ts: initial values for the new circular array
 
     """
-    return CAFix(ts, capacity = capacity)
+    return CAF(ts, capacity = capacity)

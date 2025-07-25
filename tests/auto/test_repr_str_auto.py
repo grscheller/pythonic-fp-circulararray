@@ -14,7 +14,7 @@
 
 from __future__ import annotations
 
-from pythonic_fp.circulararray.resizing import ca, CA
+from pythonic_fp.circulararray.auto import ca, CA
 
 class TestReprResizing:
     """Functionality testing"""
