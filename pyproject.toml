@@ -59,9 +59,7 @@ addopts = "-ra"
 
 [tool.ruff]
 target-version = "py313"
-
-[tool.ruff.lint.per-file-ignores]
-"__init__.py" = ["F401"]
+ignore = ["E741"]
 
 [tool.ruff.lint.flake8-quotes]
 docstring-quotes = "double"

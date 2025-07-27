@@ -12,15 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Auto-resizing circular array.
+"""Circular array with variable storage capacity.
 
 - O(1) pops either end 
 - O(1) amortized pushes either end 
 - O(1) indexing, fully supports slicing
-- Auto-resizing more storage capacity when necessary, manually compactable
+- auto-resizing more storage capacity when necessary, manually compatible
 - iterable, can safely mutate while iterators continue iterating over previous state
 - comparisons compare identity before equality, like builtins
 - in boolean context, falsy when empty, otherwise truthy
+- factory function ca produces a variable storage capacity circular array from its arguments
 
 """
 from __future__ import annotations
@@ -30,34 +31,28 @@ from typing import cast, Never, overload, TypeVar
 
 __all__ = ['CA', 'ca']
 
-D = TypeVar('D')  # needed by Sphinx autodoc
+I = TypeVar('I')
 
 
-class CA[D]():
-    """Circular array data structure."""
+class CA[I]():
 
-    __slots__ = '_data', '_cnt', '_cap', '_front', '_rear'
+    __slots__ = '_items', '_cnt', '_cap', '_front', '_rear'
 
     def __init__(
             self,
-            data: Iterable[D] | None = None
+            items: Iterable[I] | None = None
         ) -> None:
-        """
-        .. code:: python
+        """Basically a list that can grow in O(1) time and space complexity.
 
-            CA[D](data: Iterable[D] | None)
-
-        Initialize circular array with optional initial values.
-
-        :param data: optional iterable to initial populate circular array
-        :raises TypeError: if data is not Iterable
+        :param items: optional iterable to initial populate circular array
+        :raises TypeError: if items is not Iterable
 
         """
-        if data is None:
-            self._data: list[D | None] = [None, None]
+        if items is None:
+            self._items: list[I | None] = [None, None]
         else:
-            self._data = [None] + list(data) + [None]
-        self._cap = cap = len(self._data)
+            self._items = [None] + list(items) + [None]
+        self._cap = cap = len(self._items)
         self._cnt = cap - 2
         if cap == 2:
             self._front = 0
@@ -69,19 +64,19 @@ class CA[D]():
     def _double_storage_capacity(self) -> None:
         if self._front <= self._rear:
             (
-                    self._data,
+                    self._items,
                     self._cap,
             ) = (
-                    self._data + [None] * self._cap,
+                    self._items + [None] * self._cap,
                     self._cap * 2,
                 )
         else:
             (
-                    self._data,
+                    self._items,
                     self._front,
                     self._cap,
             ) = (
-                    self._data[: self._front] + [None]*self._cap + self._data[self._front:],
+                    self._items[: self._front] + [None]*self._cap + self._items[self._front:],
                     self._front + self._cap,
                     2*self._cap,
                 )
@@ -93,7 +88,7 @@ class CA[D]():
                         self._cap,
                         self._front,
                         self._rear,
-                        self._data,
+                        self._items,
                 ) = (
                         2,
                         0,
@@ -105,12 +100,12 @@ class CA[D]():
                         self._cap,
                         self._front,
                         self._rear,
-                        self._data,
+                        self._items,
                 ) = (
                         3,
                         1,
                         1,
-                        [None, self._data[self._front], None],
+                        [None, self._items[self._front], None],
                     )
             case _:
                 if self._front <= self._rear:
@@ -118,27 +113,27 @@ class CA[D]():
                             self._cap,
                             self._front,
                             self._rear,
-                            self._data,
+                            self._items,
                     ) = (
                             self._cnt + 2,
                             1,
                             self._cnt,
-                            [None] + self._data[self._front : self._rear + 1] + [None],
+                            [None] + self._items[self._front : self._rear + 1] + [None],
                         )
                 else:
                     (
                             self._cap,
                             self._front,
                             self._rear,
-                            self._data,
+                            self._items,
                     ) = (
                             self._cnt + 2,
                             1,
                             self._cnt,
-                            [None] + self._data[self._front :] + self._data[: self._rear + 1] + [None],
+                            [None] + self._items[self._front :] + self._items[: self._rear + 1] + [None],
                         )
 
-    def __iter__(self) -> Iterator[D]:
+    def __iter__(self) -> Iterator[I]:
         if self._cnt > 0:
             (
                     capacity,
@@ -149,15 +144,15 @@ class CA[D]():
                     self._cap,
                     self._rear,
                     self._front,
-                    self._data.copy(),
+                    self._items.copy(),
                 )
 
             while position != rear:
-                yield cast(D, current_state[position])
+                yield cast(I, current_state[position])
                 position = (position + 1) % capacity
-            yield cast(D, current_state[position])
+            yield cast(I, current_state[position])
 
-    def __reversed__(self) -> Iterator[D]:
+    def __reversed__(self) -> Iterator[I]:
         if self._cnt > 0:
             (
                     capacity,
@@ -168,13 +163,13 @@ class CA[D]():
                     self._cap,
                     self._front,
                     self._rear,
-                    self._data.copy(),
+                    self._items.copy(),
                 )
 
             while position != front:
-                yield cast(D, current_state[position])
+                yield cast(I, current_state[position])
                 position = (position - 1) % capacity
-            yield cast(D, current_state[position])
+            yield cast(I, current_state[position])
 
     def __repr__(self) -> str:
         return 'ca(' + ', '.join(map(repr, self)) + ')'
@@ -189,20 +184,20 @@ class CA[D]():
         return self._cnt
 
     @overload
-    def __getitem__(self, idx: int) -> D: ...
+    def __getitem__(self, idx: int) -> I: ...
     @overload
-    def __getitem__(self, idx: slice) -> CA[D]: ...
+    def __getitem__(self, idx: slice) -> CA[I]: ...
 
-    def __getitem__(self, idx: int | slice) -> D | CA[D]:
+    def __getitem__(self, idx: int | slice) -> I | CA[I]:
         if isinstance(idx, slice):
             return CA(list(self)[idx])
 
         cnt = self._cnt
         if 0 <= idx < cnt:
-            return cast(D, self._data[(self._front + idx) % self._cap])
+            return cast(I, self._items[(self._front + idx) % self._cap])
 
         if -cnt <= idx < 0:
-            return cast(D, self._data[(self._front + cnt + idx) % self._cap])
+            return cast(I, self._items[(self._front + cnt + idx) % self._cap])
 
         if cnt == 0:
             msg0 = 'Trying to get a value from an empty CA.'
@@ -214,24 +209,24 @@ class CA[D]():
         raise IndexError(msg1 + msg2 + msg3)
 
     @overload
-    def __setitem__(self, idx: int, vals: D) -> None: ...
+    def __setitem__(self, idx: int, vals: I) -> None: ...
     @overload
-    def __setitem__(self, idx: slice, vals: Iterable[D]) -> None: ...
+    def __setitem__(self, idx: slice, vals: Iterable[I]) -> None: ...
 
-    def __setitem__(self, idx: int | slice, vals: D | Iterable[D]) -> None:
+    def __setitem__(self, idx: int | slice, vals: I | Iterable[I]) -> None:
         if isinstance(idx, slice):
             if isinstance(vals, Iterable):
-                data = list(self)
-                data[idx] = vals
-                _ca = CA(data)
+                item_list = list(self)
+                item_list[idx] = vals
+                _ca = CA(item_list)
                 (
-                        self._data,
+                        self._items,
                         self._cnt,
                         self._cap,
                         self._front,
                         self._rear,
                 ) = (
-                        _ca._data,
+                        _ca._items,
                         _ca._cnt,
                         _ca._cap,
                         _ca._front,
@@ -244,9 +239,9 @@ class CA[D]():
 
         cnt = self._cnt
         if 0 <= idx < cnt:
-            self._data[(self._front + idx) % self._cap] = cast(D, vals)
+            self._items[(self._front + idx) % self._cap] = cast(I, vals)
         elif -cnt <= idx < 0:
-            self._data[(self._front + cnt + idx) % self._cap] = cast(D, vals)
+            self._items[(self._front + cnt + idx) % self._cap] = cast(I, vals)
         else:
             if cnt < 1:
                 msg0 = 'Trying to index into an empty CA.'
@@ -262,22 +257,23 @@ class CA[D]():
     def __delitem__(self, idx: slice) -> None: ...
 
     def __delitem__(self, idx: int | slice) -> None:
-        data = list(self)
-        del data[idx]
-        _ca = CA(data)
+        item_list = list(self)
+        del item_list[idx]
+        _ca = CA(item_list)
         (
-                self._data,
+                self._items,
                 self._cnt,
                 self._cap,
                 self._front,
                 self._rear,
         ) = (
-                _ca._data,
+                _ca._items,
                 _ca._cnt,
                 _ca._cap,
                 _ca._front,
                 _ca._rear,
             )
+        del _ca
 
     def __eq__(self, other: object) -> bool:
         if self is other:
@@ -305,61 +301,52 @@ class CA[D]():
             return False
 
         for nn in range(count1):
-            if self._data[(front1 + nn) % capacity1] is other._data[(front2 + nn) % capacity2]:
+            if self._items[(front1 + nn) % capacity1] is other._items[(front2 + nn) % capacity2]:
                 continue
-            if self._data[(front1 + nn) % capacity1] != other._data[(front2 + nn) % capacity2]:
+            if self._items[(front1 + nn) % capacity1] != other._items[(front2 + nn) % capacity2]:
                 return False
         return True
 
-    def pushl(self, *data: D) -> None:
-        """
-        .. code:: python
+    def pushl(self, *items: I) -> None:
+        """Push items onto left side (front) of circular array.
 
-            def pushl(self, *ds: D) -> None
-
-        :param data: items pushed onto circular array from left
+        :param items: items pushed onto circular array from left
 
         """
-        for d in data:
+        for item in items:
             if self._cnt == self._cap:
                 self._double_storage_capacity()
             (
                     self._front,
-                    self._data[self._front],
+                    self._items[self._front],
                     self._cnt,
             ) = (
                     (self._front - 1) % self._cap,
-                    d,
+                    item,
                     self._cnt + 1,
                 )
 
-    def pushr(self, *data: D) -> None:
-        """
-        .. code:: python
+    def pushr(self, *items: I) -> None:
+        """Push items onto right side (rear) of circular array.
 
-            def pushr(self, *ds: D) -> None
-
-        :param data: items pushed onto circular array from right
+        :param items: items pushed onto circular array from right
 
         """
-        for d in data:
+        for item in items:
             if self._cnt == self._cap:
                 self._double_storage_capacity()
             (
                     self._rear,
-                    self._data[self._rear],
+                    self._items[self._rear],
                     self._cnt,
             ) = (
                     (self._rear + 1) % self._cap,
-                    d,
+                    item,
                     self._cnt + 1,
                 )
 
-    def popl(self) -> D | Never:
-        """
-        .. code:: python
-
-            def popl(self) -> D | Never
+    def popl(self) -> I | Never:
+        """Pop item off left side (front) of circular array.
 
         :return: item popped from left side of circular array
         :raises ValueError: when called on an empty circular array
@@ -368,11 +355,11 @@ class CA[D]():
         if self._cnt > 1:
             (
                     d,
-                    self._data[self._front],
+                    self._items[self._front],
                     self._front,
                     self._cnt,
             ) = (
-                    self._data[self._front],
+                    self._items[self._front],
                     None,
                     (self._front + 1) % self._cap,
                     self._cnt - 1,
@@ -380,12 +367,12 @@ class CA[D]():
         elif self._cnt == 1:
             (
                     d,
-                    self._data[self._front],
+                    self._items[self._front],
                     self._cnt,
                     self._front,
                     self._rear,
             ) = (
-                    self._data[self._front],
+                    self._items[self._front],
                     None,
                     0,
                     0,
@@ -394,13 +381,10 @@ class CA[D]():
         else:
             msg = 'Method popl called on an empty CA'
             raise ValueError(msg)
-        return cast(D, d)
+        return cast(I, d)
 
-    def popr(self) -> D | Never:
-        """
-        .. code:: python
-
-            def popr(self) -> D | Never
+    def popr(self) -> I | Never:
+        """Pop item off right side (rear) of circular array.
 
         :return: item popped from right side of circular array
         :raises ValueError: when called on an empty circular array
@@ -409,11 +393,11 @@ class CA[D]():
         if self._cnt > 1:
             (
                     d,
-                    self._data[self._rear],
+                    self._items[self._rear],
                     self._rear,
                     self._cnt,
             ) = (
-                    self._data[self._rear],
+                    self._items[self._rear],
                     None,
                     (self._rear - 1) % self._cap,
                     self._cnt - 1,
@@ -421,12 +405,12 @@ class CA[D]():
         elif self._cnt == 1:
             (
                     d,
-                    self._data[self._front],
+                    self._items[self._front],
                     self._cnt,
                     self._front,
                     self._rear,
             ) = (
-                    self._data[self._front],
+                    self._items[self._front],
                     None,
                     0,
                     0,
@@ -435,15 +419,10 @@ class CA[D]():
         else:
             msg = 'Method popr called on an empty CA'
             raise ValueError(msg)
-        return cast(D, d)
+        return cast(I, d)
 
-    def popld(self, default: D) -> D:
-        """
-        .. code:: python
-
-            def popld(self, default: D) -> D
-
-        Pop one item from left side of the circular array, provide
+    def popld(self, default: I) -> I:
+        """Pop one item from left side of the circular array, provide
         a mandatory default value. "Safe" version of popl.
 
         :param default: item returned if circular array is empty
@@ -455,13 +434,8 @@ class CA[D]():
         except ValueError:
             return default
 
-    def poprd(self, default: D) -> D:
-        """
-        .. code:: python
-
-            def poprd(self, default: D) -> D
-
-        Pop one item from right side of the circular array, provide
+    def poprd(self, default: I) -> I:
+        """Pop one item from right side of the circular array, provide
         a mandatory default value. "Safe" version of popr.
 
         :param default: item returned if circular array is empty
@@ -473,59 +447,44 @@ class CA[D]():
         except ValueError:
             return default
 
-    def poplt(self, maximum: int) -> tuple[D, ...]:
-        """
-        .. code:: python
-
-            def poplt(self, maximum: int) -> tuple[D, ...]
-
-        Pop multiple items from left side of circular array.
+    def poplt(self, maximum: int) -> tuple[I, ...]:
+        """Pop multiple items from left side of circular array.
 
         :param maximum: maximum number of values to pop
-        :return: tuple of popped items in the order popped, left to right
+        :return: popped items in the order popped, left to right
 
         """
-        ds: list[D] = []
+        item_list: list[I] = []
 
         while maximum > 0:
             try:
-                ds.append(self.popl())
+                item_list.append(self.popl())
             except ValueError:
                 break
             else:
                 maximum -= 1
 
-        return tuple(ds)
+        return tuple(item_list)
 
-    def poprt(self, maximum: int) -> tuple[D, ...]:
-        """
-        .. code:: python
-
-            def poprt(self, maximum: int) -> tuple[D, ...]
-
-        Pop multiple items from right side of circular array.
+    def poprt(self, maximum: int) -> tuple[I, ...]:
+        """Pop multiple items from right side of circular array.
 
         :param maximum: maximum number of items to pop
-        :return: tuple of popped items in the order popped, right to left
+        :return: popped items in the order popped, right to left
 
         """
-        ds: list[D] = []
+        item_list: list[I] = []
         while maximum > 0:
             try:
-                ds.append(self.popr())
+                item_list.append(self.popr())
             except ValueError:
                 break
             else:
                 maximum -= 1
-        return tuple(ds)
+        return tuple(item_list)
 
     def rotl(self, n: int = 1) -> None:
-        """
-        .. code:: python
-
-            def rotl(self, n: int) -> None
-
-        Rotate items left.
+        """Rotate items left.
 
         :param n: number of times to shift elements to the left
 
@@ -536,12 +495,7 @@ class CA[D]():
             self.pushr(self.popl())
 
     def rotr(self, n: int = 1) -> None:
-        """
-        .. code:: python
-
-            def rotr(self, n: int) -> None
-
-        Rotate items right.
+        """Rotate items right.
 
         :param n: number of times to shift elements to the right
 
@@ -551,27 +505,17 @@ class CA[D]():
         for _ in range(n, 0, -1):
             self.pushl(self.popr())
 
-    def map[U](self, f: Callable[[D], U]) -> CA[U]:
-        """
-        .. code:: python
+    def map[U](self, f: Callable[[I], U]) -> CA[U]:
+        """Apply function f over the circular array's contents,
 
-            def map(self, f: Callable[[D], U]) -> CA[U]
-
-        Apply function f over the circular array's contents,
-
-        :param f: callable from type D to type U
+        :param f: callable from type I to type U
         :return: new circular array instance
 
         """
         return CA(map(f, self))
 
-    def foldl[L](self, f: Callable[[L, D], L], start: L | None = None) -> L | Never:
-        """
-        .. code:: python
-
-            def foldl(self, f: Callable[[L, D], L], start: L | None) -> L | Never
-
-        Fold left with a function and optional starting item.
+    def foldl[L](self, f: Callable[[L, I], L], start: L | None = None) -> L | Never:
+        """Fold left with a function and optional starting item.
 
         :param f: first argument to f is for the accumulator
         :param start: optional starting item
@@ -596,13 +540,8 @@ class CA[D]():
             acc = f(acc, d)
         return acc
 
-    def foldr[R](self, f: Callable[[D, R], R], start: R | None = None) -> R | Never:
-        """
-        .. code:: python
-
-            def foldr(self, f: Callable[[D, R], R], start: R | None) -> R | Never
-
-        Fold right with a function and an optional starting item.
+    def foldr[R](self, f: Callable[[I, R], R], start: R | None = None) -> R | Never:
+        """Fold right with a function and an optional starting item.
 
         :param f: second argument to f is for the accumulator
         :param start: optional starting item
@@ -628,12 +567,7 @@ class CA[D]():
         return acc
 
     def capacity(self) -> int:
-        """
-        .. code:: python
-
-            def capacity(self) -> int
-
-        Return current storage capacity of the circular array.
+        """Return current storage capacity of the circular array.
 
         :return: current storage capacity
 
@@ -641,16 +575,9 @@ class CA[D]():
         return self._cap
 
     def empty(self) -> None:
-        """
-        .. code:: python
-
-            def empty(self) -> None
-
-        Empty the circular array, keep current storage capacity.
-
-        """
+        """Empty the circular array, keep current storage capacity."""
         (
-                self._data,
+                self._items,
                 self._front,
                 self._rear,
                 self._cnt,
@@ -662,25 +589,15 @@ class CA[D]():
             )
 
     def fraction_filled(self) -> float:
-        """
-        .. code:: python
+        """Find fraction of the storage capacity which is filled.
 
-            def fraction_filled(self) -> float
-
-        Find fraction of the storage capacity which is filled.
-
-        :return: the ratio cnt/capacity
+        :return: the ratio count/capacity
 
         """
         return self._cnt / self._cap
 
     def resize(self, minimum_capacity: int = 2) -> None:
-        """
-        .. code:: python
-
-            def resize(self, minimum_capacity) -> None
-
-        Compact circular array and, if necessary, resize to a minimum
+        """Compact circular array and, if necessary, resize to a minimum
         capacity. To just compact the circular array, do not provide
         a minimum capacity.
 
@@ -691,25 +608,20 @@ class CA[D]():
         if (min_cap := minimum_capacity) > self._cap:
             (
                     self._cap,
-                    self._data,
+                    self._items,
             ) = (
                     min_cap,
-                    self._data + [None] * (min_cap - self._cap),
+                    self._items + [None] * (min_cap - self._cap),
                 )
             if self._cnt == 0:
                 self._front, self._rear = 0, self._cap - 1
 
 
 def ca[T](*items: T) -> CA[T]:
-    """
-    .. code:: python
-
-        def ca(*items: T) -> CA[T]
-
-    Function to produce a circular array from a variable number of arguments.
+    """Produce circular array from a variable number of arguments.
 
     :param items: initial items for a new circular array
-    :return: new auto-resizing circular array
+    :return: new variable storage capacity circular array
 
     """
     return CA(items)
