@@ -31,6 +31,8 @@ The total capacity of ``CAF`` objects is fixed at object instantiation.
 - class ``CAF``
 - factory function ``caf``
 
+----
+
 """
 
 __author__ = 'Geoffrey R. Scheller'
