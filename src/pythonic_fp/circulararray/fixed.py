@@ -349,8 +349,8 @@ class CAF[I]():
     def poplt(self, maximum: int) -> tuple[I, ...]:
         """Pop multiple items from left side of circular array.
 
-        :param maximum: maximum number of values to pop
-        :return: popped items in the order popped, left to right
+        :param maximum: maximum number of items to pop, may pop less if not enough items
+        :return: items in the order popped, left to right
 
         """
         item_list: list[I] = []
@@ -368,8 +368,8 @@ class CAF[I]():
     def poprt(self, maximum: int) -> tuple[I, ...]:
         """Pop multiple items from right side of circular array.
 
-        :param maximum: maximum number of items to pop
-        :return: popped items in the order popped, right to left
+        :param maximum: maximum number of items to pop, may pop less if not enough items
+        :return: items in the order popped, right to left
 
         """
         item_list: list[I] = []
