@@ -22,6 +22,8 @@ needed. They can be manually resized smaller.
 - class ``CA``
 - factory function ``ca``
 
+----
+
 Module **pythonic_fp.circulararray.fixed**
 
 The total capacity of ``CAF`` objects is fixed at object instantiation.
