@@ -42,7 +42,8 @@ class CAF[I]():
             items: Iterable[I] | None = None,
             capacity: int = 2
         ) -> None:
-        """Basically a list that can grow in O(1) time and space complexity.
+        """Basically a list that can be grown from both ends
+        in O(1) time and space complexity.
 
         :param items: optional iterable to initial populate circular array
         :param capacity: fixed storage capacity of circular array
@@ -501,7 +502,7 @@ def caf[T](*items: T, capacity: int = 2) -> CAF[T]:
 
     :param items: initial items for a new circular array
     :param capacity: the minimum storage capacity to set
-    :return: new fixed capacity circular array
+    :return: new fixed storage capacity circular array
 
     """
     return CAF(items, capacity = capacity)

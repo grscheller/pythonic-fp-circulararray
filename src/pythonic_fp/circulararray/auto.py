@@ -42,7 +42,8 @@ class CA[I]():
             self,
             items: Iterable[I] | None = None
         ) -> None:
-        """Basically a list that can grow in O(1) time and space complexity.
+        """Basically a list that can be grown from both ends
+        in O(1) time and space complexity.
 
         :param items: optional iterable to initial populate circular array
         :raises TypeError: if items is not Iterable
@@ -598,10 +599,10 @@ class CA[I]():
 
     def resize(self, minimum_capacity: int = 2) -> None:
         """Compact circular array and, if necessary, resize to a minimum
-        capacity. To just compact the circular array, do not provide
-        a minimum capacity.
+        storage capacity. To just compact the circular array, do not
+        provide ``minimum_capacity``.
 
-        :param minimum_capacity: minimum capacity to compact the circular array
+        :param minimum_capacity: minimum storage capacity to compact the circular array
 
         """
         self._compact_storage_capacity()
