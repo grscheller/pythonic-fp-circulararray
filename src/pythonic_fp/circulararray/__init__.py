@@ -12,26 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Modules implementing stateful circular array data structures.
+"""Package implementing stateful circular array data structures.
 
-Module **pythonic_fp.circulararray.auto**
+- O(1) pops and pushes either end
+- O(1) indexing and size determination
+- O(1) size determination
 
-``CA`` objects automatically increase their total storage capacity as
-needed. They can be manually resized smaller.
-
-- class ``CA``
-- factory function ``ca``
-
-----
-
-Module **pythonic_fp.circulararray.fixed**
-
-The total storage capacity of ``CAF`` objects is fixed at object instantiation.
-
-- class ``CAF``
-- factory function ``caf``
-
-----
++-------------------------------------+-------------------------------------------+
+| Module                              | Description                               |
++=====================================+===========================================+
+| **pythonic_fp.circulararray.auto**  | Variable storage capacity circular array. |
++-------------------------------------+-------------------------------------------+
+| **pythonic_fp.circulararray.fixed** | Fixed storage capacity circular array.    |
++-------------------------------------+-------------------------------------------+
 
 """
 
