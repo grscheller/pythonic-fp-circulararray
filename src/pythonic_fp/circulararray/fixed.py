@@ -23,17 +23,20 @@
 - factory function caf produces a fixed storage capacity circular array from its arguments
 
 """
-from __future__ import annotations
-
 from collections.abc import Callable, Iterable, Iterator
 from typing import cast, Final, Never, TypeVar
 
 __all__ = ['CAF', 'caf']
 
 I = TypeVar('I')
+T = TypeVar('T')
 
 
 class CAF[I]():
+
+    L = TypeVar('L')
+    R = TypeVar('R')
+    U = TypeVar('U')
 
     __slots__ = '_items', '_cnt', '_cap', '_front', '_rear'
 
@@ -405,7 +408,7 @@ class CAF[I]():
         for _ in range(n, 0, -1):
             self.pushl(self.popr())
 
-    def map[U](self, f: Callable[[I], U]) -> CAF[U]:
+    def map[U](self, f: Callable[[I], U]) -> "CAF[U]":
         """Apply function f over the circular array's contents,
 
         :param f: callable from type I to type U

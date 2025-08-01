@@ -24,17 +24,20 @@
 - factory function ca produces a variable storage capacity circular array from its arguments
 
 """
-from __future__ import annotations
-
 from collections.abc import Callable, Iterable, Iterator
 from typing import cast, Never, overload, TypeVar
 
 __all__ = ['CA', 'ca']
 
 I = TypeVar('I')
+T = TypeVar('T')
 
 
 class CA[I]():
+
+    L = TypeVar('L')
+    R = TypeVar('R')
+    U = TypeVar('U')
 
     __slots__ = '_items', '_cnt', '_cap', '_front', '_rear'
 
@@ -187,9 +190,9 @@ class CA[I]():
     @overload
     def __getitem__(self, idx: int) -> I: ...
     @overload
-    def __getitem__(self, idx: slice) -> CA[I]: ...
+    def __getitem__(self, idx: slice) -> "CA[I]": ...
 
-    def __getitem__(self, idx: int | slice) -> I | CA[I]:
+    def __getitem__(self, idx: int | slice) -> I | "CA[I]":
         if isinstance(idx, slice):
             return CA(list(self)[idx])
 
@@ -506,7 +509,7 @@ class CA[I]():
         for _ in range(n, 0, -1):
             self.pushl(self.popr())
 
-    def map[U](self, f: Callable[[I], U]) -> CA[U]:
+    def map[U](self, f: Callable[[I], U]) -> "CA[U]":
         """Apply function f over the circular array's contents,
 
         :param f: callable from type I to type U
