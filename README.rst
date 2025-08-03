@@ -2,8 +2,8 @@ PPythonic FP - Circular Array
 =============================
 
 PyPI project
-`pythonic-fp.circulararray
-<https://pypi.org/project/pythonic-fp.circulararray>`_.
+`pythonic-fp-circulararray
+<https://pypi.org/project/pythonic-fp-circulararray>`_.
 
 Python module implementing stateful circular array data structures.
 
