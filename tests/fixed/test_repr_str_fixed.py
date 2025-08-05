@@ -12,9 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from __future__ import annotations
-
 from pythonic_fp.circulararray.fixed import caf, CAF
+
 
 class TestReprFixed:
     """Functionality testing"""
