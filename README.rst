@@ -1,5 +1,5 @@
-PPythonic FP - Circular Array
-=============================
+Pythonic FP - Circular Array
+============================
 
 PyPI project
 `pythonic-fp-circulararray
