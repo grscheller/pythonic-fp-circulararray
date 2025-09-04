@@ -19,8 +19,8 @@ See `Semantic Versioning 2.0.0 <https://semver.org>`_.
 Releases and Important Milestones
 ---------------------------------
 
-5.3.2 - TBD
-~~~~~~~~~~~
+5.3.2 - 2025-09-04
+~~~~~~~~~~~~~~~~~~
 
 - removed TypeVar declarations
 - removed Never from union return types
