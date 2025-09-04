@@ -25,19 +25,12 @@
 
 """
 from collections.abc import Callable, Iterable, Iterator
-from typing import cast, Never, overload, TypeVar
+from typing import cast, overload
 
 __all__ = ['CA', 'ca']
 
-I = TypeVar('I')
-T = TypeVar('T')
-
 
 class CA[I]():
-
-    L = TypeVar('L')
-    R = TypeVar('R')
-    U = TypeVar('U')
 
     __slots__ = '_items', '_cnt', '_cap', '_front', '_rear'
 
@@ -349,7 +342,7 @@ class CA[I]():
                     self._cnt + 1,
                 )
 
-    def popl(self) -> I | Never:
+    def popl(self) -> I:
         """Pop item off left side (front) of circular array.
 
         :return: item popped from left side of circular array
@@ -387,7 +380,7 @@ class CA[I]():
             raise ValueError(msg)
         return cast(I, d)
 
-    def popr(self) -> I | Never:
+    def popr(self) -> I:
         """Pop item off right side (rear) of circular array.
 
         :return: item popped from right side of circular array
@@ -518,7 +511,7 @@ class CA[I]():
         """
         return CA(map(f, self))
 
-    def foldl[L](self, f: Callable[[L, I], L], start: L | None = None) -> L | Never:
+    def foldl[L](self, f: Callable[[L, I], L], start: L | None = None) -> L:
         """Fold left with a function and optional starting item.
 
         :param f: first argument to f is for the accumulator
@@ -544,7 +537,7 @@ class CA[I]():
             acc = f(acc, d)
         return acc
 
-    def foldr[R](self, f: Callable[[I, R], R], start: R | None = None) -> R | Never:
+    def foldr[R](self, f: Callable[[I, R], R], start: R | None = None) -> R:
         """Fold right with a function and an optional starting item.
 
         :param f: second argument to f is for the accumulator

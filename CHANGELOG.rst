@@ -19,8 +19,19 @@ See `Semantic Versioning 2.0.0 <https://semver.org>`_.
 Releases and Important Milestones
 ---------------------------------
 
-5.3.0 - TBD
+5.3.2 - TBD
 ~~~~~~~~~~~
+
+- removed TypeVar declarations
+- removed Never from union return types
+
+  - seems Never is now interpreted as a bottom
+
+- regenerated .pyi files with mypy's stubgen
+- updated docstrings for Sphinx documentation
+
+5.3.1 - 2025-08-02
+~~~~~~~~~~~~~~~~~~
 
 Added a second version of circulararray which has a fixed capacity.
 
