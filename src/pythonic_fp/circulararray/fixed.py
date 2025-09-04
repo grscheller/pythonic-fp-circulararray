@@ -12,7 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Circular array with fixed storage capacity.
+"""
+Fixed Storage Capacity
+======================
+
+Circular array with fixed storage capacity.
 
 - O(1) pops and pushes either end 
 - O(1) indexing, does not support slicing
@@ -38,7 +42,8 @@ class CAF[I]():
             items: Iterable[I] | None = None,
             capacity: int = 2
         ) -> None:
-        """Basically a list that can be grown from both ends
+        """
+        Basically a list that can be grown from both ends
         in O(1) time and space complexity.
 
         :param items: optional iterable to initial populate circular array
@@ -196,7 +201,8 @@ class CAF[I]():
         return True
 
     def pushl(self, item: I) -> None:
-        """Push single item onto left side (front) of circular array.
+        """
+        Push single item onto left side (front) of circular array.
 
         :param item: single item pushed onto circular array from left
         :raises ValueError: when called on a full CAF
@@ -217,7 +223,8 @@ class CAF[I]():
             )
 
     def pushr(self, item: I) -> None:
-        """Push a single item onto right side (rear) of circular array.
+        """
+        Push a single item onto right side (rear) of circular array.
 
         :param item: single item pushed onto circular array from right
         :raises ValueError: when called on a full fixed storage capacity circular array
@@ -238,9 +245,10 @@ class CAF[I]():
             )
 
     def popl(self) -> I:
-        """Pop item off left side (front) of circular array.
+        """
+        Pop item off left side (front) of circular array.
 
-        :return: item popped from left side of circular array
+        :returns: item popped from left side of circular array
         :raises ValueError: when called on an empty circular array
 
         """
@@ -276,9 +284,10 @@ class CAF[I]():
         return cast(I, d)
 
     def popr(self) -> I:
-        """Pop item off right side (rear) of circular array.
+        """
+        Pop item off right side (rear) of circular array.
 
-        :return: item popped from right side of circular array
+        :returns: item popped from right side of circular array
         :raises ValueError: when called on an empty circular array
 
         """
@@ -314,15 +323,12 @@ class CAF[I]():
         return cast(I, d)
 
     def popld(self, default: I) -> I:
-        """Pop one item from left side of the circular array, provide
-        a mandatory default value. "Safe" version of popl.
-
-
+        """
         Pop one item from left side of the circular array, provide
         a mandatory default value. "Safe" version of popl.
 
         :param default: item returned if circular array is empty
-        :return: item popped from left side or default item if empty
+        :returns: item popped from left side or default item if empty
 
         """
         try:
@@ -331,11 +337,12 @@ class CAF[I]():
             return default
 
     def poprd(self, default: I) -> I:
-        """Pop one item from right side of the circular array, provide
+        """
+        Pop one item from right side of the circular array, provide
         a mandatory default value. "Safe" version of popr.
 
         :param default: item returned if circular array is empty
-        :return: item popped from right side or default item if empty
+        :returns: item popped from right side or default item if empty
 
         """
         try:
@@ -344,10 +351,11 @@ class CAF[I]():
             return default
 
     def poplt(self, maximum: int) -> tuple[I, ...]:
-        """Pop multiple items from left side of circular array.
+        """
+        Pop multiple items from left side of circular array.
 
         :param maximum: maximum number of items to pop, may pop less if not enough items
-        :return: items in the order popped, left to right
+        :returns: items in the order popped, left to right
 
         """
         item_list: list[I] = []
@@ -363,10 +371,11 @@ class CAF[I]():
         return tuple(item_list)
 
     def poprt(self, maximum: int) -> tuple[I, ...]:
-        """Pop multiple items from right side of circular array.
+        """
+        Pop multiple items from right side of circular array.
 
         :param maximum: maximum number of items to pop, may pop less if not enough items
-        :return: items in the order popped, right to left
+        :returns: items in the order popped, right to left
 
         """
         item_list: list[I] = []
@@ -380,7 +389,8 @@ class CAF[I]():
         return tuple(item_list)
 
     def rotl(self, n: int = 1) -> None:
-        """Rotate items left.
+        """
+        Rotate items to the left.
 
         :param n: number of times to shift elements to the left
 
@@ -391,7 +401,8 @@ class CAF[I]():
             self.pushr(self.popl())
 
     def rotr(self, n: int = 1) -> None:
-        """Rotate items right.
+        """
+        Rotate items to the right.
 
         :param n: number of times to shift elements to the right
 
@@ -402,20 +413,22 @@ class CAF[I]():
             self.pushl(self.popr())
 
     def map[U](self, f: Callable[[I], U]) -> "CAF[U]":
-        """Apply function f over the circular array's contents,
+        """
+        Apply function ``f`` over the circular array's contents,
 
         :param f: callable from type I to type U
-        :return: new fixed circular array instance
+        :returns: new fixed circular array instance
 
         """
         return CAF(map(f, self), self._cap)
 
     def foldl[L](self, f: Callable[[L, I], L], start: L | None = None) -> L:
-        """Fold left with a function and optional stating item.
+        """
+        Fold left with a function and optional stating item.
 
         :param f: first argument to f is for the accumulator
         :param start: optional starting item
-        :return: reduced value produced by the left fold
+        :returns: reduced value produced by the left fold
         :raises ValueError: when circular array empty and no starting item given
 
         """
@@ -437,11 +450,12 @@ class CAF[I]():
         return acc
 
     def foldr[R](self, f: Callable[[I, R], R], start: R | None = None) -> R:
-        """Fold right with a function and an optional starting item.
+        """
+        Fold right with a function and an optional starting item.
 
         :param f: second argument to f is for the accumulator
         :param start: optional starting item
-        :return: reduced value produced by the right fold
+        :returns: reduced value produced by the right fold
         :raises ValueError: when circular array empty and no starting item given
 
         """
@@ -463,15 +477,17 @@ class CAF[I]():
         return acc
 
     def capacity(self) -> int:
-        """Return fixed storage capacity of the circular array.
+        """
+        Return fixed storage capacity of the circular array.
 
-        :return: fixed storage capacity
+        :returns: fixed storage capacity
 
         """
         return self._cap
 
     def empty(self) -> None:
-        """Empty the circular array."""
+        """
+        Empty the circular array."""
         (
                 self._items,
                 self._front,
@@ -485,20 +501,22 @@ class CAF[I]():
             )
 
     def fraction_filled(self) -> float:
-        """Find fraction of the storage capacity which is filled.
+        """
+        Find fraction of the storage capacity which is filled.
 
-        :return: the ratio count/capacity
+        :returns: the ratio count/capacity
 
         """
         return self._cnt / self._cap
 
 
 def caf[T](*items: T, capacity: int = 2) -> CAF[T]:
-    """Produce a circular array from a variable number of arguments.
+    """
+    Produce a circular array from a variable number of arguments.
 
     :param items: initial items for a new circular array
     :param capacity: the minimum storage capacity to set
-    :return: new fixed storage capacity circular array
+    :returns: new fixed storage capacity circular array
 
     """
     return CAF(items, capacity = capacity)

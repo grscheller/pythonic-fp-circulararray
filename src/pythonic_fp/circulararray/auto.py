@@ -12,7 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Circular array with variable storage capacity.
+"""
+Variable Storage Capacity
+=========================
+
+Circular array with variable storage capacity.
 
 - O(1) pops either end 
 - O(1) amortized pushes either end 
@@ -38,7 +42,8 @@ class CA[I]():
             self,
             items: Iterable[I] | None = None
         ) -> None:
-        """Basically a list that can be grown from both ends
+        """
+        Basically a list that can be grown from both ends
         in O(1) time and space complexity.
 
         :param items: optional iterable to initial populate circular array
@@ -305,7 +310,8 @@ class CA[I]():
         return True
 
     def pushl(self, *items: I) -> None:
-        """Push items onto left side (front) of circular array.
+        """
+        Push items onto left side (front) of circular array.
 
         :param items: items pushed onto circular array from left
 
@@ -324,7 +330,8 @@ class CA[I]():
                 )
 
     def pushr(self, *items: I) -> None:
-        """Push items onto right side (rear) of circular array.
+        """
+        Push items onto right side (rear) of circular array.
 
         :param items: items pushed onto circular array from right
 
@@ -343,9 +350,10 @@ class CA[I]():
                 )
 
     def popl(self) -> I:
-        """Pop item off left side (front) of circular array.
+        """
+        Pop item off left side (front) of circular array.
 
-        :return: item popped from left side of circular array
+        :returns: item popped from left side of circular array
         :raises ValueError: when called on an empty circular array
 
         """
@@ -381,7 +389,8 @@ class CA[I]():
         return cast(I, d)
 
     def popr(self) -> I:
-        """Pop item off right side (rear) of circular array.
+        """
+        Pop item off right side (rear) of circular array.
 
         :return: item popped from right side of circular array
         :raises ValueError: when called on an empty circular array
@@ -419,7 +428,8 @@ class CA[I]():
         return cast(I, d)
 
     def popld(self, default: I) -> I:
-        """Pop one item from left side of the circular array, provide
+        """
+        Pop one item from left side of the circular array, provide
         a mandatory default value. "Safe" version of popl.
 
         :param default: item returned if circular array is empty
@@ -432,7 +442,8 @@ class CA[I]():
             return default
 
     def poprd(self, default: I) -> I:
-        """Pop one item from right side of the circular array, provide
+        """
+        Pop one item from right side of the circular array, provide
         a mandatory default value. "Safe" version of popr.
 
         :param default: item returned if circular array is empty
@@ -445,7 +456,8 @@ class CA[I]():
             return default
 
     def poplt(self, maximum: int) -> tuple[I, ...]:
-        """Pop multiple items from left side of circular array.
+        """
+        Pop multiple items from left side of circular array.
 
         :param maximum: maximum number of items to pop, may pop less if not enough items
         :return: items in the order popped, left to right
@@ -464,7 +476,8 @@ class CA[I]():
         return tuple(item_list)
 
     def poprt(self, maximum: int) -> tuple[I, ...]:
-        """Pop multiple items from right side of circular array.
+        """
+        Pop multiple items from right side of circular array.
 
         :param maximum: maximum number of items to pop, may pop less if not enough items
         :return: items in the order popped, right to left
@@ -481,7 +494,8 @@ class CA[I]():
         return tuple(item_list)
 
     def rotl(self, n: int = 1) -> None:
-        """Rotate items left.
+        """
+        Rotate items to the left.
 
         :param n: number of times to shift elements to the left
 
@@ -492,7 +506,8 @@ class CA[I]():
             self.pushr(self.popl())
 
     def rotr(self, n: int = 1) -> None:
-        """Rotate items right.
+        """
+        Rotate items to the right.
 
         :param n: number of times to shift elements to the right
 
@@ -503,20 +518,22 @@ class CA[I]():
             self.pushl(self.popr())
 
     def map[U](self, f: Callable[[I], U]) -> "CA[U]":
-        """Apply function f over the circular array's contents,
+        """
+        Apply function f over the circular array's contents,
 
         :param f: callable from type I to type U
-        :return: new circular array instance
+        :returns: new circular array instance
 
         """
         return CA(map(f, self))
 
     def foldl[L](self, f: Callable[[L, I], L], start: L | None = None) -> L:
-        """Fold left with a function and optional starting item.
+        """
+        Fold left with a function and optional starting item.
 
         :param f: first argument to f is for the accumulator
         :param start: optional starting item
-        :return: reduced value produced by the left fold
+        :returns: reduced value produced by the left fold
         :raises ValueError: when circular array empty and no starting item given
 
         """
@@ -538,11 +555,12 @@ class CA[I]():
         return acc
 
     def foldr[R](self, f: Callable[[I, R], R], start: R | None = None) -> R:
-        """Fold right with a function and an optional starting item.
+        """
+        Fold right with a function and an optional starting item.
 
         :param f: second argument to f is for the accumulator
         :param start: optional starting item
-        :return: reduced value produced by the right fold
+        :returns: reduced value produced by the right fold
         :raises ValueError: when circular array empty and no starting item given
 
         """
@@ -564,15 +582,17 @@ class CA[I]():
         return acc
 
     def capacity(self) -> int:
-        """Return current storage capacity of the circular array.
+        """
+        Return current storage capacity of the circular array.
 
-        :return: current storage capacity
+        :returns: current storage capacity
 
         """
         return self._cap
 
     def empty(self) -> None:
-        """Empty the circular array, keep current storage capacity."""
+        """
+        Empty the circular array, keep current storage capacity."""
         (
                 self._items,
                 self._front,
@@ -586,15 +606,17 @@ class CA[I]():
             )
 
     def fraction_filled(self) -> float:
-        """Find fraction of the storage capacity which is filled.
+        """
+        Find fraction of the storage capacity which is filled.
 
-        :return: the ratio count/capacity
+        :returns: the ratio count/capacity
 
         """
         return self._cnt / self._cap
 
     def resize(self, minimum_capacity: int = 2) -> None:
-        """Compact circular array and, if necessary, resize to a minimum
+        """
+        Compact circular array and, if necessary, resize to a minimum
         storage capacity. To just compact the circular array, do not
         provide ``minimum_capacity``.
 
@@ -615,10 +637,11 @@ class CA[I]():
 
 
 def ca[T](*items: T) -> CA[T]:
-    """Produce circular array from a variable number of arguments.
+    """
+    Produce circular array from a variable number of arguments.
 
     :param items: initial items for a new circular array
-    :return: new variable storage capacity circular array
+    :returns: new variable storage capacity circular array
 
     """
     return CA(items)

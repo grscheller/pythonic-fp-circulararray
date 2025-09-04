@@ -12,7 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Package implementing stateful circular array data structures.
+"""
+Circular Array
+==============
+
+Package implementing stateful circular array data structures.
 
 - O(1) pops and pushes either end
 - O(1) indexing and size determination
