@@ -29,7 +29,6 @@ Package implementing stateful circular array data structures.
 +-------------------------------------+-------------------------------------------+
 | **pythonic_fp.circulararray.fixed** | Fixed storage capacity circular array.    |
 +-------------------------------------+-------------------------------------------+
-
 """
 
 __author__ = 'Geoffrey R. Scheller'

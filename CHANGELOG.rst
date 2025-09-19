@@ -20,16 +20,14 @@ Releases and Important Milestones
 PyPI 5.3.3 - TBD
 ~~~~~~~~~~~~~~~~
 
-- PyPI documentation link now goes to root, not releases
+PyPI documentation link now goes to root, not releases
 
 PyPI 5.3.2 - 2025-09-04
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 - removed TypeVar declarations
 - removed Never from union return types
-
   - seems Never is now interpreted as a bottom
-
 - regenerated .pyi files with mypy's stubgen
 - updated docstrings for Sphinx documentation
 
@@ -65,9 +63,7 @@ Devel environment and documentation changes only.
 - documentation improvements
 - forgot to updated changelog.rst before PyPI release
 - Pythonic FP homepage now points to its GitHub README.md
-
   - used to point to its GH-Pages
-
 
 PyPI 5.1.0 - 2025-07-04
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -75,22 +71,16 @@ PyPI 5.1.0 - 2025-07-04
 First PyPI Release with Sphinx replacing pdoc.
 
 - switched from ``pdoc`` to ``sphinx`` for document generation
-
   - no longer source code controlling generated HTML (too wasteful)
   - using ``sphinx.ext.githubpages`` extension to publish from this repo
   - using ``sphinx.ext.autodoc`` to generate detailed API documentation
   - using the ``piccolo-theme at https://pypi.org/project/piccolo-theme/``
-
     - beautiful dark mode
     - plays nice with ``autodoc`` and ``DarkReader`` 
-
 - some formatting changes
-
   - no actual code changes
   - did remove TypeVar hack used for pdoc
-
 - made pyproject.toml improvements
-
   - better tooling configurations
   - removed all version caps from pyproject.toml, see this
     `blog post <https://iscinumpy.dev/post/bound-version-constraints>`_.
@@ -102,7 +92,6 @@ First PyPI release as ``pythonic-fp.circular-array``.
 
 - there was already a PyPI project with the dtools name
 - the name pythonic-fp was not taken
-
   - using it as the namespace name for the entire group
   - does exist as an "skeleton" project just to claim the name
   - installing it will break all the namespace packages
@@ -125,15 +114,13 @@ Version no longer determined dynamically.
 - version now set in pyproject.toml
 - no longer doing 4 part development versioning
 - version will either denote
-
   - the current PyPI release - if no substantive changes made
   - the next PyPI release - what development is working toward
 
 PyPI 3.12.1 - 2025-04-22
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-- docstring changes
-- pyproject.toml standardization
+Docstring changes and pyproject.toml standardization.
 
 PyPI 3.12.0 - 2025-04-07
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -149,7 +136,6 @@ PyPI 3.11.0 - 2025-04-06
 Major API change.
 
 - swapped names `ca` and `CA`
-
   - class name now `CA`
   - factory function taking variable number of arguments is now `ca`
 
@@ -158,17 +144,13 @@ Major API change.
   - still want this class to behave like a builtin
   - but got tired fighting linters
   - maybe being "Pythonic" means
-
     - that only builtins should break naming conventions
     - naming conventions being
-
       - snake_case for functions and method names
       - CamelCase for class names
-
     - perhaps a visual distinction is useful to tell when you
       - are dealing with user/library Python code
       - C code presenting itself as a Python class
-
   - typing improvements
 
 PyPI 3.10.1 - 2025-04-03
@@ -177,23 +159,15 @@ PyPI 3.10.1 - 2025-04-03
 Major API changes.
 
 - class name still `ca`
-
   - initializer takes 1 or 0 iterables
-
     - like Python builtin types `list` or `tuple`
-
   - factory function `CA` provided to create a `ca` from mult args
-
     - like `[]` or `{}`
-
 - otherwise, method names are all snake_case compatible
-
   - examples
-
     - popL -> popl
     - pushR -> pushr
     - fractionFilled -> fraction_filled
-
 - updated pyproject.toml
   - to better match other dtools namespace projects
 
@@ -283,10 +257,8 @@ PyPI 3.4.0 - 2024-08-15
 Updated `__eq__` comparisons.
 
 - first compare elements by identity before equality
-
   - I noticed that is what Python builtins do
   - makes dealing with grscheller.fp.nada module easier
-
 - standardizing docstrings across grscheller PyPI projects
 
 Version 3.3.0.1 - 2024-08-05
@@ -297,7 +269,6 @@ Just a commit, made a paradigm "regression".
 - made a paradigm "regression", preparing for a 3.4.0 release
 - felt CA was becoming way too complicated
 - grscheller.datastructures needed it to fully embrace type annotations
-
   - but I was shifting too many features back into grscheller.circular-array
   - want ca to be useful for non-functional applications
 
@@ -311,17 +282,12 @@ The changes made were
 - changed nomenclature from "left/right" to "front/rear"
 - unsafe and safe versions of pop & fold functionality
 - left and right folds improvements
-
   - consolidated `foldL, foldL1, foldR, foldR1` into `foldL` & `foldR`
-
 - tests working
-
   - basically I changed pops to unsafe pops and added `try except` blocks
   - safe versions tests needed
-
     - safe pops return multiple values in tuples
     - will take a `default` value to return
-
       - if only asked to return 1 value and CA is empty
       - seems to work properly from iPython
 
@@ -367,13 +333,10 @@ Version 1.1.0.0 - 2024-03-08
 Just a commit to prepare for PyPI release 2.0.0!!!
 
 - BUGFIX: Fixed a subtle resizing bug
-
   - bug probably present in all previous versions
   - not previously identified due to inadequate test coverage
   - test coverage improved vastly
-
 - made some major code API changes
-
   - upon initialization minimizing size of the CircularArray
   - have some ideas on how to improve API for resizing CircularArrays
   - need to test my other 2 PyPI projects, both use circular-array as a dependency
