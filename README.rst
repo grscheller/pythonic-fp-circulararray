@@ -7,13 +7,25 @@ PyPI project
 
 Python module implementing stateful circular array data structures.
 
-- O(1) pops either end 
-- O(1) amortized pushes either end 
-- O(1) indexing, fully supports slicing
-- Auto-resizing larger when necessary, manually compatible
-- iterable, can safely mutate while iterators continue iterating over previous state
-- comparisons compare identity before equality, like builtins
-- in boolean context returns true when not empty, false when empty
+- variable storage capacity circular array
+  - O(1) pops either end 
+  - O(1) amortized pushes either end 
+  - O(1) indexing, fully supports slicing
+  - auto-resizing more storage capacity when necessary, manually compatible
+  - iterable, safely mutates while iterators iterating over previous state
+  - comparisons compare identity before equality, like builtins
+  - in boolean context, falsy when empty, otherwise truthy
+  - function ``ca`` produces auto-resizing circular array from arguments
+
+- fixed storage capacity circular array
+  - O(1) pops and pushes either end 
+  - O(1) indexing, does not support slicing
+  - fixed total storage capacity
+  - iterable, safely mutates while iterators iterating over previous state
+  - comparisons compare identity before equality, like builtins
+  - in boolean context, falsy when either empty or full, otherwise truthy
+  - function ``caf`` produces fixed capacity circular array from arguments
+
 
 This PyPI project is part of of the grscheller
 `pythonic-fp namespace projects

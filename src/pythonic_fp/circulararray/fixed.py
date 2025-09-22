@@ -21,10 +21,10 @@ Fixed Storage Capacity
 - O(1) pops and pushes either end 
 - O(1) indexing, does not support slicing
 - fixed total storage capacity
-- iterable, can safely mutate while iterators continue iterating over previous state
+- iterable, safely mutates while iterators iterating over previous state
 - comparisons compare identity before equality, like builtins
 - in boolean context, falsy when either empty or full, otherwise truthy
-- factory function ``caf`` produces a fixed storage capacity circular array from its arguments
+- function ``caf`` produces fixed capacity circular array from arguments
 
 """
 from collections.abc import Callable, Iterable, Iterator

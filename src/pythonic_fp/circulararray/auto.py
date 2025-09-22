@@ -22,10 +22,10 @@ Variable Storage Capacity
 - O(1) amortized pushes either end 
 - O(1) indexing, fully supports slicing
 - auto-resizing more storage capacity when necessary, manually compatible
-- iterable, can safely mutate while iterators continue iterating over previous state
+- iterable, safely mutates while iterators iterating over previous state
 - comparisons compare identity before equality, like builtins
 - in boolean context, falsy when empty, otherwise truthy
-- factory function ``ca`` produces a variable storage capacity circular array from its arguments
+- function ``ca`` produces auto-resizing circular array from arguments
 
 """
 from collections.abc import Callable, Iterable, Iterator
