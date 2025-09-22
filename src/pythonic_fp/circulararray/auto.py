@@ -306,9 +306,9 @@ class CA[I]():
         return True
 
     def pushl(self, *items: I) -> None:
-        """Push items onto left side (front) of circular array.
+        """Push ``items`` on from left.
 
-        :param items: Items pushed onto circular array from left.
+        :param items: Items pushed onto circular array from left (front).
         """
         for item in items:
             if self._cnt == self._cap:
@@ -324,9 +324,9 @@ class CA[I]():
                 )
 
     def pushr(self, *items: I) -> None:
-        """Push items onto right side (rear) of circular array.
+        """Push ``items`` on from right.
 
-        :param items: Items pushed onto circular array from right.
+        :param items: Items pushed onto circular array from right (rear).
         """
         for item in items:
             if self._cnt == self._cap:
@@ -342,9 +342,9 @@ class CA[I]():
                 )
 
     def popl(self) -> I:
-        """Pop item off left side (front) of circular array.
+        """Pop single item off from left side.
 
-        :returns: Item popped from left side of circular array.
+        :returns: Item popped from left side (front) of circular array.
         :raises ValueError: When called on an empty circular array.
         """
         if self._cnt > 1:
@@ -379,9 +379,9 @@ class CA[I]():
         return cast(I, d)
 
     def popr(self) -> I:
-        """Pop item off right side (rear) of circular array.
+        """Pop single item off from right.
 
-        :returns: Item popped from right side of circular array.
+        :returns: Item popped from right side (rear) of circular array.
         :raises ValueError: When called on an empty circular array.
         """
         if self._cnt > 1:
@@ -417,7 +417,7 @@ class CA[I]():
 
     def popld(self, default: I) -> I:
         """Pop one item from left side of the circular array, provide
-        a mandatory default value. "Safe" version of popl.
+        a mandatory default value. "Safe" version of ``popl``.
 
         :param default: Item returned if circular array is empty.
         :returns: Item popped from left side or default item if empty.
@@ -429,10 +429,10 @@ class CA[I]():
 
     def poprd(self, default: I) -> I:
         """Pop one item from right side of the circular array, provide
-        a mandatory default value. "Safe" version of popr.
+        a mandatory default value. "Safe" version of ``popr``.
 
-        :param default: item returned if circular array is empty.
-        :returns: item popped from right side or default item if empty.
+        :param default: Item returned if circular array is empty.
+        :returns: Item popped from right side or default item if empty.
         """
         try:
             return self.popr()
@@ -443,7 +443,7 @@ class CA[I]():
         """Pop multiple items from left side of circular array.
 
         :param maximum: Maximum number of items to pop, may pop less if not enough items.
-        :returns: Items in the order popped, left to right.
+        :returns: Tuple of items in the order popped, left to right.
         """
         item_list: list[I] = []
 
@@ -461,7 +461,7 @@ class CA[I]():
         """Pop multiple items from right side of circular array.
 
         :param maximum: Maximum number of items to pop, may pop less if not enough items.
-        :returns: Items in the order popped, right to left.
+        :returns: Tuple of items in the order popped, right to left.
         """
         item_list: list[I] = []
         while maximum > 0:
@@ -494,17 +494,17 @@ class CA[I]():
             self.pushl(self.popr())
 
     def map[U](self, f: Callable[[I], U]) -> "CA[U]":
-        """Apply function f over the circular array's contents,
+        """Apply function ``f`` over the circular array's contents.
 
-        :param f: callable from type I to type U
-        :returns: new circular array instance
+        :param f: Callable from type ``I`` to type ``U``.
+        :returns: New auto-resizing circular array instance.
         """
         return CA(map(f, self))
 
     def foldl[L](self, f: Callable[[L, I], L], start: L | None = None) -> L:
         """Fold left with a function and optional starting item.
 
-        :param f: First argument to f is for the accumulator.
+        :param f: Folding function, first argument to ``f`` is for the accumulator.
         :param start: Optional starting item.
         :returns: Reduced value produced by the left fold.
         :raises ValueError: When circular array empty and no starting item given.
@@ -529,7 +529,7 @@ class CA[I]():
     def foldr[R](self, f: Callable[[I, R], R], start: R | None = None) -> R:
         """Fold right with a function and an optional starting item.
 
-        :param f: Second argument to f is for the accumulator.
+        :param f: Folding function, second argument to ``f`` is for the accumulator.
         :param start: Optional starting item.
         :returns: Reduced value produced by the right fold.
         :raises ValueError: When circular array empty and no starting item given.
@@ -602,7 +602,7 @@ class CA[I]():
 def ca[T](*items: T) -> CA[T]:
     """Produce circular array from a variable number of arguments.
 
-    :param items: Initial items for a new circular array.
+    :param items: Initial items for a new auto-resizing circular array.
     :returns: New variable storage capacity circular array.
     """
     return CA(items)

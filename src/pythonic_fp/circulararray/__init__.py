@@ -14,7 +14,7 @@
 
 """
 Circular Array
-==============
+--------------
 
 Package implementing stateful circular array data structures.
 

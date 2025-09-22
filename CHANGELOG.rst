@@ -17,10 +17,10 @@ See `Semantic Versioning 2.0.0 <https://semver.org>`_.
 Releases and Important Milestones
 ---------------------------------
 
-PyPI 5.3.3 - TBD
-~~~~~~~~~~~~~~~~
+PyPI 5.3.3 - 2025-09-21
+~~~~~~~~~~~~~~~~~~~~~~~
 
-PyPI documentation link now goes to root, not releases
+Polished up docstrings. PyPI documentation link now goes to root, not releases.
 
 PyPI 5.3.2 - 2025-09-04
 ~~~~~~~~~~~~~~~~~~~~~~~
