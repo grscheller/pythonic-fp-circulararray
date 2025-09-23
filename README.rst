@@ -28,9 +28,10 @@ Python module implementing stateful circular array data structures.
   - in boolean context, falsy when either empty or full, otherwise truthy
   - function ``caf`` produces fixed capacity circular array from arguments
 
-This PyPI project is part of of the grscheller
-`pythonic-fp namespace projects
-<https://github.com/grscheller/pythonic-fp/blob/main/README.md>`_
+Part of the
+`pythonic-fp
+<https://grscheller.github.io/pythonic-fp/overview/next/build/html/index.html>`_
+PyPI projects.
 
 Documentation
 -------------
