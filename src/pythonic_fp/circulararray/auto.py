@@ -29,27 +29,33 @@ Variable Storage Capacity
 
 """
 from collections.abc import Callable, Iterable, Iterator
-from typing import cast, overload
+from typing import cast, Final, overload
+from pythonic_fp.gadgets.sentinels.novalue import NoValue
 
 __all__ = ['CA', 'ca']
+
+nada: Final[NoValue] = NoValue()
 
 
 class CA[I]():
 
     __slots__ = '_items', '_cnt', '_cap', '_front', '_rear'
 
-    def __init__(
-            self,
-            items: Iterable[I] | None = None
-        ) -> None:
+    @overload
+    def __init__(self) -> None: ...
+    @overload
+    def __init__(self, items: Iterable[I]) -> None: ...
+
+    def __init__(self, items: Iterable[I | NoValue] | NoValue = nada) -> None:
         """
-        :param items: Optional iterable to initial populate circular array.
+        :param items: "Optional" iterable to initial populate circular array.
         :raises TypeError: When ``items`` not Iterable.
         """
-        if items is None:
-            self._items: list[I | None] = [None, None]
+        if items is nada:
+            self._items: list[I | NoValue] = [nada, nada]
         else:
-            self._items = [None] + list(items) + [None]
+            values: list[I | NoValue] = list(cast(Iterable[I | NoValue], items))
+            self._items = [nada] + values + [nada]
         self._cap = cap = len(self._items)
         self._cnt = cap - 2
         if cap == 2:
@@ -65,7 +71,7 @@ class CA[I]():
                     self._items,
                     self._cap,
             ) = (
-                    self._items + [None] * self._cap,
+                    self._items + [nada] * self._cap,
                     self._cap * 2,
                 )
         else:
@@ -74,7 +80,7 @@ class CA[I]():
                     self._front,
                     self._cap,
             ) = (
-                    self._items[: self._front] + [None]*self._cap + self._items[self._front:],
+                    self._items[: self._front] + [nada]*self._cap + self._items[self._front:],
                     self._front + self._cap,
                     2*self._cap,
                 )
@@ -91,7 +97,7 @@ class CA[I]():
                         2,
                         0,
                         1,
-                        [None, None],
+                        [nada, nada],
                     )
             case 1:
                 (
@@ -103,7 +109,7 @@ class CA[I]():
                         3,
                         1,
                         1,
-                        [None, self._items[self._front], None],
+                        [nada, self._items[self._front], nada],
                     )
             case _:
                 if self._front <= self._rear:
@@ -116,7 +122,7 @@ class CA[I]():
                             self._cnt + 2,
                             1,
                             self._cnt,
-                            [None] + self._items[self._front : self._rear + 1] + [None],
+                            [nada] + self._items[self._front : self._rear + 1] + [nada],
                         )
                 else:
                     (
@@ -128,7 +134,7 @@ class CA[I]():
                             self._cnt + 2,
                             1,
                             self._cnt,
-                            [None] + self._items[self._front :] + self._items[: self._rear + 1] + [None],
+                            [nada] + self._items[self._front :] + self._items[: self._rear + 1] + [nada],
                         )
 
     def __iter__(self) -> Iterator[I]:
@@ -355,7 +361,7 @@ class CA[I]():
                     self._cnt,
             ) = (
                     self._items[self._front],
-                    None,
+                    nada,
                     (self._front + 1) % self._cap,
                     self._cnt - 1,
                 )
@@ -368,7 +374,7 @@ class CA[I]():
                     self._rear,
             ) = (
                     self._items[self._front],
-                    None,
+                    nada,
                     0,
                     0,
                     self._cap - 1,
@@ -392,7 +398,7 @@ class CA[I]():
                     self._cnt,
             ) = (
                     self._items[self._rear],
-                    None,
+                    nada,
                     (self._rear - 1) % self._cap,
                     self._cnt - 1,
                 )
@@ -405,7 +411,7 @@ class CA[I]():
                     self._rear,
             ) = (
                     self._items[self._front],
-                    None,
+                    nada,
                     0,
                     0,
                     self._cap - 1,
@@ -501,52 +507,62 @@ class CA[I]():
         """
         return CA(map(f, self))
 
-    def foldl[L](self, f: Callable[[L, I], L], start: L | None = None) -> L:
+    @overload
+    def foldl[L](self, f: Callable[[I, I], I]) -> I: ...
+    @overload
+    def foldl[L](self, f: Callable[[L, I], L], start: L) -> L: ...
+
+    def foldl[L](self, f: Callable[[L, I], L], start: L | NoValue = nada) -> L:
         """Fold left with a function and optional starting item.
 
         :param f: Folding function, first argument to ``f`` is for the accumulator.
-        :param start: Optional starting item.
+        :param start: "Optional" starting item.
         :returns: Reduced value produced by the left fold.
         :raises ValueError: When circular array empty and no starting item given.
         """
         if self._cnt == 0:
-            if start is None:
+            if start is nada:
                 msg = 'Method foldl called on an empty CA without a start item.'
                 raise ValueError(msg)
-            return start
+            return cast(L, start)
 
-        if start is None:
+        if start is nada:
             acc = cast(L, self[0])  # in this case D = L
             for idx in range(1, self._cnt):
                 acc = f(acc, self[idx])
             return acc
 
-        acc = start
+        acc = cast(L, start)
         for d in self:
             acc = f(acc, d)
         return acc
 
-    def foldr[R](self, f: Callable[[I, R], R], start: R | None = None) -> R:
+    @overload
+    def foldr[R](self, f: Callable[[I, I], I]) -> I: ...
+    @overload
+    def foldr[R](self, f: Callable[[I, R], R], start: R) -> R: ...
+
+    def foldr[R](self, f: Callable[[I, R], R], start: R | NoValue = nada) -> R:
         """Fold right with a function and an optional starting item.
 
         :param f: Folding function, second argument to ``f`` is for the accumulator.
-        :param start: Optional starting item.
+        :param start: "Optional" starting item.
         :returns: Reduced value produced by the right fold.
         :raises ValueError: When circular array empty and no starting item given.
         """
         if self._cnt == 0:
-            if start is None:
+            if start is nada:
                 msg = 'Method foldr called on empty CA without initial value.'
                 raise ValueError(msg)
-            return start
+            return cast(R, start)
 
-        if start is None:
+        if start is nada:
             acc = cast(R, self[-1])  # in this case D = R
             for idx in range(self._cnt - 2, -1, -1):
                 acc = f(self[idx], acc)
             return acc
 
-        acc = start
+        acc = cast(R, start)
         for d in reversed(self):
             acc = f(d, acc)
         return acc
@@ -566,7 +582,7 @@ class CA[I]():
                 self._rear,
                 self._cnt,
         ) = (
-                [None] * self._cap,
+                [nada] * self._cap,
                 0,
                 self._cap - 1,
                 0,
@@ -593,7 +609,7 @@ class CA[I]():
                     self._items,
             ) = (
                     min_cap,
-                    self._items + [None] * (min_cap - self._cap),
+                    self._items + [nada] * (min_cap - self._cap),
                 )
             if self._cnt == 0:
                 self._front, self._rear = 0, self._cap - 1

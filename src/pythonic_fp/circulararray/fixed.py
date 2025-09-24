@@ -28,18 +28,28 @@ Fixed Storage Capacity
 
 """
 from collections.abc import Callable, Iterable, Iterator
-from typing import cast, Final
+from typing import cast, Final, overload
+from pythonic_fp.gadgets.sentinels.novalue import NoValue
 
 __all__ = ['CAF', 'caf']
+
+nada: Final[NoValue] = NoValue()
 
 
 class CAF[I]():
 
     __slots__ = '_items', '_cnt', '_cap', '_front', '_rear'
 
+    @overload
+    def __init__(self) -> None: ...
+    @overload
+    def __init__(self, items: Iterable[I]) -> None: ...
+    @overload
+    def __init__(self, items: Iterable[I], capacity: int) -> None: ...
+
     def __init__(
             self,
-            items: Iterable[I] | None = None,
+            items: Iterable[I | NoValue] | NoValue = nada,
             capacity: int = 2
         ) -> None:
         """
@@ -48,14 +58,15 @@ class CAF[I]():
         :raises TypeError: When ``items`` not Iterable,
         """
         capacity = max(2, capacity)
-        if items is None:
-            self._items: list[I | None] = [None]*capacity
+        if items is nada:
+            self._items: list[I | NoValue] = [nada]*capacity
             count = 0
         else:
-            dlist: list[I | None] = list(items)
+            values: list[I | NoValue] = list(cast(Iterable[I | NoValue], items))
+            dlist: list[I | NoValue] = list(values)
             count = len(dlist)
             capacity = max(count, capacity)
-            self._items = dlist + [None]*(capacity - count)
+            self._items = dlist + [nada]*(capacity - count)
         self._cap: Final[int] = capacity
         self._cnt = count
         if count == 0:
@@ -250,7 +261,7 @@ class CAF[I]():
                     self._cnt,
             ) = (
                     self._items[self._front],
-                    None,
+                    nada,
                     (self._front + 1) % self._cap,
                     self._cnt - 1,
                 )
@@ -263,7 +274,7 @@ class CAF[I]():
                     self._rear,
             ) = (
                     self._items[self._front],
-                    None,
+                    nada,
                     0,
                     0,
                     self._cap - 1,
@@ -287,7 +298,7 @@ class CAF[I]():
                     self._cnt,
             ) = (
                     self._items[self._rear],
-                    None,
+                    nada,
                     (self._rear - 1) % self._cap,
                     self._cnt - 1,
                 )
@@ -300,7 +311,7 @@ class CAF[I]():
                     self._rear,
             ) = (
                     self._items[self._front],
-                    None,
+                    nada,
                     0,
                     0,
                     self._cap - 1,
