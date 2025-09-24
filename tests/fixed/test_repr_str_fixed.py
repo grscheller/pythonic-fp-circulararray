@@ -25,7 +25,7 @@ class TestReprFixed:
         bar: CAF[int] = eval(repr(ca0))
         assert foo == bar
 
-        ca1: CAF[str|int] = CAF(capacity=10)
+        ca1: CAF[str|int] = CAF((), capacity=10)
         assert repr(ca1) == 'caf()'
         ca2: CAF[int|str] = eval(repr(ca1))
         assert ca2 == ca1

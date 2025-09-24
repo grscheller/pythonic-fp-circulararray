@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from pythonic_fp.circulararray.auto import CA, ca
+from pythonic_fp.circulararray.fixed import CAF, caf
 
 
 class TestFoldingWithNone:
@@ -27,15 +27,15 @@ class TestFoldingWithNone:
                 return right
             return (left,) + right
 
-        ca1: CA[int | None]
-        ca2: CA[int | None]
+        ca1: CAF[int | None]
+        ca2: CAF[int | None]
         tup:  tuple[float, ...]
         tup0: tuple[float, ...]
         tup1: tuple[float, ...]
         tup2: tuple[float, ...]
 
-        ca1 = ca(1, 2, 3, 4, 5, 6, 7)
-        ca2 = ca(1, None, 3, 4, 5, None, 7)
+        ca1 = caf(1, 2, 3, 4, 5, 6, 7)
+        ca2 = caf(1, None, 3, 4, 5, None, 7)
         tup = tuple([-1, 0])                     # = -1, 0
         tup0 = tuple()                           # = ()
         tup1 = 1, 2, 3, 4, 5, 6, 7
@@ -43,15 +43,15 @@ class TestFoldingWithNone:
         assert ca1.foldl(tuple_no_none_left, tup0) == tup1
         assert ca2.foldl(tuple_no_none_left, tup) == tup2
 
-        ca1_f: CA[float | None]
-        ca2_f: CA[float | None]
+        ca1_f: CAF[float | None]
+        ca2_f: CAF[float | None]
         tup_f:  tuple[float, ...]
         tup0_f: tuple[float, ...]
         tup1_f: tuple[float, ...]
         tup2_f: tuple[float, ...]
 
-        ca1_f = ca(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0)
-        ca2_f = ca(None, 2.0, None, 4.0, 5.0, 6.0, None, None)
+        ca1_f = caf(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0)
+        ca2_f = caf(None, 2.0, None, 4.0, 5.0, 6.0, None, None)
         tup_f = tuple([9, 10, 11])
         tup0_f = tuple()
         tup1_f = tuple((1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0))
@@ -68,7 +68,7 @@ class TestFoldingWithNone:
             return None
 
         # Edge cases
-        c0: CA[int | None] = ca()
+        c0: CAF[int | None] = caf()
 
         try:
             c0.foldl(lt20)
@@ -80,9 +80,9 @@ class TestFoldingWithNone:
         assert c0.foldl(lt20, 42) == 42
         assert c0.foldl(lt20, None) is None
 
-        c1_5: CA[int | None] = ca(5)
-        c1_42: CA[int | None] = ca(42)
-        c1_none: CA[int | None] = ca(None)
+        c1_5: CAF[int | None] = caf(5)
+        c1_42: CAF[int | None] = caf(42)
+        c1_none: CAF[int | None] = caf(None)
 
         assert c1_5.foldl(lt20) == 5
         assert c1_42.foldl(lt20) == 42
@@ -93,9 +93,9 @@ class TestFoldingWithNone:
         assert c1_none.foldl(lt20, 5) is None
 
         # typical cases
-        c4: CA[int | None] = ca(1, 2, 3, 4)
-        c5_none = ca(1, 1, None, 1, 1)
-        c7: CA[int | None] = ca(1, 2, 3, 4, 5, 6, 7)
+        c4: CAF[int | None] = caf(1, 2, 3, 4)
+        c5_none = caf(1, 1, None, 1, 1)
+        c7: CAF[int | None] = caf(1, 2, 3, 4, 5, 6, 7)
 
         assert c4.foldl(lt20) == 10
         assert c4.foldl(lt20, -1) == 9

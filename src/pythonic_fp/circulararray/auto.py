@@ -18,8 +18,8 @@ Variable Storage Capacity
 
 **Circular array with variable storage capacity.**
 
-- O(1) pops either end 
-- O(1) amortized pushes either end 
+- O(1) pops either end
+- O(1) amortized pushes either end
 - O(1) indexing, fully supports slicing
 - auto-resizing more storage capacity when necessary, manually compatible
 - iterable, safely mutates while iterators iterating over previous state
@@ -28,6 +28,7 @@ Variable Storage Capacity
 - function ``ca`` produces auto-resizing circular array from arguments
 
 """
+
 from collections.abc import Callable, Iterable, Iterator
 from typing import cast, Final, overload
 from pythonic_fp.gadgets.sentinels.novalue import NoValue
@@ -37,8 +38,7 @@ __all__ = ['CA', 'ca']
 nada: Final[NoValue] = NoValue()
 
 
-class CA[I]():
-
+class CA[I]:
     __slots__ = '_items', '_cnt', '_cap', '_front', '_rear'
 
     @overload
@@ -68,88 +68,93 @@ class CA[I]():
     def _double_storage_capacity(self) -> None:
         if self._front <= self._rear:
             (
-                    self._items,
-                    self._cap,
+                self._items,
+                self._cap,
             ) = (
-                    self._items + [nada] * self._cap,
-                    self._cap * 2,
-                )
+                self._items + [nada] * self._cap,
+                self._cap * 2,
+            )
         else:
             (
-                    self._items,
-                    self._front,
-                    self._cap,
+                self._items,
+                self._front,
+                self._cap,
             ) = (
-                    self._items[: self._front] + [nada]*self._cap + self._items[self._front:],
-                    self._front + self._cap,
-                    2*self._cap,
-                )
+                self._items[: self._front]
+                + [nada] * self._cap
+                + self._items[self._front :],
+                self._front + self._cap,
+                2 * self._cap,
+            )
 
     def _compact_storage_capacity(self) -> None:
         match self._cnt:
             case 0:
                 (
-                        self._cap,
-                        self._front,
-                        self._rear,
-                        self._items,
+                    self._cap,
+                    self._front,
+                    self._rear,
+                    self._items,
                 ) = (
-                        2,
-                        0,
-                        1,
-                        [nada, nada],
-                    )
+                    2,
+                    0,
+                    1,
+                    [nada, nada],
+                )
             case 1:
                 (
+                    self._cap,
+                    self._front,
+                    self._rear,
+                    self._items,
+                ) = (
+                    3,
+                    1,
+                    1,
+                    [nada, self._items[self._front], nada],
+                )
+            case _:
+                if self._front <= self._rear:
+                    (
                         self._cap,
                         self._front,
                         self._rear,
                         self._items,
-                ) = (
-                        3,
-                        1,
-                        1,
-                        [nada, self._items[self._front], nada],
-                    )
-            case _:
-                if self._front <= self._rear:
-                    ( 
-                            self._cap,
-                            self._front,
-                            self._rear,
-                            self._items,
                     ) = (
-                            self._cnt + 2,
-                            1,
-                            self._cnt,
-                            [nada] + self._items[self._front : self._rear + 1] + [nada],
-                        )
+                        self._cnt + 2,
+                        1,
+                        self._cnt,
+                        [nada] + self._items[self._front : self._rear + 1] + [nada],
+                    )
                 else:
                     (
-                            self._cap,
-                            self._front,
-                            self._rear,
-                            self._items,
+                        self._cap,
+                        self._front,
+                        self._rear,
+                        self._items,
                     ) = (
-                            self._cnt + 2,
-                            1,
-                            self._cnt,
-                            [nada] + self._items[self._front :] + self._items[: self._rear + 1] + [nada],
-                        )
+                        self._cnt + 2,
+                        1,
+                        self._cnt,
+                        [nada]
+                        + self._items[self._front :]
+                        + self._items[: self._rear + 1]
+                        + [nada],
+                    )
 
     def __iter__(self) -> Iterator[I]:
         if self._cnt > 0:
             (
-                    capacity,
-                    rear,
-                    position,
-                    current_state,
+                capacity,
+                rear,
+                position,
+                current_state,
             ) = (
-                    self._cap,
-                    self._rear,
-                    self._front,
-                    self._items.copy(),
-                )
+                self._cap,
+                self._rear,
+                self._front,
+                self._items.copy(),
+            )
 
             while position != rear:
                 yield cast(I, current_state[position])
@@ -159,16 +164,16 @@ class CA[I]():
     def __reversed__(self) -> Iterator[I]:
         if self._cnt > 0:
             (
-                    capacity,
-                    front,
-                    position,
-                    current_state,
+                capacity,
+                front,
+                position,
+                current_state,
             ) = (
-                    self._cap,
-                    self._front,
-                    self._rear,
-                    self._items.copy(),
-                )
+                self._cap,
+                self._front,
+                self._rear,
+                self._items.copy(),
+            )
 
             while position != front:
                 yield cast(I, current_state[position])
@@ -190,9 +195,9 @@ class CA[I]():
     @overload
     def __getitem__(self, idx: int) -> I: ...
     @overload
-    def __getitem__(self, idx: slice) -> "CA[I]": ...
+    def __getitem__(self, idx: slice) -> 'CA[I]': ...
 
-    def __getitem__(self, idx: int | slice) -> I | "CA[I]":
+    def __getitem__(self, idx: int | slice) -> I | 'CA[I]':
         if isinstance(idx, slice):
             return CA(list(self)[idx])
 
@@ -224,18 +229,18 @@ class CA[I]():
                 item_list[idx] = vals
                 _ca = CA(item_list)
                 (
-                        self._items,
-                        self._cnt,
-                        self._cap,
-                        self._front,
-                        self._rear,
+                    self._items,
+                    self._cnt,
+                    self._cap,
+                    self._front,
+                    self._rear,
                 ) = (
-                        _ca._items,
-                        _ca._cnt,
-                        _ca._cap,
-                        _ca._front,
-                        _ca._rear,
-                    )
+                    _ca._items,
+                    _ca._cnt,
+                    _ca._cap,
+                    _ca._front,
+                    _ca._rear,
+                )
                 return
 
             msg = 'must assign iterable to extended slice'
@@ -265,18 +270,18 @@ class CA[I]():
         del item_list[idx]
         _ca = CA(item_list)
         (
-                self._items,
-                self._cnt,
-                self._cap,
-                self._front,
-                self._rear,
+            self._items,
+            self._cnt,
+            self._cap,
+            self._front,
+            self._rear,
         ) = (
-                _ca._items,
-                _ca._cnt,
-                _ca._cap,
-                _ca._front,
-                _ca._rear,
-            )
+            _ca._items,
+            _ca._cnt,
+            _ca._cap,
+            _ca._front,
+            _ca._rear,
+        )
         del _ca
 
     def __eq__(self, other: object) -> bool:
@@ -286,28 +291,34 @@ class CA[I]():
             return False
 
         (
-                front1,
-                count1,
-                capacity1,
-                front2,
-                count2,
-                capacity2,
+            front1,
+            count1,
+            capacity1,
+            front2,
+            count2,
+            capacity2,
         ) = (
-                self._front,
-                self._cnt,
-                self._cap,
-                other._front,
-                other._cnt,
-                other._cap,
-            )
+            self._front,
+            self._cnt,
+            self._cap,
+            other._front,
+            other._cnt,
+            other._cap,
+        )
 
         if count1 != count2:
             return False
 
         for nn in range(count1):
-            if self._items[(front1 + nn) % capacity1] is other._items[(front2 + nn) % capacity2]:
+            if (
+                self._items[(front1 + nn) % capacity1]
+                is other._items[(front2 + nn) % capacity2]
+            ):
                 continue
-            if self._items[(front1 + nn) % capacity1] != other._items[(front2 + nn) % capacity2]:
+            if (
+                self._items[(front1 + nn) % capacity1]
+                != other._items[(front2 + nn) % capacity2]
+            ):
                 return False
         return True
 
@@ -320,14 +331,14 @@ class CA[I]():
             if self._cnt == self._cap:
                 self._double_storage_capacity()
             (
-                    self._front,
-                    self._items[self._front],
-                    self._cnt,
+                self._front,
+                self._items[self._front],
+                self._cnt,
             ) = (
-                    (self._front - 1) % self._cap,
-                    item,
-                    self._cnt + 1,
-                )
+                (self._front - 1) % self._cap,
+                item,
+                self._cnt + 1,
+            )
 
     def pushr(self, *items: I) -> None:
         """Push ``items`` on from right.
@@ -338,14 +349,14 @@ class CA[I]():
             if self._cnt == self._cap:
                 self._double_storage_capacity()
             (
-                    self._rear,
-                    self._items[self._rear],
-                    self._cnt,
+                self._rear,
+                self._items[self._rear],
+                self._cnt,
             ) = (
-                    (self._rear + 1) % self._cap,
-                    item,
-                    self._cnt + 1,
-                )
+                (self._rear + 1) % self._cap,
+                item,
+                self._cnt + 1,
+            )
 
     def popl(self) -> I:
         """Pop single item off from left side.
@@ -355,30 +366,30 @@ class CA[I]():
         """
         if self._cnt > 1:
             (
-                    d,
-                    self._items[self._front],
-                    self._front,
-                    self._cnt,
+                d,
+                self._items[self._front],
+                self._front,
+                self._cnt,
             ) = (
-                    self._items[self._front],
-                    nada,
-                    (self._front + 1) % self._cap,
-                    self._cnt - 1,
-                )
+                self._items[self._front],
+                nada,
+                (self._front + 1) % self._cap,
+                self._cnt - 1,
+            )
         elif self._cnt == 1:
             (
-                    d,
-                    self._items[self._front],
-                    self._cnt,
-                    self._front,
-                    self._rear,
+                d,
+                self._items[self._front],
+                self._cnt,
+                self._front,
+                self._rear,
             ) = (
-                    self._items[self._front],
-                    nada,
-                    0,
-                    0,
-                    self._cap - 1,
-                )
+                self._items[self._front],
+                nada,
+                0,
+                0,
+                self._cap - 1,
+            )
         else:
             msg = 'Method popl called on an empty CA'
             raise ValueError(msg)
@@ -392,30 +403,30 @@ class CA[I]():
         """
         if self._cnt > 1:
             (
-                    d,
-                    self._items[self._rear],
-                    self._rear,
-                    self._cnt,
+                d,
+                self._items[self._rear],
+                self._rear,
+                self._cnt,
             ) = (
-                    self._items[self._rear],
-                    nada,
-                    (self._rear - 1) % self._cap,
-                    self._cnt - 1,
-                )
+                self._items[self._rear],
+                nada,
+                (self._rear - 1) % self._cap,
+                self._cnt - 1,
+            )
         elif self._cnt == 1:
             (
-                    d,
-                    self._items[self._front],
-                    self._cnt,
-                    self._front,
-                    self._rear,
+                d,
+                self._items[self._front],
+                self._cnt,
+                self._front,
+                self._rear,
             ) = (
-                    self._items[self._front],
-                    nada,
-                    0,
-                    0,
-                    self._cap - 1,
-                )
+                self._items[self._front],
+                nada,
+                0,
+                0,
+                self._cap - 1,
+            )
         else:
             msg = 'Method popr called on an empty CA'
             raise ValueError(msg)
@@ -499,7 +510,7 @@ class CA[I]():
         for _ in range(n, 0, -1):
             self.pushl(self.popr())
 
-    def map[U](self, f: Callable[[I], U]) -> "CA[U]":
+    def map[U](self, f: Callable[[I], U]) -> 'CA[U]':
         """Apply function ``f`` over the circular array's contents.
 
         :param f: Callable from type ``I`` to type ``U``.
@@ -512,7 +523,7 @@ class CA[I]():
     @overload
     def foldl[L](self, f: Callable[[L, I], L], start: L) -> L: ...
 
-    def foldl[L](self, f: Callable[[L, I], L], start: L | NoValue = nada) -> L:
+    def foldl[L](self, f: Callable[[L, I], L], start: L | NoValue = NoValue()) -> L:
         """Fold left with a function and optional starting item.
 
         :param f: Folding function, first argument to ``f`` is for the accumulator.
@@ -577,16 +588,16 @@ class CA[I]():
     def empty(self) -> None:
         """Empty the circular array, keep current storage capacity."""
         (
-                self._items,
-                self._front,
-                self._rear,
-                self._cnt,
+            self._items,
+            self._front,
+            self._rear,
+            self._cnt,
         ) = (
-                [nada] * self._cap,
-                0,
-                self._cap - 1,
-                0,
-            )
+            [nada] * self._cap,
+            0,
+            self._cap - 1,
+            0,
+        )
 
     def fraction_filled(self) -> float:
         """Find fraction of the storage capacity which is filled.
@@ -605,12 +616,12 @@ class CA[I]():
         self._compact_storage_capacity()
         if (min_cap := minimum_capacity) > self._cap:
             (
-                    self._cap,
-                    self._items,
+                self._cap,
+                self._items,
             ) = (
-                    min_cap,
-                    self._items + [nada] * (min_cap - self._cap),
-                )
+                min_cap,
+                self._items + [nada] * (min_cap - self._cap),
+            )
             if self._cnt == 0:
                 self._front, self._rear = 0, self._cap - 1
 

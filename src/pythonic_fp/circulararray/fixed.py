@@ -18,7 +18,7 @@ Fixed Storage Capacity
 
 **Circular array with fixed storage capacity.**
 
-- O(1) pops and pushes either end 
+- O(1) pops and pushes either end
 - O(1) indexing, does not support slicing
 - fixed total storage capacity
 - iterable, safely mutates while iterators iterating over previous state
@@ -27,6 +27,7 @@ Fixed Storage Capacity
 - function ``caf`` produces fixed capacity circular array from arguments
 
 """
+
 from collections.abc import Callable, Iterable, Iterator
 from typing import cast, Final, overload
 from pythonic_fp.gadgets.sentinels.novalue import NoValue
@@ -36,8 +37,7 @@ __all__ = ['CAF', 'caf']
 nada: Final[NoValue] = NoValue()
 
 
-class CAF[I]():
-
+class CAF[I]:
     __slots__ = '_items', '_cnt', '_cap', '_front', '_rear'
 
     @overload
@@ -48,25 +48,23 @@ class CAF[I]():
     def __init__(self, items: Iterable[I], capacity: int) -> None: ...
 
     def __init__(
-            self,
-            items: Iterable[I | NoValue] | NoValue = nada,
-            capacity: int = 2
-        ) -> None:
+        self, items: Iterable[I | NoValue] | NoValue = nada, capacity: int = 2
+    ) -> None:
         """
-        :param items: Optional iterable to initial populate circular array.
-        :param capacity: Fixed storage capacity of circular array.
+        :param items: "Optional" iterable to initial populate circular array.
+        :param capacity: Minimum fixed storage capacity of circular array.
         :raises TypeError: When ``items`` not Iterable,
         """
         capacity = max(2, capacity)
         if items is nada:
-            self._items: list[I | NoValue] = [nada]*capacity
+            self._items: list[I | NoValue] = [nada] * capacity
             count = 0
         else:
             values: list[I | NoValue] = list(cast(Iterable[I | NoValue], items))
             dlist: list[I | NoValue] = list(values)
             count = len(dlist)
             capacity = max(count, capacity)
-            self._items = dlist + [nada]*(capacity - count)
+            self._items = dlist + [nada] * (capacity - count)
         self._cap: Final[int] = capacity
         self._cnt = count
         if count == 0:
@@ -79,16 +77,16 @@ class CAF[I]():
     def __iter__(self) -> Iterator[I]:
         if self._cnt > 0:
             (
-                    capacity,
-                    rear,
-                    position,
-                    current_state,
+                capacity,
+                rear,
+                position,
+                current_state,
             ) = (
-                    self._cap,
-                    self._rear,
-                    self._front,
-                    self._items.copy(),
-                )
+                self._cap,
+                self._rear,
+                self._front,
+                self._items.copy(),
+            )
 
             while position != rear:
                 yield cast(I, current_state[position])
@@ -98,16 +96,16 @@ class CAF[I]():
     def __reversed__(self) -> Iterator[I]:
         if self._cnt > 0:
             (
-                    capacity,
-                    front,
-                    position,
-                    current_state,
+                capacity,
+                front,
+                position,
+                current_state,
             ) = (
-                    self._cap,
-                    self._front,
-                    self._rear,
-                    self._items.copy(),
-                )
+                self._cap,
+                self._front,
+                self._rear,
+                self._items.copy(),
+            )
 
             while position != front:
                 yield cast(I, current_state[position])
@@ -163,16 +161,16 @@ class CAF[I]():
         del item_list[idx]
         _ca = CAF(item_list, self._cap)
         (
-                self._items,
-                self._cnt,
-                self._front,
-                self._rear,
+            self._items,
+            self._cnt,
+            self._front,
+            self._rear,
         ) = (
-                _ca._items,
-                _ca._cnt,
-                _ca._front,
-                _ca._rear,
-            )
+            _ca._items,
+            _ca._cnt,
+            _ca._front,
+            _ca._rear,
+        )
         del _ca
 
     def __eq__(self, other: object) -> bool:
@@ -182,28 +180,34 @@ class CAF[I]():
             return False
 
         (
-                front1,
-                count1,
-                capacity1,
-                front2,
-                count2,
-                capacity2,
+            front1,
+            count1,
+            capacity1,
+            front2,
+            count2,
+            capacity2,
         ) = (
-                self._front,
-                self._cnt,
-                self._cap,
-                other._front,
-                other._cnt,
-                other._cap,
-            )
+            self._front,
+            self._cnt,
+            self._cap,
+            other._front,
+            other._cnt,
+            other._cap,
+        )
 
         if count1 != count2:
             return False
 
         for nn in range(count1):
-            if self._items[(front1 + nn) % capacity1] is other._items[(front2 + nn) % capacity2]:
+            if (
+                self._items[(front1 + nn) % capacity1]
+                is other._items[(front2 + nn) % capacity2]
+            ):
                 continue
-            if self._items[(front1 + nn) % capacity1] != other._items[(front2 + nn) % capacity2]:
+            if (
+                self._items[(front1 + nn) % capacity1]
+                != other._items[(front2 + nn) % capacity2]
+            ):
                 return False
         return True
 
@@ -218,14 +222,14 @@ class CAF[I]():
             raise ValueError(msg)
 
         (
-                self._front,
-                self._items[self._front],
-                self._cnt,
+            self._front,
+            self._items[self._front],
+            self._cnt,
         ) = (
-                (self._front - 1) % self._cap,
-                item,
-                self._cnt + 1,
-            )
+            (self._front - 1) % self._cap,
+            item,
+            self._cnt + 1,
+        )
 
     def pushr(self, item: I) -> None:
         """Push ``item`` on from Right.
@@ -238,14 +242,14 @@ class CAF[I]():
             raise ValueError(msg)
 
         (
-                self._rear,
-                self._items[self._rear],
-                self._cnt,
+            self._rear,
+            self._items[self._rear],
+            self._cnt,
         ) = (
-                (self._rear + 1) % self._cap,
-                item,
-                self._cnt + 1,
-            )
+            (self._rear + 1) % self._cap,
+            item,
+            self._cnt + 1,
+        )
 
     def popl(self) -> I:
         """Pop single item off from left side.
@@ -255,30 +259,30 @@ class CAF[I]():
         """
         if self._cnt > 1:
             (
-                    d,
-                    self._items[self._front],
-                    self._front,
-                    self._cnt,
+                d,
+                self._items[self._front],
+                self._front,
+                self._cnt,
             ) = (
-                    self._items[self._front],
-                    nada,
-                    (self._front + 1) % self._cap,
-                    self._cnt - 1,
-                )
+                self._items[self._front],
+                nada,
+                (self._front + 1) % self._cap,
+                self._cnt - 1,
+            )
         elif self._cnt == 1:
             (
-                    d,
-                    self._items[self._front],
-                    self._cnt,
-                    self._front,
-                    self._rear,
+                d,
+                self._items[self._front],
+                self._cnt,
+                self._front,
+                self._rear,
             ) = (
-                    self._items[self._front],
-                    nada,
-                    0,
-                    0,
-                    self._cap - 1,
-                )
+                self._items[self._front],
+                nada,
+                0,
+                0,
+                self._cap - 1,
+            )
         else:
             msg = 'Method popl called on an empty CAF'
             raise ValueError(msg)
@@ -292,30 +296,30 @@ class CAF[I]():
         """
         if self._cnt > 1:
             (
-                    d,
-                    self._items[self._rear],
-                    self._rear,
-                    self._cnt,
+                d,
+                self._items[self._rear],
+                self._rear,
+                self._cnt,
             ) = (
-                    self._items[self._rear],
-                    nada,
-                    (self._rear - 1) % self._cap,
-                    self._cnt - 1,
-                )
+                self._items[self._rear],
+                nada,
+                (self._rear - 1) % self._cap,
+                self._cnt - 1,
+            )
         elif self._cnt == 1:
             (
-                    d,
-                    self._items[self._front],
-                    self._cnt,
-                    self._front,
-                    self._rear,
+                d,
+                self._items[self._front],
+                self._cnt,
+                self._front,
+                self._rear,
             ) = (
-                    self._items[self._front],
-                    nada,
-                    0,
-                    0,
-                    self._cap - 1,
-                )
+                self._items[self._front],
+                nada,
+                0,
+                0,
+                self._cap - 1,
+            )
         else:
             msg = 'Method popr called on an empty CAF'
             raise ValueError(msg)
@@ -399,7 +403,7 @@ class CAF[I]():
         for _ in range(n, 0, -1):
             self.pushl(self.popr())
 
-    def map[U](self, f: Callable[[I], U]) -> "CAF[U]":
+    def map[U](self, f: Callable[[I], U]) -> 'CAF[U]':
         """Apply function ``f`` over the circular array's contents,
 
         :param f: Callable from type ``I`` to type ``U``.
@@ -407,7 +411,12 @@ class CAF[I]():
         """
         return CAF(map(f, self), self._cap)
 
-    def foldl[L](self, f: Callable[[L, I], L], start: L | None = None) -> L:
+    @overload
+    def foldl[L](self, f: Callable[[I, I], I]) -> I: ...
+    @overload
+    def foldl[L](self, f: Callable[[L, I], L], start: L) -> L: ...
+
+    def foldl[L](self, f: Callable[[L, I], L], start: L | NoValue = nada) -> L:
         """Fold left with a function and optional stating item.
 
         :param f: Folding function, first argument to ``f`` is for the accumulator.
@@ -416,23 +425,28 @@ class CAF[I]():
         :raises ValueError: When circular array empty and no starting item given.
         """
         if self._cnt == 0:
-            if start is None:
+            if start is nada:
                 msg = 'Method foldl called on an empty CAF without a start item.'
                 raise ValueError(msg)
-            return start
+            return cast(L, start)
 
-        if start is None:
+        if start is nada:
             acc = cast(L, self[0])  # in this case D = L
             for idx in range(1, self._cnt):
                 acc = f(acc, self[idx])
             return acc
 
-        acc = start
+        acc = cast(L, start)
         for d in self:
             acc = f(acc, d)
         return acc
 
-    def foldr[R](self, f: Callable[[I, R], R], start: R | None = None) -> R:
+    @overload
+    def foldr[R](self, f: Callable[[I, I], I]) -> I: ...
+    @overload
+    def foldr[R](self, f: Callable[[I, R], R], start: R) -> R: ...
+
+    def foldr[R](self, f: Callable[[I, R], R], start: R | NoValue = nada) -> R:
         """Fold right with a function and an optional starting item.
 
         :param f: Folding function, second argument to ``f`` is for the accumulator.
@@ -441,18 +455,18 @@ class CAF[I]():
         :raises ValueError: When circular array empty and no starting item given.
         """
         if self._cnt == 0:
-            if start is None:
+            if start is nada:
                 msg = 'Method foldr called on empty CAF without initial value.'
                 raise ValueError(msg)
-            return start
+            return cast(R, start)
 
-        if start is None:
+        if start is nada:
             acc = cast(R, self[-1])  # in this case D = R
             for idx in range(self._cnt - 2, -1, -1):
                 acc = f(self[idx], acc)
             return acc
 
-        acc = start
+        acc = cast(R, start)
         for d in reversed(self):
             acc = f(d, acc)
         return acc
@@ -467,16 +481,16 @@ class CAF[I]():
     def empty(self) -> None:
         """Empty the circular array."""
         (
-                self._items,
-                self._front,
-                self._rear,
-                self._cnt,
+            self._items,
+            self._front,
+            self._rear,
+            self._cnt,
         ) = (
-                [None] * self._cap,
-                0,
-                self._cap - 1,
-                0,
-            )
+            [nada] * self._cap,
+            0,
+            self._cap - 1,
+            0,
+        )
 
     def fraction_filled(self) -> float:
         """Find fraction of the storage capacity which is filled.
@@ -493,4 +507,4 @@ def caf[T](*items: T, capacity: int = 2) -> CAF[T]:
     :param capacity: The minimum storage capacity to set.
     :returns: New fixed storage capacity circular array.
     """
-    return CAF(items, capacity = capacity)
+    return CAF(items, capacity=capacity)

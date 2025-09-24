@@ -1,6 +1,6 @@
 [project]
 name = "pythonic-fp-circulararray"
-version = "5.3.4"
+version = "5.4.0"
 readme = "README.rst"
 requires-python = ">=3.13"
 license = { file = "LICENSE" }
@@ -23,7 +23,9 @@ classifiers = [
   "Programming Language :: Python :: 3.13",
   "Typing :: Typed",
 ]
-dependencies = []
+dependencies = [
+  "pythonic-fp-gadgets>=3.1.0",
+]
 dynamic = ["description"]
 
 [project.urls]

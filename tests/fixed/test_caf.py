@@ -438,7 +438,7 @@ class TestCircularArrayFixed:
             (4, 3),
         )
         foo = caf(0, 1, 2, 3, 4, capacity=10)
-        bar = CAF[tuple[int, int]](capacity=100)
+        bar = CAF[tuple[int, int]]((), capacity=100)
 
         for ii in foo:
             if ii % 2 == 1:
