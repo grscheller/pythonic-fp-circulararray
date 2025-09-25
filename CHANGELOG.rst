@@ -17,8 +17,8 @@ See `Semantic Versioning 2.0.0 <https://semver.org>`_.
 Releases and Important Milestones
 ---------------------------------
 
-PyPI 5.4.0 - TBD
-~~~~~~~~~~~~~~~~
+PyPI 5.4.0 - 2025-09-25
+~~~~~~~~~~~~~~~~~~~~~~~
 
 - updated README.rst
 
