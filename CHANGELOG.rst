@@ -17,7 +17,7 @@ See `Semantic Versioning 2.0.0 <https://semver.org>`_.
 Releases and Important Milestones
 ---------------------------------
 
-PyPI 6.0.0 - 2025-09-25
+PyPI 6.0.0 - 2025-09-26
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 Changed how "optional" iterator in initializer signature is handled.
