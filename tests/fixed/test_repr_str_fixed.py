@@ -25,7 +25,7 @@ class TestReprFixed:
         bar: CAF[int] = eval(repr(ca0))
         assert foo == bar
 
-        ca1: CAF[str|int] = CAF((), capacity=10)
+        ca1: CAF[str|int] = CAF((), cap=10)
         assert repr(ca1) == 'caf()'
         ca2: CAF[int|str] = eval(repr(ca1))
         assert ca2 == ca1
@@ -51,7 +51,7 @@ class TestReprFixed:
         assert ca2 == ca1
         assert ca2 is not ca1
 
-        ca3: CAF[int] = caf(1, 10, 0, 42, capacity=10)
+        ca3: CAF[int] = caf(1, 10, 0, 42, cap=10)
         ca3.pushr(2)
         ca3.pushr(100)
         ca3.pushr(3)
@@ -65,7 +65,7 @@ class TestReprFixed:
         ca3.pushr(3)
         assert repr(ca3) == 'caf(8, 9, 10, 0, 42, 1, 2, 3)'
 
-        ca4: CAF[int] = CAF([1, 10, 0, 42], capacity=100)
+        ca4: CAF[int] = CAF([1, 10, 0, 42], cap=100)
         ca4.pushr(2)
         ca4.pushr(100)
         ca4.pushr(3)

@@ -485,3 +485,13 @@ class TestCircularArrayResizing:
         assert baz == ca(3, 2, 1, 3, 4, 0, 6, 1, 8, 2, 10)
         del baz[6:10:2]
         assert baz == ca(3, 2, 1, 3, 4, 0, 1, 2, 10)
+
+    def test_store_none(self) -> None:
+        ca1 = ca(1, 'a', None, (), 42)
+        assert ca1.popl() == 1
+        assert ca1.popr() == 42
+        assert ca1
+        assert ca1.popl() == 'a'
+        assert ca1.popl() is None
+        assert ca1.popr() == ()
+        assert not ca1

@@ -17,12 +17,20 @@ See `Semantic Versioning 2.0.0 <https://semver.org>`_.
 Releases and Important Milestones
 ---------------------------------
 
+PyPI 6.0.0 - 2025-09-25
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Changed how "optional" iterator in initializer signature is handled.
+
+- same trick as is done in queues project.
+- no longer need to use a sentinel in the signature
+- less typing boilerplate
+- required a bump in major version number
+
 PyPI 5.4.0 - 2025-09-25
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-- updated README.rst
-
-  - previous version never fully updated for two circular array types
+Gave both circular arrays the ability to store None as a value.
 
 - realized that both circular array types cannot store None as a value
 
@@ -30,9 +38,13 @@ PyPI 5.4.0 - 2025-09-25
 
     - typing for foldl & foldr a bit quirky (mypy bug?)
 
-  - bumping minor version number
+  - bumping minor version number to 5.4.0
 
     - more than a bug fix but not really an API change either
+
+- updated README.rst for last two PyPI releases
+
+  - previous version never fully updated for two circular array types
 
 PyPI 5.3.3 - 2025-09-21
 ~~~~~~~~~~~~~~~~~~~~~~~

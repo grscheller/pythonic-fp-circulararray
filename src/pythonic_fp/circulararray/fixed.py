@@ -40,44 +40,38 @@ nada: Final[NoValue] = NoValue()
 class CAF[I]:
     __slots__ = '_items', '_cnt', '_cap', '_front', '_rear'
 
-    @overload
-    def __init__(self) -> None: ...
-    @overload
-    def __init__(self, items: Iterable[I]) -> None: ...
-    @overload
-    def __init__(self, items: Iterable[I], capacity: int) -> None: ...
-
-    def __init__(
-        self, items: Iterable[I | NoValue] | NoValue = nada, capacity: int = 2
-    ) -> None:
+    def __init__(self, *items: Iterable[I], cap: int = 2) -> None:
         """
-        :param items: "Optional" iterable to initial populate circular array.
-        :param capacity: Minimum fixed storage capacity of circular array.
-        :raises TypeError: When ``items`` not Iterable,
+        :param items: "Optionally" takes a single iterable to populate circular array.
+        :param cap: Minimum fixed storage capacity of circular array.
+        :raises TypeError: When ``items[0]`` not iterable,
+        :raises ValueError: If more than 1 iterable is given.
         """
-        capacity = max(2, capacity)
-        if items is nada:
-            self._items: list[I | NoValue] = [nada] * capacity
-            count = 0
+        cap = max(2, cap)
+        if (size := len(items)) > 1:
+            msg = f'CAF expects at most 1 argument, got {size}'
+            raise ValueError(msg)
+        if size:
+            values: list[I | NoValue] = list(cast(Iterable[I | NoValue], items[0]))
+            cnt = len(values)
+            cap = max(cnt, cap)
+            self._items = values + [nada] * (cap - cnt)
         else:
-            values: list[I | NoValue] = list(cast(Iterable[I | NoValue], items))
-            dlist: list[I | NoValue] = list(values)
-            count = len(dlist)
-            capacity = max(count, capacity)
-            self._items = dlist + [nada] * (capacity - count)
-        self._cap: Final[int] = capacity
-        self._cnt = count
-        if count == 0:
+            self._items = [nada] * cap
+            cnt = 0
+        self._cap: Final[int] = cap
+        self._cnt = cnt
+        if cnt == 0:
             self._front = 0
-            self._rear = capacity - 1
+            self._rear = cap - 1
         else:
             self._front = 0
-            self._rear = count - 1
+            self._rear = cnt - 1
 
     def __iter__(self) -> Iterator[I]:
         if self._cnt > 0:
             (
-                capacity,
+                cap,
                 rear,
                 position,
                 current_state,
@@ -90,13 +84,13 @@ class CAF[I]:
 
             while position != rear:
                 yield cast(I, current_state[position])
-                position = (position + 1) % capacity
+                position = (position + 1) % cap
             yield cast(I, current_state[position])
 
     def __reversed__(self) -> Iterator[I]:
         if self._cnt > 0:
             (
-                capacity,
+                cap,
                 front,
                 position,
                 current_state,
@@ -109,7 +103,7 @@ class CAF[I]:
 
             while position != front:
                 yield cast(I, current_state[position])
-                position = (position - 1) % capacity
+                position = (position - 1) % cap
             yield cast(I, current_state[position])
 
     def __repr__(self) -> str:
@@ -159,7 +153,7 @@ class CAF[I]:
     def __delitem__(self, idx: int) -> None:
         item_list = list(self)
         del item_list[idx]
-        _ca = CAF(item_list, self._cap)
+        _ca = CAF(item_list, cap = self._cap)
         (
             self._items,
             self._cnt,
@@ -181,11 +175,11 @@ class CAF[I]:
 
         (
             front1,
-            count1,
-            capacity1,
+            cnt1,
+            cap1,
             front2,
-            count2,
-            capacity2,
+            cnt2,
+            cap2,
         ) = (
             self._front,
             self._cnt,
@@ -195,18 +189,18 @@ class CAF[I]:
             other._cap,
         )
 
-        if count1 != count2:
+        if cnt1 != cnt2:
             return False
 
-        for nn in range(count1):
+        for nn in range(cnt1):
             if (
-                self._items[(front1 + nn) % capacity1]
-                is other._items[(front2 + nn) % capacity2]
+                self._items[(front1 + nn) % cap1]
+                is other._items[(front2 + nn) % cap2]
             ):
                 continue
             if (
-                self._items[(front1 + nn) % capacity1]
-                != other._items[(front2 + nn) % capacity2]
+                self._items[(front1 + nn) % cap1]
+                != other._items[(front2 + nn) % cap2]
             ):
                 return False
         return True
@@ -409,7 +403,7 @@ class CAF[I]:
         :param f: Callable from type ``I`` to type ``U``.
         :returns: New fixed capacity circular array instance.
         """
-        return CAF(map(f, self), self._cap)
+        return CAF(map(f, self), cap = self._cap)
 
     @overload
     def foldl[L](self, f: Callable[[I, I], I]) -> I: ...
@@ -500,11 +494,11 @@ class CAF[I]:
         return self._cnt / self._cap
 
 
-def caf[T](*items: T, capacity: int = 2) -> CAF[T]:
+def caf[T](*items: T, cap: int = 2) -> CAF[T]:
     """Produce a circular array from a variable number of arguments.
 
     :param items: Initial items for a new fixed capacity :circular array.
-    :param capacity: The minimum storage capacity to set.
+    :param cap: The minimum storage capacity to set.
     :returns: New fixed storage capacity circular array.
     """
-    return CAF(items, capacity=capacity)
+    return CAF(items, cap=cap)

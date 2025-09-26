@@ -41,22 +41,21 @@ nada: Final[NoValue] = NoValue()
 class CA[I]:
     __slots__ = '_items', '_cnt', '_cap', '_front', '_rear'
 
-    @overload
-    def __init__(self) -> None: ...
-    @overload
-    def __init__(self, items: Iterable[I]) -> None: ...
-
-    def __init__(self, items: Iterable[I | NoValue] | NoValue = nada) -> None:
+    def __init__(self, *items: Iterable[I]) -> None:
         """
-        :param items: "Optional" iterable to initial populate circular array.
-        :raises TypeError: When ``items`` not Iterable.
+        :param items: "Optionally" takes a single iterable to populate circular array.
+        :raises TypeError: When ``items[0]`` not iterable.
+        :raises ValueError: If more than 1 iterable is given.
         """
-        if items is nada:
-            self._items: list[I | NoValue] = [nada, nada]
-        else:
-            values: list[I | NoValue] = list(cast(Iterable[I | NoValue], items))
+        if (size := len(items)) > 1:
+            msg = f'CA expects at most 1 argument, got {size}'
+            raise ValueError(msg)
+        if size:
+            values: list[I | NoValue] = list(cast(Iterable[I | NoValue], items[0]))
             self._items = [nada] + values + [nada]
-        self._cap = cap = len(self._items)
+        else:
+            self._items = [nada, nada]
+        self._cap = (cap := len(self._items))
         self._cnt = cap - 2
         if cap == 2:
             self._front = 0
@@ -292,10 +291,10 @@ class CA[I]:
 
         (
             front1,
-            count1,
+            cnt1,
             capacity1,
             front2,
-            count2,
+            cnt2,
             capacity2,
         ) = (
             self._front,
@@ -306,10 +305,10 @@ class CA[I]:
             other._cap,
         )
 
-        if count1 != count2:
+        if cnt1 != cnt2:
             return False
 
-        for nn in range(count1):
+        for nn in range(cnt1):
             if (
                 self._items[(front1 + nn) % capacity1]
                 is other._items[(front2 + nn) % capacity2]

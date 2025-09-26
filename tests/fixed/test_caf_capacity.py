@@ -22,7 +22,7 @@ class TestCapacityFixed:
         ca0: CAF[int] = CAF()
         assert ca0.capacity() == 2
 
-        ca0 = caf(1, 2, capacity=8)
+        ca0 = caf(1, 2, cap=8)
         assert ca0.fraction_filled() == 2 / 8
 
         ca0.pushl(0)
@@ -49,7 +49,7 @@ class TestCapacityFixed:
 
     def test_empty(self) -> None:
         """Functionality test"""
-        c: CAF[int] = caf(capacity=401)
+        c: CAF[int] = caf(cap=401)
         assert c == caf()
         assert len(c) == 0
         for ii in 1, 2, 3, 4, 5:
@@ -73,7 +73,7 @@ class TestCapacityFixed:
 
     def test_one(self) -> None:
         """Functionality test"""
-        c = caf(42, capacity=5)
+        c = caf(42, cap=5)
         assert c.capacity() == 5
         assert len(c) == 1
         popped = c.popld(0)

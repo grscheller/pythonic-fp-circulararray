@@ -20,7 +20,7 @@ class TestCircularArrayFixed:
 
     def test_mutate_returns_none(self) -> None:
         """Test for builtin behaviors"""
-        ca1: CAF[int] = caf(capacity=4)
+        ca1: CAF[int] = caf(cap=4)
         assert not ca1
         assert ca1.pushl(1) is None  # type: ignore[func-returns-value]
         assert ca1
@@ -63,7 +63,7 @@ class TestCircularArrayFixed:
 
     def test_push_then_pop(self) -> None:
         """Functionality test"""
-        ca0: CAF[str] = caf(capacity=42)
+        ca0: CAF[str] = caf(cap=42)
         pushed1 = '42'
         ca0.pushl(pushed1)
         popped1 = ca0.popl()
@@ -156,8 +156,8 @@ class TestCircularArrayFixed:
 
     def test_equality(self) -> None:
         """Functionality test"""
-        c1: CAF[object] = caf(1, 2, 3, 'Forty-Two', (7, 11, 'foobar'), capacity=7)
-        c2: CAF[object] = caf(2, 3, 'Forty-Two', capacity=7)
+        c1: CAF[object] = caf(1, 2, 3, 'Forty-Two', (7, 11, 'foobar'), cap=7)
+        c2: CAF[object] = caf(2, 3, 'Forty-Two', cap=7)
         c2.pushl(1)
         c2.pushr((7, 11, 'foobar'))
         assert c1 == c2
@@ -175,7 +175,7 @@ class TestCircularArrayFixed:
         assert c1 == c2
 
         hold_a = c1.popl()
-        c1 = CAF(c1, 42)
+        c1 = CAF(c1, cap=42)
         hold_b = c1.popl()
         hold_c = c1.popr()
         c1.pushl(hold_b)
@@ -312,7 +312,7 @@ class TestCircularArrayFixed:
 
     def test_readme(self) -> None:
         """Functionality test"""
-        ca0 = caf(1, 2, 3, capacity=10)
+        ca0 = caf(1, 2, 3, cap=10)
         assert ca0.popl() == 1
         assert ca0.popr() == 3
         ca0.pushr(42)
@@ -340,7 +340,7 @@ class TestCircularArrayFixed:
 
     def test_pop(self) -> None:
         """Functionality test"""
-        ca1 = caf(1, 2, 3, capacity=4)
+        ca1 = caf(1, 2, 3, cap=4)
         assert ca1.popld(42) == 1
         assert ca1.poprd(42) == 3
         assert ca1.popld(42) == 2
@@ -348,7 +348,7 @@ class TestCircularArrayFixed:
         assert ca1.popld(42) == 42
         assert len(ca1) == 0
 
-        ca2: CAF[int] = caf(0, 1, 2, 3, 4, 5, 6, capacity=10)
+        ca2: CAF[int] = caf(0, 1, 2, 3, 4, 5, 6, cap=10)
         assert ca2.popl() == 0
         assert ca2.popr() == 6
         assert ca2 == caf(1, 2, 3, 4, 5)
@@ -437,8 +437,8 @@ class TestCircularArrayFixed:
             (4, 1),
             (4, 3),
         )
-        foo = caf(0, 1, 2, 3, 4, capacity=10)
-        bar = CAF[tuple[int, int]]((), capacity=100)
+        foo = caf(0, 1, 2, 3, 4, cap=10)
+        bar = CAF[tuple[int, int]]((), cap=100)
 
         for ii in foo:
             if ii % 2 == 1:
@@ -489,3 +489,14 @@ class TestCircularArrayFixed:
             assert False
         else:
             assert bar == 0
+
+    def test_store_none(self) -> None:
+        caf1 = caf(1, 'a', None, (), 42)
+        assert not caf1
+        assert caf1.popl() == 1
+        assert caf1.popr() == 42
+        assert caf1
+        assert caf1.popl() == 'a'
+        assert caf1.popl() is None
+        assert caf1.popr() == ()
+        assert not caf1
