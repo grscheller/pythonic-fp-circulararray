@@ -13,9 +13,6 @@
 # limitations under the License.
 
 """
-Fixed Storage Capacity
-======================
-
 **Circular array with fixed storage capacity.**
 
 - O(1) pops and pushes either end

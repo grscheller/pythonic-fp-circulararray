@@ -13,9 +13,6 @@
 # limitations under the License.
 
 """
-Variable Storage Capacity
-=========================
-
 **Circular array with variable storage capacity.**
 
 - O(1) pops either end

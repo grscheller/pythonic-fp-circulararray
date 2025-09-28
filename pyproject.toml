@@ -30,8 +30,8 @@ dynamic = ["description"]
 
 [project.urls]
 Changelog = "https://github.com/grscheller/pythonic-fp-circulararray/blob/main/CHANGELOG.rst"
-Documentation = "https://grscheller.github.io/pythonic-fp/circulararray/development/build/html/index.html"
-Homepage = "https://github.com/grscheller/pythonic-fp/blob/main/README.md"
+Documentation = "https://grscheller.github.io/pythonic-fp/circulararray/development/build/html/"
+Homepage = "https://grscheller.github.io/pythonic-fp/homepage/build/html/"
 Source = "https://github.com/grscheller/pythonic-fp-circulararray"
 
 [project.optional-dependencies]
