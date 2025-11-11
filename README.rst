@@ -30,7 +30,7 @@ Python module implementing stateful circular array data structures.
 
 Part of the
 `pythonic-fp
-<https://grscheller.github.io/pythonic-fp/homepage/build/html/index.html>`_
+<https://grscheller.github.io/pythonic-fp>`_
 PyPI projects.
 
 Documentation
@@ -38,7 +38,7 @@ Documentation
 
 Documentation for this project is hosted on
 `GitHub Pages
-<https://grscheller.github.io/pythonic-fp/circulararray/development/build/html>`_.
+<https://grscheller.github.io/pythonic-fp/circulararray>`_.
 
 Copyright and License
 ---------------------
