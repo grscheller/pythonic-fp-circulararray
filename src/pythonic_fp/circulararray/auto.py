@@ -13,16 +13,16 @@
 # limitations under the License.
 
 """
-**Circular array with variable storage capacity.**
+.. admonition:: Variable storage capacity circular array.**
 
-- O(1) pops either end
-- O(1) amortized pushes either end
-- O(1) indexing, fully supports slicing
-- auto-resizing more storage capacity when necessary, manually compatible
-- iterable, safely mutates while iterators iterating over previous state
-- comparisons compare identity before equality, like builtins
-- in boolean context, falsy when empty, otherwise truthy
-- function ``ca`` produces auto-resizing circular array from arguments
+    - O(1) pops either end
+    - O(1) amortized pushes either end
+    - O(1) indexing, fully supports slicing
+    - auto-resizing more storage capacity when necessary, manually compatible
+    - iterable, safely mutates while iterators iterating over previous state
+    - comparisons compare identity before equality, like builtins
+    - in boolean context, falsy when empty, otherwise truthy
+    - function ``ca`` produces auto-resizing circular array from arguments
 
 """
 
@@ -40,7 +40,8 @@ class CA[I]:
 
     def __init__(self, *items: Iterable[I]) -> None:
         """
-        :param items: "Optionally" takes a single iterable to populate circular array.
+        :param items: Optionally takes a single iterable to
+                      initially populate the circular array.
         :raises TypeError: When ``items[0]`` not iterable.
         :raises ValueError: If more than 1 iterable is given.
         """
@@ -281,6 +282,12 @@ class CA[I]:
         del _ca
 
     def __eq__(self, other: object) -> bool:
+        """
+        :param other: The object to be compared to.
+        :returns: ``True`` if object is another CA whose items compare
+                  as equal to the corresponding items in the CA,
+                  otherwise ``False``.
+        """
         if self is other:
             return True
         if not isinstance(other, type(self)):
@@ -455,7 +462,8 @@ class CA[I]:
     def poplt(self, maximum: int) -> tuple[I, ...]:
         """Pop multiple items from left side of circular array.
 
-        :param maximum: Maximum number of items to pop, may pop less if not enough items.
+        :param maximum: Maximum number of items to pop, may pop less
+                        if not enough items.
         :returns: Tuple of items in the order popped, left to right.
         """
         item_list: list[I] = []
@@ -473,7 +481,8 @@ class CA[I]:
     def poprt(self, maximum: int) -> tuple[I, ...]:
         """Pop multiple items from right side of circular array.
 
-        :param maximum: Maximum number of items to pop, may pop less if not enough items.
+        :param maximum: Maximum number of items to pop, may pop less
+                        if not enough items.
         :returns: Tuple of items in the order popped, right to left.
         """
         item_list: list[I] = []
@@ -522,10 +531,12 @@ class CA[I]:
     def foldl[L](self, f: Callable[[L, I], L], start: L | NoValue = NoValue()) -> L:
         """Fold left with a function and optional starting item.
 
-        :param f: Folding function, first argument to ``f`` is for the accumulator.
+        :param f: Folding function, first argument to ``f`` is for
+                  the accumulator.
         :param start: "Optional" starting item.
         :returns: Reduced value produced by the left fold.
-        :raises ValueError: When circular array empty and no starting item given.
+        :raises ValueError: When circular array empty and no starting
+                            item given.
         """
         if self._cnt == 0:
             if start is nada:
@@ -552,10 +563,12 @@ class CA[I]:
     def foldr[R](self, f: Callable[[I, R], R], start: R | NoValue = nada) -> R:
         """Fold right with a function and an optional starting item.
 
-        :param f: Folding function, second argument to ``f`` is for the accumulator.
-        :param start: "Optional" starting item.
+        :param f: Folding function, second argument to ``f`` is for
+                  the accumulator.
+        :param start: Optional starting item.
         :returns: Reduced value produced by the right fold.
-        :raises ValueError: When circular array empty and no starting item given.
+        :raises ValueError: When circular array empty and no starting
+                            item given.
         """
         if self._cnt == 0:
             if start is nada:
@@ -607,7 +620,8 @@ class CA[I]:
         storage capacity. To just compact the circular array, do not
         provide ``minimum_capacity``.
 
-        :param minimum_capacity: Minimum storage capacity to compact the circular array.
+        :param minimum_capacity: Minimum storage capacity to compact
+                                 the circular array.
         """
         self._compact_storage_capacity()
         if (min_cap := minimum_capacity) > self._cap:

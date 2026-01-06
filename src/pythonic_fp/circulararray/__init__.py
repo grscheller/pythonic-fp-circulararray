@@ -14,27 +14,24 @@
 
 """
 Circular Array
-==============
+--------------
 
-Package implementing stateful circular array data structures.
+.. admonition:: Stateful circular array data structures.
 
-- O(1) pops and pushes either end
-- O(1) indexing and size determination
-- O(1) size determination
+    +-------------------------------------+-------------------------------------------+
+    | Module                              | Description                               |
+    +=====================================+===========================================+
+    | **pythonic_fp.circulararray.auto**  | Variable storage capacity circular array. |
+    +-------------------------------------+-------------------------------------------+
+    | **pythonic_fp.circulararray.fixed** | Fixed storage capacity circular array.    |
+    +-------------------------------------+-------------------------------------------+
 
-Circular array types
---------------------
-
-+-------------------------------------+-------------------------------------------+
-| Module                              | Description                               |
-+=====================================+===========================================+
-| **pythonic_fp.circulararray.auto**  | Variable storage capacity circular array. |
-+-------------------------------------+-------------------------------------------+
-| **pythonic_fp.circulararray.fixed** | Fixed storage capacity circular array.    |
-+-------------------------------------+-------------------------------------------+
+    - O(1) pops and pushes either end
+    - O(1) size determination
+    - O(1) indexing
 
 """
 
 __author__ = 'Geoffrey R. Scheller'
-__copyright__ = 'Copyright (c) 2023-2025 Geoffrey R. Scheller'
+__copyright__ = 'Copyright (c) 2023-2026 Geoffrey R. Scheller'
 __license__ = 'Apache License 2.0'

@@ -13,15 +13,15 @@
 # limitations under the License.
 
 """
-**Circular array with fixed storage capacity.**
+.. admonition:: Fixed storage capacity circular array.**
 
-- O(1) pops and pushes either end
-- O(1) indexing, does not support slicing
-- fixed total storage capacity
-- iterable, safely mutates while iterators iterating over previous state
-- comparisons compare identity before equality, like builtins
-- in boolean context, falsy when either empty or full, otherwise truthy
-- function ``caf`` produces fixed capacity circular array from arguments
+    - O(1) pops and pushes either end
+    - O(1) indexing, does not support slicing
+    - fixed total storage capacity
+    - iterable, safely mutates while iterators iterating over previous state
+    - comparisons compare identity before equality, like builtins
+    - in boolean context, falsy when either empty or full, otherwise truthy
+    - function ``caf`` produces fixed capacity circular array from arguments
 
 """
 
@@ -39,7 +39,8 @@ class CAF[I]:
 
     def __init__(self, *items: Iterable[I], cap: int = 2) -> None:
         """
-        :param items: "Optionally" takes a single iterable to populate circular array.
+        :param items: Optionally takes a single iterable to
+                      initially populate the circular array.
         :param cap: Minimum fixed storage capacity of circular array.
         :raises TypeError: When ``items[0]`` not iterable,
         :raises ValueError: If more than 1 iterable is given.
@@ -165,6 +166,12 @@ class CAF[I]:
         del _ca
 
     def __eq__(self, other: object) -> bool:
+        """
+        :param other: The object to be compared to.
+        :returns: ``True`` if object is another CAF whose items compare
+                  as equal to the corresponding items in the CAF,
+                  otherwise ``False``.
+        """
         if self is other:
             return True
         if not isinstance(other, type(self)):
@@ -343,7 +350,8 @@ class CAF[I]:
     def poplt(self, maximum: int) -> tuple[I, ...]:
         """Pop multiple items from left side of circular array.
 
-        :param maximum: Maximum number of items to pop, may pop less if not enough items.
+        :param maximum: Maximum number of items to pop, may pop less
+                        if not enough items.
         :returns: Tuple of items in the order popped, left to right.
         """
         item_list: list[I] = []
@@ -361,7 +369,8 @@ class CAF[I]:
     def poprt(self, maximum: int) -> tuple[I, ...]:
         """Pop multiple items from right side of circular array.
 
-        :param maximum: Maximum number of items to pop, may pop less if not enough items.
+        :param maximum: Maximum number of items to pop, may pop less
+                        if not enough items.
         :returns: Tuple of items in the order popped, right to left.
         """
         item_list: list[I] = []
@@ -410,10 +419,12 @@ class CAF[I]:
     def foldl[L](self, f: Callable[[L, I], L], start: L | NoValue = nada) -> L:
         """Fold left with a function and optional stating item.
 
-        :param f: Folding function, first argument to ``f`` is for the accumulator.
+        :param f: Folding function, first argument to ``f`` is for
+                  the accumulator.
         :param start: Optional starting item.
         :returns: Reduced value produced by the left fold.
-        :raises ValueError: When circular array empty and no starting item given.
+        :raises ValueError: When circular array empty and no starting
+                            item given.
         """
         if self._cnt == 0:
             if start is nada:
@@ -440,10 +451,12 @@ class CAF[I]:
     def foldr[R](self, f: Callable[[I, R], R], start: R | NoValue = nada) -> R:
         """Fold right with a function and an optional starting item.
 
-        :param f: Folding function, second argument to ``f`` is for the accumulator.
+        :param f: Folding function, second argument to ``f`` is for
+                  the accumulator.
         :param start: Optional starting item.
         :returns: Reduced value produced by the right fold.
-        :raises ValueError: When circular array empty and no starting item given.
+        :raises ValueError: When circular array empty and no starting
+                            item given.
         """
         if self._cnt == 0:
             if start is nada:
