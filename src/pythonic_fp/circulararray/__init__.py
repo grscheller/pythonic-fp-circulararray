@@ -18,17 +18,21 @@ Circular Array
 
 .. admonition:: Stateful circular array data structures.
 
-    +-------------------------------------+-------------------------------------------+
-    | Module                              | Description                               |
-    +=====================================+===========================================+
-    | **pythonic_fp.circulararray.auto**  | Variable storage capacity circular array. |
-    +-------------------------------------+-------------------------------------------+
-    | **pythonic_fp.circulararray.fixed** | Fixed storage capacity circular array.    |
-    +-------------------------------------+-------------------------------------------+
-
     - O(1) pops and pushes either end
     - O(1) size determination
     - O(1) indexing
+
+=================================== ======= ======= =========================================
+Module                              Class   Factory Description
+=================================== ======= ======= =========================================
+**pythonic_fp.circulararray.auto**  **CA**  **ca**  Variable storage capacity circular array.
+**pythonic_fp.circulararray.fixed** **CAF** **caf** Fixed storage capacity circular array.
+=================================== ======= ======= =========================================
+
+.. note::
+
+    - Class constructors ``CA`` and ``CAF`` take an optional iterator to populate the circular array.
+    - Factory Functions ``ca`` and ``caf`` take a variable number of parameters for the circular array.
 
 """
 
