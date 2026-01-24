@@ -44,6 +44,7 @@ class CAF[I]:
         :param cap: Minimum fixed storage capacity of circular array.
         :raises TypeError: When ``items[0]`` not iterable,
         :raises ValueError: If more than 1 iterable is given.
+
         """
         cap = max(2, cap)
         if (size := len(items)) > 1:
@@ -171,6 +172,7 @@ class CAF[I]:
         :returns: ``True`` if object is another CAF whose items compare
                   as equal to the corresponding items in the CAF,
                   otherwise ``False``.
+
         """
         if self is other:
             return True
@@ -214,6 +216,7 @@ class CAF[I]:
 
         :param item: Single item pushed onto circular array from left (front).
         :raises ValueError: When called on a full ``CAF``.
+
         """
         if self._cnt == self._cap:
             msg = 'Method pushl called on a full CAF'
@@ -234,6 +237,7 @@ class CAF[I]:
 
         :param item: Single ``item`` pushed onto circular array from right (rear).
         :raises ValueError: When called on a full fixed storage capacity circular array.
+
         """
         if self._cnt == self._cap:
             msg = 'Method pushr called on a full CAF'
@@ -254,6 +258,7 @@ class CAF[I]:
 
         :returns: Item popped from left side (front) of circular array.
         :raises ValueError: When called on an empty circular array.
+
         """
         if self._cnt > 1:
             (
@@ -291,6 +296,7 @@ class CAF[I]:
 
         :returns: Item popped from right side (rear) of circular array.
         :raises ValueError: When called on an empty circular array.
+
         """
         if self._cnt > 1:
             (
@@ -329,6 +335,7 @@ class CAF[I]:
 
         :param default: Item returned if circular array is empty.
         :returns: Item popped from left side or default item if empty.
+
         """
         try:
             return self.popl()
@@ -341,6 +348,7 @@ class CAF[I]:
 
         :param default: Item returned if circular array is empty.
         :returns: Item popped from right side or default item if empty.
+
         """
         try:
             return self.popr()
@@ -353,6 +361,7 @@ class CAF[I]:
         :param maximum: Maximum number of items to pop, may pop less
                         if not enough items.
         :returns: Tuple of items in the order popped, left to right.
+
         """
         item_list: list[I] = []
 
@@ -372,6 +381,7 @@ class CAF[I]:
         :param maximum: Maximum number of items to pop, may pop less
                         if not enough items.
         :returns: Tuple of items in the order popped, right to left.
+
         """
         item_list: list[I] = []
         while maximum > 0:
@@ -387,6 +397,7 @@ class CAF[I]:
         """Rotate items to the left.
 
         :param n: Number of times to shift elements to the left.
+
         """
         if self._cnt < 2:
             return
@@ -397,6 +408,7 @@ class CAF[I]:
         """Rotate items to the right.
 
         :param n: Number of times to shift elements to the right.
+
         """
         if self._cnt < 2:
             return
@@ -408,6 +420,7 @@ class CAF[I]:
 
         :param f: Callable from type ``I`` to type ``U``.
         :returns: New fixed capacity circular array instance.
+
         """
         return CAF(map(f, self), cap = self._cap)
 
@@ -425,6 +438,7 @@ class CAF[I]:
         :returns: Reduced value produced by the left fold.
         :raises ValueError: When circular array empty and no starting
                             item given.
+
         """
         if self._cnt == 0:
             if start is nada:
@@ -457,6 +471,7 @@ class CAF[I]:
         :returns: Reduced value produced by the right fold.
         :raises ValueError: When circular array empty and no starting
                             item given.
+
         """
         if self._cnt == 0:
             if start is nada:
@@ -479,6 +494,7 @@ class CAF[I]:
         """Return fixed storage capacity of the circular array.
 
         :returns: Fixed storage capacity.
+
         """
         return self._cap
 
@@ -500,6 +516,7 @@ class CAF[I]:
         """Find fraction of the storage capacity which is filled.
 
         :returns: The ratio count/capacity.
+
         """
         return self._cnt / self._cap
 
@@ -510,5 +527,6 @@ def caf[T](*items: T, cap: int = 2) -> CAF[T]:
     :param items: Initial items for a new fixed capacity :circular array.
     :param cap: The minimum storage capacity to set.
     :returns: New fixed storage capacity circular array.
+
     """
     return CAF(items, cap=cap)

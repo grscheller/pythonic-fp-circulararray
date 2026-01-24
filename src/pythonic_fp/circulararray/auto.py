@@ -44,6 +44,7 @@ class CA[I]:
                       initially populate the circular array.
         :raises TypeError: When ``items[0]`` not iterable.
         :raises ValueError: If more than 1 iterable is given.
+
         """
         if (size := len(items)) > 1:
             msg = f'CA expects at most 1 argument, got {size}'
@@ -287,6 +288,7 @@ class CA[I]:
         :returns: ``True`` if object is another CA whose items compare
                   as equal to the corresponding items in the CA,
                   otherwise ``False``.
+
         """
         if self is other:
             return True
@@ -329,6 +331,7 @@ class CA[I]:
         """Push ``items`` on from left.
 
         :param items: Items pushed onto circular array from left (front).
+
         """
         for item in items:
             if self._cnt == self._cap:
@@ -347,6 +350,7 @@ class CA[I]:
         """Push ``items`` on from right.
 
         :param items: Items pushed onto circular array from right (rear).
+
         """
         for item in items:
             if self._cnt == self._cap:
@@ -366,6 +370,7 @@ class CA[I]:
 
         :returns: Item popped from left side (front) of circular array.
         :raises ValueError: When called on an empty circular array.
+
         """
         if self._cnt > 1:
             (
@@ -403,6 +408,7 @@ class CA[I]:
 
         :returns: Item popped from right side (rear) of circular array.
         :raises ValueError: When called on an empty circular array.
+
         """
         if self._cnt > 1:
             (
@@ -441,6 +447,7 @@ class CA[I]:
 
         :param default: Item returned if circular array is empty.
         :returns: Item popped from left side or default item if empty.
+
         """
         try:
             return self.popl()
@@ -453,6 +460,7 @@ class CA[I]:
 
         :param default: Item returned if circular array is empty.
         :returns: Item popped from right side or default item if empty.
+
         """
         try:
             return self.popr()
@@ -465,6 +473,7 @@ class CA[I]:
         :param maximum: Maximum number of items to pop, may pop less
                         if not enough items.
         :returns: Tuple of items in the order popped, left to right.
+
         """
         item_list: list[I] = []
 
@@ -484,6 +493,7 @@ class CA[I]:
         :param maximum: Maximum number of items to pop, may pop less
                         if not enough items.
         :returns: Tuple of items in the order popped, right to left.
+
         """
         item_list: list[I] = []
         while maximum > 0:
@@ -499,6 +509,7 @@ class CA[I]:
         """Rotate items to the left.
 
         :param n: Number of times to shift elements to the left.
+
         """
         if self._cnt < 2:
             return
@@ -509,6 +520,7 @@ class CA[I]:
         """Rotate items to the right.
 
         :param n: Number of times to shift elements to the right.
+
         """
         if self._cnt < 2:
             return
@@ -520,6 +532,7 @@ class CA[I]:
 
         :param f: Callable from type ``I`` to type ``U``.
         :returns: New auto-resizing circular array instance.
+
         """
         return CA(map(f, self))
 
@@ -537,6 +550,7 @@ class CA[I]:
         :returns: Reduced value produced by the left fold.
         :raises ValueError: When circular array empty and no starting
                             item given.
+
         """
         if self._cnt == 0:
             if start is nada:
@@ -569,6 +583,7 @@ class CA[I]:
         :returns: Reduced value produced by the right fold.
         :raises ValueError: When circular array empty and no starting
                             item given.
+
         """
         if self._cnt == 0:
             if start is nada:
@@ -622,6 +637,7 @@ class CA[I]:
 
         :param minimum_capacity: Minimum storage capacity to compact
                                  the circular array.
+
         """
         self._compact_storage_capacity()
         if (min_cap := minimum_capacity) > self._cap:
@@ -641,5 +657,6 @@ def ca[T](*items: T) -> CA[T]:
 
     :param items: Initial items for a new auto-resizing circular array.
     :returns: New variable storage capacity circular array.
+
     """
     return CA(items)
