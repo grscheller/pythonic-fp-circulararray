@@ -22,12 +22,12 @@ Circular Array
     - O(1) size determination
     - O(1) indexing
 
-=================================== ======= ======= =========================================
-Module                              Class   Factory Description
-=================================== ======= ======= =========================================
-**pythonic_fp.circulararray.auto**  **CA**  **ca**  Variable storage capacity circular array.
-**pythonic_fp.circulararray.fixed** **CAF** **caf** Fixed storage capacity circular array.
-=================================== ======= ======= =========================================
+    =================================== ======= ======= =========================================
+    Module                              Class   Factory Description
+    =================================== ======= ======= =========================================
+    **pythonic_fp.circulararray.auto**  **CA**  **ca**  Variable storage capacity circular array.
+    **pythonic_fp.circulararray.fixed** **CAF** **caf** Fixed storage capacity circular array.
+    =================================== ======= ======= =========================================
 
 .. note::
 
