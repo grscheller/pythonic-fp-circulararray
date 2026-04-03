@@ -13,7 +13,7 @@
 # limitations under the License.
 
 """
-.. admonition:: Variable storage capacity circular array.**
+.. admonition:: Variable storage capacity circular array CA
 
     - O(1) pops either end
     - O(1) amortized pushes either end

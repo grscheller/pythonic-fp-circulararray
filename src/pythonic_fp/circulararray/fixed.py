@@ -13,7 +13,7 @@
 # limitations under the License.
 
 """
-.. admonition:: Fixed storage capacity circular array.**
+.. admonition:: Fixed storage capacity circular array CAF
 
     - O(1) pops and pushes either end
     - O(1) indexing, does not support slicing
