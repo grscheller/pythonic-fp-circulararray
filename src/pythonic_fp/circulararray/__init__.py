@@ -1,4 +1,4 @@
-# Copyright 2024-2025 Geoffrey R. Scheller
+# Copyright 2024-2026 Geoffrey R. Scheller
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,15 +21,12 @@ Circular Array
     - O(1) pops and pushes either end
     - O(1) size determination
     - O(1) indexing
-    - Two types of circular arrays
+    - Two types of circular arrays, fixed and variable capacity
 
-      - **pythonic_fp.circulararray.auto.CA**: Variable storage capacity circular array.
-      - **pythonic_fp.circulararray.fixed.CAF**: Fixed storage capacity circular array.
+.. note::
 
-    .. note::
-
-        - Class constructors ``CA`` and ``CAF`` take an optional iterator to populate the circular array.
-        - Factory Functions ``ca`` and ``caf`` take a variable number of parameters for the circular array.
+    - Class constructors ``CA`` and ``CAF`` take an optional iterator to populate circular array.
+    - Factory Functions ``ca`` and ``caf`` take a variable number of parameters to populate circular array.
 
 """
 
