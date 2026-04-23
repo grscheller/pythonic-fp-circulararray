@@ -4,7 +4,7 @@ build-backend = "flit_core.buildapi"
 
 [project]
 name = "pythonic-fp-circulararray"
-version = "6.0.2"
+version = "6.0.3"
 readme = "README.rst"
 requires-python = ">=3.13"
 authors = [{ name = "Geoffrey R. Scheller", email = "geoffrey@scheller.com" }]
