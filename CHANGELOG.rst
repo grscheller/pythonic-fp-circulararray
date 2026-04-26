@@ -17,8 +17,8 @@ See `Semantic Versioning 2.0.0 <https://semver.org>`_.
 Releases and Important Milestones
 ---------------------------------
 
-PyPI 6.0.3 - 2026-04-TBA
-~~~~~~~~~~~~~~~~~~~~~~~~
+PyPI 6.0.3 - 2026-04-25
+~~~~~~~~~~~~~~~~~~~~~~~
 
 The pythonic-fp-circulararray GitHub repo now will be automatically
 building the current release documentation and the latest development
