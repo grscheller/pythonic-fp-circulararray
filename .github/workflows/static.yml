@@ -1,4 +1,4 @@
-name: Build and deploy static Furo themed Sphinx content to Pages
+name: Build and Deploy Furo Themed Sphinx Documentation
 
 on:
   push:
@@ -29,17 +29,17 @@ jobs:
         with:
           python-version: '3.14'
 
-      - name: Install sphinx dependencies
+      - name: Install Sphinx Dependencies
         run: pip install -r docs/requirements.txt
 
-      - name: Build release docs
+      - name: Build Release Docs
         run: |
           pip install pythonic-fp-circulararray
           cp docs/index_release.rst docs/source/index.rst
           cp docs/conf_release.py docs/source/conf.py
           sphinx-build -M html docs/source docs/build/release
 
-      - name: Build development docs
+      - name: Build Development Docs
         run: |
           pip install -e .
           cp docs/index_devel.rst docs/source/index.rst
@@ -49,7 +49,7 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v6
 
-      - name: Upload artifact
+      - name: Upload Artifact
         uses: actions/upload-pages-artifact@v5
         with:
           path: docs/build

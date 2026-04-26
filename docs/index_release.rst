@@ -1,5 +1,5 @@
 pythonic-fp-circulararray
--------------------------
+=========================
 
 Project
 `pythonic-fp-circulararray <https://pypi.org/project/pythonic-fp-circulararray/>`_
