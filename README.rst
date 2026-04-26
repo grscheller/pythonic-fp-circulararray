@@ -30,7 +30,7 @@ Python module implementing stateful circular array data structures.
 
 Part of the
 `pythonic-fp
-<https://grscheller.github.io/pythonic-fp>`_
+<https://grscheller.github.io/pythonic-fp/homepage/html/>`_
 PyPI projects.
 
 Documentation
