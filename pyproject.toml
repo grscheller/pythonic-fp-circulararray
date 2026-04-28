@@ -4,10 +4,12 @@ build-backend = "flit_core.buildapi"
 
 [project]
 name = "pythonic-fp-circulararray"
-version = "6.0.4"
+version = "6.0.5"
 readme = "README.rst"
 requires-python = ">=3.13"
-authors = [{ name = "Geoffrey R. Scheller", email = "geoffrey@scheller.com" }]
+authors = [
+  { name = "Geoffrey R. Scheller", email = "geoffrey@scheller.com" },
+]
 keywords = [
   "auto resizing",
   "circular array",
