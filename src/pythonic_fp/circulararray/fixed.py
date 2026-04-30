@@ -12,19 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-.. admonition:: Fixed storage capacity circular array CAF
-
-    - O(1) pops and pushes either end
-    - O(1) indexing, does not support slicing
-    - fixed total storage capacity
-    - iterable, safely mutates while iterators iterating over previous state
-    - comparisons compare identity before equality, like builtins
-    - in boolean context, falsy when either empty or full, otherwise truthy
-    - function ``caf`` produces fixed capacity circular array from arguments
-
-"""
-
 from collections.abc import Callable, Iterable, Iterator
 from typing import cast, Final, overload
 from pythonic_fp.gadgets.sentinels.novalue import NoValue
@@ -35,6 +22,19 @@ nada: Final[NoValue] = NoValue()
 
 
 class CAF[X]:
+
+    """
+    .. admonition:: Fixed storage capacity circular array CAF
+
+        - O(1) pops and pushes either end
+        - O(1) indexing, does not support slicing
+        - fixed total storage capacity
+        - iterable, safely mutates while iterators iterating over previous state
+        - comparisons compare identity before equality, like builtins
+        - in boolean context, falsy when either empty or full, otherwise truthy
+        - function ``caf`` produces fixed capacity circular array from arguments
+
+    """
     __slots__ = '_xs', '_cnt', '_cap', '_front', '_rear'
 
     def __init__(self, *xs: Iterable[X], cap: int = 2) -> None:
@@ -175,10 +175,14 @@ class CAF[X]:
 
     def __eq__(self, other: object) -> bool:
         """
-        :param other: The object to be compared to.
-        :returns: ``True`` if object is another ``CAF`` whose items compare
-                  as equal to the corresponding items in the ``CAF``,
-                  otherwise ``False``.
+        .. admonition:: Equality comparison
+
+            Efficiently compare ``CAF`` to another object.
+
+        :param other: The object to be compared.
+        :returns: ``True`` if ``other`` is another ``CAF`` whose
+                  contents compare as equal to the corresponding
+                  contents of the ``CAF``, otherwise ``False``.
 
         """
         if self is other:

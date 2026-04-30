@@ -12,20 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-.. admonition:: Variable storage capacity circular array CA
-
-    - O(1) pops either end
-    - O(1) amortized pushes either end
-    - O(1) indexing, fully supports slicing
-    - auto-resizing more storage capacity when necessary, manually compatible
-    - iterable, safely mutates while iterators iterating over previous state
-    - comparisons compare identity before equality, like builtins
-    - in boolean context, falsy when empty, otherwise truthy
-    - function ``ca`` produces auto-resizing circular array from arguments
-
-"""
-
 from collections.abc import Callable, Iterable, Iterator
 from typing import cast, Final, overload
 from pythonic_fp.gadgets.sentinels.novalue import NoValue
@@ -36,6 +22,19 @@ nada: Final[NoValue] = NoValue()
 
 
 class CA[X]:
+    """
+    .. admonition:: Variable storage capacity circular array CA
+
+        - O(1) pops either end
+        - O(1) amortized pushes either end
+        - O(1) indexing, fully supports slicing
+        - auto-resizing more storage capacity when necessary, manually compatible
+        - iterable, safely mutates while iterators iterating over previous state
+        - comparisons compare identity before equality, like builtins
+        - in boolean context, falsy when empty, otherwise truthy
+        - function ``ca`` produces auto-resizing circular array from arguments
+
+    """
     __slots__ = '_xs', '_cnt', '_cap', '_front', '_rear'
 
     def __init__(self, *xs: Iterable[X]) -> None:
@@ -291,10 +290,14 @@ class CA[X]:
 
     def __eq__(self, other: object) -> bool:
         """
-        :param other: The object to be compared to.
-        :returns: ``True`` if object is another ``CA`` whose items compare
-                  as equal to the corresponding items in the ``CA``,
-                  otherwise ``False``.
+        .. admonition:: Equality comparison
+
+            Efficiently compare ``CA`` to another object.
+
+        :param other: The object to be compared.
+        :returns: ``True`` if ``other`` is another ``CA`` whose
+                  contents compare as equal to the corresponding
+                  contents of the ``CA``, otherwise ``False``.
 
         """
         if self is other:
