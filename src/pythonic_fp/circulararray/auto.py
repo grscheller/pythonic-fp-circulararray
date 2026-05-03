@@ -29,7 +29,7 @@ class CA[X]:
         - O(1) amortized pushes either end
         - O(1) indexing, fully supports slicing
         - auto-resizing more storage capacity when necessary, manually compatible
-        - iterable, safely mutates while iterators iterating over previous state
+        - iterable but not threadsafe
         - comparisons compare identity before equality, like builtins
         - in boolean context, falsy when empty, otherwise truthy
         - function ``ca`` produces auto-resizing circular array from arguments
@@ -39,13 +39,14 @@ class CA[X]:
 
     def __init__(self, *xs: Iterable[X]) -> None:
         """
-        :param xs: Optionally takes a single iterable to initially populate the circular array.
-        :raises TypeError: When ``xs[0]`` not iterable.
-        :raises ValueError: If more than 1 iterable is given.
+        :param xs: Takes 0 or 1 iterable parameters to initially
+                   populate the ``CA`` left (front) to right (back).
+        :raises ValueError: When more than one iterable is provided.
+        :raises TypeError: When passed a non-iterable parameter.
 
         """
         if (size := len(xs)) > 1:
-            msg = f'CA expects at most 1 argument, got {size}'
+            msg = f'CA expects at most 1 iterable, got {size}'
             raise ValueError(msg)
         if size:
             values: list[X | NoValue] = list(cast(Iterable[X | NoValue], xs[0]))
@@ -138,6 +139,61 @@ class CA[X]:
                         + [nada],
                     )
 
+    def __bool__(self) -> bool:
+        return self._cnt > 0
+
+    def __len__(self) -> int:
+        return self._cnt
+
+    def __eq__(self, other: object) -> bool:
+        """
+        .. admonition:: Equality comparison
+
+            Efficiently compare ``CA`` to another object.
+
+        :param other: The object to be compared.
+        :returns: ``True`` if ``other`` is another ``CA`` whose
+                  contents compare as equal to the corresponding
+                  contents of the ``CA``, otherwise ``False``.
+
+        """
+        if self is other:
+            return True
+        if not isinstance(other, type(self)):
+            return False
+
+        (
+            front1,
+            cnt1,
+            capacity1,
+            front2,
+            cnt2,
+            capacity2,
+        ) = (
+            self._front,
+            self._cnt,
+            self._cap,
+            other._front,
+            other._cnt,
+            other._cap,
+        )
+
+        if cnt1 != cnt2:
+            return False
+
+        for nn in range(cnt1):
+            if (
+                self._xs[(front1 + nn) % capacity1]
+                is other._xs[(front2 + nn) % capacity2]
+            ):
+                continue
+            if (
+                self._xs[(front1 + nn) % capacity1]
+                != other._xs[(front2 + nn) % capacity2]
+            ):
+                return False
+        return True
+
     def __iter__(self) -> Iterator[X]:
         if self._cnt > 0:
             (
@@ -175,26 +231,6 @@ class CA[X]:
                 yield cast(X, current_state[position])
                 position = (position - 1) % capacity
             yield cast(X, current_state[position])
-
-    def __repr__(self) -> str:
-        """
-        :returns: String of the form ``ca(x1, x2, ..., xn)``.
-
-        """
-        return 'ca(' + ', '.join(map(repr, self)) + ')'
-
-    def __str__(self) -> str:
-        """
-        :returns: String of the form ``(|x1, x2, ..., xn|)``.
-
-        """
-        return '(|' + ', '.join(map(str, self)) + '|)'
-
-    def __bool__(self) -> bool:
-        return self._cnt > 0
-
-    def __len__(self) -> int:
-        return self._cnt
 
     @overload
     def __getitem__(self, idx: int) -> X: ...
@@ -288,54 +324,31 @@ class CA[X]:
         )
         del _ca
 
-    def __eq__(self, other: object) -> bool:
+    def __repr__(self) -> str:
         """
-        .. admonition:: Equality comparison
+        .. admonition:: String representation
 
-            Efficiently compare ``CA`` to another object.
+            Construct a string to reproduce the ``CA``. 
 
-        :param other: The object to be compared.
-        :returns: ``True`` if ``other`` is another ``CA`` whose
-                  contents compare as equal to the corresponding
-                  contents of the ``CA``, otherwise ``False``.
+        :returns: The string 'CA(repr(x1), repr(x2), ..., repr(xn))'
+                  where x1, x2, ..., xn are the circular array's
+                  contents.
 
         """
-        if self is other:
-            return True
-        if not isinstance(other, type(self)):
-            return False
+        return 'ca(' + ', '.join(map(repr, self)) + ')'
 
-        (
-            front1,
-            cnt1,
-            capacity1,
-            front2,
-            cnt2,
-            capacity2,
-        ) = (
-            self._front,
-            self._cnt,
-            self._cap,
-            other._front,
-            other._cnt,
-            other._cap,
-        )
+    def __str__(self) -> str:
+        """
+        .. admonition:: User string
 
-        if cnt1 != cnt2:
-            return False
+            Construct a string meaningful to an end user.
 
-        for nn in range(cnt1):
-            if (
-                self._xs[(front1 + nn) % capacity1]
-                is other._xs[(front2 + nn) % capacity2]
-            ):
-                continue
-            if (
-                self._xs[(front1 + nn) % capacity1]
-                != other._xs[(front2 + nn) % capacity2]
-            ):
-                return False
-        return True
+        :returns: The string '(|x1, x2, ..., xn|)'
+                  where x1, x2, ..., xn are the circular array's
+                  contents.
+
+        """
+        return '(|' + ', '.join(map(str, self)) + '|)'
 
     def pushl(self, *xs: X) -> None:
         """
@@ -347,7 +360,7 @@ class CA[X]:
         :param xs: Items to be pushed onto the front of the circular array from the left.
 
         """
-        for item in xs:
+        for x in xs:
             if self._cnt == self._cap:
                 self._double_storage_capacity()
             (
@@ -356,7 +369,7 @@ class CA[X]:
                 self._cnt,
             ) = (
                 (self._front - 1) % self._cap,
-                item,
+                x,
                 self._cnt + 1,
             )
 
@@ -395,7 +408,7 @@ class CA[X]:
         """
         if self._cnt > 1:
             (
-                d,
+                x,
                 self._xs[self._front],
                 self._front,
                 self._cnt,
@@ -407,7 +420,7 @@ class CA[X]:
             )
         elif self._cnt == 1:
             (
-                d,
+                x,
                 self._xs[self._front],
                 self._cnt,
                 self._front,
@@ -422,7 +435,7 @@ class CA[X]:
         else:
             msg = 'Method popl called on an empty CA'
             raise ValueError(msg)
-        return cast(X, d)
+        return cast(X, x)
 
     def popr(self) -> X:
         """
@@ -436,7 +449,7 @@ class CA[X]:
         """
         if self._cnt > 1:
             (
-                d,
+                x,
                 self._xs[self._rear],
                 self._rear,
                 self._cnt,
@@ -448,7 +461,7 @@ class CA[X]:
             )
         elif self._cnt == 1:
             (
-                d,
+                x,
                 self._xs[self._front],
                 self._cnt,
                 self._front,
@@ -463,7 +476,7 @@ class CA[X]:
         else:
             msg = 'Method popr called on an empty CA'
             raise ValueError(msg)
-        return cast(X, d)
+        return cast(X, x)
 
     def popld(self, default: X) -> X:
         """
@@ -509,17 +522,17 @@ class CA[X]:
         :returns: A ``tuple`` of the items popped, left to right.
 
         """
-        item_list: list[X] = []
+        xs: list[X] = []
 
         while maximum > 0:
             try:
-                item_list.append(self.popl())
+                xs.append(self.popl())
             except ValueError:
                 break
             else:
                 maximum -= 1
 
-        return tuple(item_list)
+        return tuple(xs)
 
     def poprt(self, maximum: int) -> tuple[X, ...]:
         """
@@ -613,8 +626,8 @@ class CA[X]:
             return acc
 
         acc = cast(L, start)
-        for d in self:
-            acc = f(acc, d)
+        for x in self:
+            acc = f(acc, x)
         return acc
 
     @overload
@@ -647,8 +660,8 @@ class CA[X]:
             return acc
 
         acc = cast(R, start)
-        for d in reversed(self):
-            acc = f(d, acc)
+        for x in reversed(self):
+            acc = f(x, acc)
         return acc
 
     def capacity(self) -> int:

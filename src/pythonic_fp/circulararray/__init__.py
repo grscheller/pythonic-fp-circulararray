@@ -14,19 +14,17 @@
 
 """
 Circular Array
---------------
+==============
 
-.. admonition:: Stateful circular array data structures.
+.. admonition:: Stateful circular array data structures
 
-    - O(1) pops and pushes either end
+    - O(1) pops and pushes on either side
     - O(1) size determination
     - O(1) indexing
-    - Two types of circular arrays, fixed and variable capacity
+    - two types of circular arrays
 
-.. note::
-
-    - Class constructors ``CA`` and ``CAF`` take an optional iterator to populate circular array.
-    - Factory Functions ``ca`` and ``caf`` take a variable number of parameters to populate circular array.
+      - fixed capacity: ``CAF``
+      - variable capacity: ``CA``
 
 """
 

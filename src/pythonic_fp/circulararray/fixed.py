@@ -29,7 +29,7 @@ class CAF[X]:
         - O(1) pops and pushes either end
         - O(1) indexing, does not support slicing
         - fixed total storage capacity
-        - iterable, safely mutates while iterators iterating over previous state
+        - iterable but not threadsafe
         - comparisons compare identity before equality, like builtins
         - in boolean context, falsy when either empty or full, otherwise truthy
         - function ``caf`` produces fixed capacity circular array from arguments
@@ -39,15 +39,16 @@ class CAF[X]:
 
     def __init__(self, *xs: Iterable[X], cap: int = 2) -> None:
         """
-        :param xs: Optionally takes a single iterable to initially populate the circular array.
+        :param xs: Takes 0 or 1 iterable parameters to initially
+                   populate the ``CAF`` left (front) to right (back).
         :param cap: Minimum fixed storage capacity of circular array.
-        :raises TypeError: When ``xs[0]`` not iterable,
-        :raises ValueError: If more than 1 iterable is given.
+        :raises ValueError: When more than one iterable is provided.
+        :raises TypeError: When passed a non-iterable positional parameter.
 
         """
         cap = max(2, cap)
         if (size := len(xs)) > 1:
-            msg = f'CAF expects at most 1 argument, got {size}'
+            msg = f'CAF expects at most 1 iterable, got {size}'
             raise ValueError(msg)
         if size:
             values: list[X | NoValue] = list(cast(Iterable[X | NoValue], xs[0]))
@@ -66,112 +67,11 @@ class CAF[X]:
             self._front = 0
             self._rear = cnt - 1
 
-    def __iter__(self) -> Iterator[X]:
-        if self._cnt > 0:
-            (
-                cap,
-                rear,
-                position,
-                current_state,
-            ) = (
-                self._cap,
-                self._rear,
-                self._front,
-                self._xs.copy(),
-            )
-
-            while position != rear:
-                yield cast(X, current_state[position])
-                position = (position + 1) % cap
-            yield cast(X, current_state[position])
-
-    def __reversed__(self) -> Iterator[X]:
-        if self._cnt > 0:
-            (
-                cap,
-                front,
-                position,
-                current_state,
-            ) = (
-                self._cap,
-                self._front,
-                self._rear,
-                self._xs.copy(),
-            )
-
-            while position != front:
-                yield cast(X, current_state[position])
-                position = (position - 1) % cap
-            yield cast(X, current_state[position])
-
-    def __repr__(self) -> str:
-        """
-        :returns: String of the form ``caf(x1, x2, ..., xn)``.
-
-        """
-        return 'caf(' + ', '.join(map(repr, self)) + ')'
-
-    def __str__(self) -> str:
-        """
-        :returns: String of the form ``(|x1, x2, ..., xn|)``.
-
-        """
-        return '(|' + ', '.join(map(str, self)) + '|)'
-
     def __bool__(self) -> bool:
         return 0 < self._cnt < self._cap
 
     def __len__(self) -> int:
         return self._cnt
-
-    def __getitem__(self, idx: int) -> X:
-        cnt = self._cnt
-        if 0 <= idx < cnt:
-            return cast(X, self._xs[(self._front + idx) % self._cap])
-
-        if -cnt <= idx < 0:
-            return cast(X, self._xs[(self._front + cnt + idx) % self._cap])
-
-        if cnt == 0:
-            msg0 = 'Trying to get a value from an empty CAF.'
-            raise IndexError(msg0)
-
-        msg1 = 'Out of bounds: '
-        msg2 = f'index = {idx} not between {-cnt} and {cnt - 1} '
-        msg3 = 'while getting value from a CAF.'
-        raise IndexError(msg1 + msg2 + msg3)
-
-    def __setitem__(self, idx: int, val: X) -> None:
-        cnt = self._cnt
-        if 0 <= idx < cnt:
-            self._xs[(self._front + idx) % self._cap] = val
-        elif -cnt <= idx < 0:
-            self._xs[(self._front + cnt + idx) % self._cap] = val
-        else:
-            if cnt < 1:
-                msg0 = 'Trying to index into an empty CAF.'
-                raise IndexError(msg0)
-            msg1 = 'Out of bounds: '
-            msg2 = f'index = {idx} not between {-cnt} and {cnt - 1} '
-            msg3 = 'while setting value from a CAF.'
-            raise IndexError(msg1 + msg2 + msg3)
-
-    def __delitem__(self, idx: int) -> None:
-        item_list = list(self)
-        del item_list[idx]
-        _ca = CAF(item_list, cap = self._cap)
-        (
-            self._xs,
-            self._cnt,
-            self._front,
-            self._rear,
-        ) = (
-            _ca._xs,
-            _ca._cnt,
-            _ca._front,
-            _ca._rear,
-        )
-        del _ca
 
     def __eq__(self, other: object) -> bool:
         """
@@ -222,7 +122,120 @@ class CAF[X]:
                 return False
         return True
 
-    def pushl(self, item: X) -> None:
+    def __iter__(self) -> Iterator[X]:
+        if self._cnt > 0:
+            (
+                cap,
+                rear,
+                position,
+                current_state,
+            ) = (
+                self._cap,
+                self._rear,
+                self._front,
+                self._xs.copy(),
+            )
+
+            while position != rear:
+                yield cast(X, current_state[position])
+                position = (position + 1) % cap
+            yield cast(X, current_state[position])
+
+    def __reversed__(self) -> Iterator[X]:
+        if self._cnt > 0:
+            (
+                cap,
+                front,
+                position,
+                current_state,
+            ) = (
+                self._cap,
+                self._front,
+                self._rear,
+                self._xs.copy(),
+            )
+
+            while position != front:
+                yield cast(X, current_state[position])
+                position = (position - 1) % cap
+            yield cast(X, current_state[position])
+
+    def __getitem__(self, idx: int) -> X:
+        cnt = self._cnt
+        if 0 <= idx < cnt:
+            return cast(X, self._xs[(self._front + idx) % self._cap])
+
+        if -cnt <= idx < 0:
+            return cast(X, self._xs[(self._front + cnt + idx) % self._cap])
+
+        if cnt == 0:
+            msg0 = 'Trying to get a value from an empty CAF.'
+            raise IndexError(msg0)
+
+        msg1 = 'Out of bounds: '
+        msg2 = f'index = {idx} not between {-cnt} and {cnt - 1} '
+        msg3 = 'while getting value from a CAF.'
+        raise IndexError(msg1 + msg2 + msg3)
+
+    def __setitem__(self, idx: int, val: X) -> None:
+        cnt = self._cnt
+        if 0 <= idx < cnt:
+            self._xs[(self._front + idx) % self._cap] = val
+        elif -cnt <= idx < 0:
+            self._xs[(self._front + cnt + idx) % self._cap] = val
+        else:
+            if cnt < 1:
+                msg0 = 'Trying to index into an empty CAF.'
+                raise IndexError(msg0)
+            msg1 = 'Out of bounds: '
+            msg2 = f'index = {idx} not between {-cnt} and {cnt - 1} '
+            msg3 = 'while setting value from a CAF.'
+            raise IndexError(msg1 + msg2 + msg3)
+
+    def __delitem__(self, idx: int) -> None:
+        item_list = list(self)
+        del item_list[idx]
+        _ca = CAF(item_list, cap = self._cap)
+        (
+            self._xs,
+            self._cnt,
+            self._front,
+            self._rear,
+        ) = (
+            _ca._xs,
+            _ca._cnt,
+            _ca._front,
+            _ca._rear,
+        )
+        del _ca
+
+    def __repr__(self) -> str:
+        """
+        .. admonition:: String representation
+
+            Construct a string to reproduce the ``CAF``. 
+
+        :returns: The string 'CAF(repr(x1), repr(x2), ..., repr(xn))'
+                  where x1, x2, ..., xn are the circular array's
+                  contents.
+
+        """
+        return 'caf(' + ', '.join(map(repr, self)) + ')'
+
+    def __str__(self) -> str:
+        """
+        .. admonition:: User string
+
+            Construct a string meaningful to an end user.
+
+        :returns: The string '(|x1, x2, ..., xn|)'
+                  where x1, x2, ..., xn are the circular array's
+                  contents.
+
+        """
+        return '(|' + ', '.join(map(str, self)) + '|)'
+
+    def pushl(self, x: X) -> None:
         """
         .. admonition:: Push left
 
@@ -242,11 +255,11 @@ class CAF[X]:
             self._cnt,
         ) = (
             (self._front - 1) % self._cap,
-            item,
+            x,
             self._cnt + 1,
         )
 
-    def pushr(self, item: X) -> None:
+    def pushr(self, x: X) -> None:
         """
         .. admonition:: Push right
 
@@ -266,7 +279,7 @@ class CAF[X]:
             self._cnt,
         ) = (
             (self._rear + 1) % self._cap,
-            item,
+            x,
             self._cnt + 1,
         )
 
@@ -282,7 +295,7 @@ class CAF[X]:
         """
         if self._cnt > 1:
             (
-                d,
+                x,
                 self._xs[self._front],
                 self._front,
                 self._cnt,
@@ -294,7 +307,7 @@ class CAF[X]:
             )
         elif self._cnt == 1:
             (
-                d,
+                x,
                 self._xs[self._front],
                 self._cnt,
                 self._front,
@@ -309,7 +322,7 @@ class CAF[X]:
         else:
             msg = 'Method popl called on an empty CAF'
             raise ValueError(msg)
-        return cast(X, d)
+        return cast(X, x)
 
     def popr(self) -> X:
         """
@@ -323,7 +336,7 @@ class CAF[X]:
         """
         if self._cnt > 1:
             (
-                d,
+                x,
                 self._xs[self._rear],
                 self._rear,
                 self._cnt,
@@ -335,7 +348,7 @@ class CAF[X]:
             )
         elif self._cnt == 1:
             (
-                d,
+                x,
                 self._xs[self._front],
                 self._cnt,
                 self._front,
@@ -350,7 +363,7 @@ class CAF[X]:
         else:
             msg = 'Method popr called on an empty CAF'
             raise ValueError(msg)
-        return cast(X, d)
+        return cast(X, x)
 
     def popld(self, default: X) -> X:
         """
@@ -396,17 +409,17 @@ class CAF[X]:
         :returns: A ``tuple`` of the items popped, left to right.
 
         """
-        item_list: list[X] = []
+        xs: list[X] = []
 
         while maximum > 0:
             try:
-                item_list.append(self.popl())
+                xs.append(self.popl())
             except ValueError:
                 break
             else:
                 maximum -= 1
 
-        return tuple(item_list)
+        return tuple(xs)
 
     def poprt(self, maximum: int) -> tuple[X, ...]:
         """
@@ -418,15 +431,15 @@ class CAF[X]:
         :returns: A ``tuple`` of the items popped, right to left.
 
         """
-        item_list: list[X] = []
+        xs: list[X] = []
         while maximum > 0:
             try:
-                item_list.append(self.popr())
+                xs.append(self.popr())
             except ValueError:
                 break
             else:
                 maximum -= 1
-        return tuple(item_list)
+        return tuple(xs)
 
     def rotl(self, n: int = 1) -> None:
         """
@@ -500,8 +513,8 @@ class CAF[X]:
             return acc
 
         acc = cast(L, start)
-        for d in self:
-            acc = f(acc, d)
+        for x in self:
+            acc = f(acc, x)
         return acc
 
     @overload
@@ -534,8 +547,8 @@ class CAF[X]:
             return acc
 
         acc = cast(R, start)
-        for d in reversed(self):
-            acc = f(d, acc)
+        for x in reversed(self):
+            acc = f(x, acc)
         return acc
 
     def capacity(self) -> int:
