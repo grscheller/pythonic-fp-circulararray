@@ -39,6 +39,15 @@ class CAF[X]:
 
     def __init__(self, *xs: Iterable[X], cap: int = 2) -> None:
         """
+        .. admonition:: Initializer
+
+            Initialize ``CAF`` with 0 or 1 iterables to populate
+            the array left (front) to right (rear).
+
+        :param ds: Takes 0 or 1 iterable parameters.
+        :raises ValueError: When more than one parameter is provided.
+        :raises TypeError: When passed a non-iterable parameter.
+
         :param xs: Takes 0 or 1 iterable parameters to initially
                    populate the ``CAF`` left (front) to right (back).
         :param cap: Minimum fixed storage capacity of circular array.
@@ -241,7 +250,7 @@ class CAF[X]:
 
             Push single item from the left onto the ``CAF``.
 
-        :param x: Single item to be pushed onto the front of the circular array from the left.
+        :param x: Single item to be pushed onto the front of the ``CAF`` from the left.
         :raises ValueError: When called on a full fixed storage capacity circular array.
 
         """
@@ -265,7 +274,7 @@ class CAF[X]:
 
             Push single item from the right onto the ``CAF``.
 
-        :param x: Single item to be pushed onto the rear of the circular array from the right.
+        :param x: Single item to be pushed onto the rear of the ``CAF`` from the right.
         :raises ValueError: When called on a full fixed storage capacity circular array.
 
         """
@@ -289,7 +298,7 @@ class CAF[X]:
 
             Pop a single items off the left side of the ``CAF``.
 
-        :returns: Item popped from left side (front) of circular array.
+        :returns: Item popped from left side (front) of the ``CAF``.
         :raises ValueError: When called on an empty circular array.
 
         """
@@ -330,8 +339,8 @@ class CAF[X]:
 
             Pop a single items off the right side of the ``CAF``.
 
-        :returns: Item popped from right side (rear) of circular array.
-        :raises ValueError: When called on an empty circular array.
+        :returns: Item popped from right side (rear) of the ``CAF``.
+        :raises ValueError: When called on an empty ``CAF``.
 
         """
         if self._cnt > 1:
@@ -372,7 +381,7 @@ class CAF[X]:
             Pop a single items off the left side of the ``CAF``.
 
         :param default: Default value to return if ``CAF`` is empty.
-        :returns: Item popped from left side (front) of circular array
+        :returns: Item popped from left side (front) of the ``CAF``
                   if not empty, otherwise return the provided default
                   value.
 
@@ -389,7 +398,7 @@ class CAF[X]:
             Pop a single items off the right side of the ``CAF``.
 
         :param default: Default value to return if ``CAF`` is empty.
-        :returns: Item popped from right side (rear) of circular array
+        :returns: Item popped from right side (rear) of the ``CAF``
                   if not empty, otherwise return the provided default
                   value.
 
@@ -405,7 +414,8 @@ class CAF[X]:
 
             Pop items off the left side of the ``CAF``.
 
-        :param maximum: Maximum number of items to pop, may pop less if not enough items in ``CAF``.
+        :param maximum: Maximum number of items to pop,
+                        may pop less if not enough items in ``CAF``.
         :returns: A ``tuple`` of the items popped, left to right.
 
         """
@@ -427,7 +437,8 @@ class CAF[X]:
 
             Pop items off the right side of the ``CAF``.
 
-        :param maximum: Maximum number of items to pop, may pop less if not enough items in ``CAF``.
+        :param maximum: Maximum number of items to pop,
+                        may pop less if not enough items in ``CAF``.
         :returns: A ``tuple`` of the items popped, right to left.
 
         """

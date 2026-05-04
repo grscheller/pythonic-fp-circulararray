@@ -39,9 +39,13 @@ class CA[X]:
 
     def __init__(self, *xs: Iterable[X]) -> None:
         """
-        :param xs: Takes 0 or 1 iterable parameters to initially
-                   populate the ``CA`` left (front) to right (back).
-        :raises ValueError: When more than one iterable is provided.
+        .. admonition:: Initializer
+
+            Initialize ``CA`` with 0 or 1 iterables to populate
+            the array left (front) to right (rear).
+
+        :param ds: Takes 0 or 1 iterable parameters.
+        :raises ValueError: When more than one parameter is provided.
         :raises TypeError: When passed a non-iterable parameter.
 
         """
@@ -357,7 +361,7 @@ class CA[X]:
             Push items from the left onto the ``CA`` in the
             order they were iterated.
 
-        :param xs: Items to be pushed onto the front of the circular array from the left.
+        :param xs: Items to be pushed onto the front of the ``CA`` from the left.
 
         """
         for x in xs:
@@ -402,8 +406,8 @@ class CA[X]:
 
             Pop a single items off the left side of the ``CA``.
 
-        :returns: Item popped from left side (front) of circular array.
-        :raises ValueError: When called on an empty circular array.
+        :returns: Item popped from left side (front) of the ``CA``.
+        :raises ValueError: When called on an empty ``CA``.
 
         """
         if self._cnt > 1:
@@ -443,8 +447,8 @@ class CA[X]:
 
             Pop a single items off the right side of the ``CA``.
 
-        :returns: Item popped from right side (rear) of circular array.
-        :raises ValueError: When called on an empty circular array.
+        :returns: Item popped from right side (rear) of the ``CA``.
+        :raises ValueError: When called on an empty ``CA``.
 
         """
         if self._cnt > 1:
@@ -485,7 +489,7 @@ class CA[X]:
             Pop a single items off the left side of the ``CA``.
 
         :param default: Default value to return if ``CA`` is empty.
-        :returns: Item popped from left side (front) of circular array
+        :returns: Item popped from left side (front) of the ``CA``
                   if not empty, otherwise return the provided default
                   value.
 
@@ -502,7 +506,7 @@ class CA[X]:
             Pop a single items off the right side of the ``CA``.
 
         :param default: Default value to return if ``CA`` is empty.
-        :returns: Item popped from right side (rear) of circular array
+        :returns: Item popped from right side (rear) of the ``CA``
                   if not empty, otherwise return the provided default
                   value.
 
@@ -518,7 +522,8 @@ class CA[X]:
 
             Pop items off the left side of the ``CA``.
 
-        :param maximum: Maximum number of items to pop, may pop less if not enough items in ``CA``.
+        :param maximum: Maximum number of items to pop,
+                        may pop less if not enough items in ``CA``.
         :returns: A ``tuple`` of the items popped, left to right.
 
         """
@@ -540,7 +545,8 @@ class CA[X]:
 
             Pop items off the right side of the ``CA``.
 
-        :param maximum: Maximum number of items to pop, may pop less if not enough items in ``CA``.
+        :param maximum: Maximum number of items to pop,
+                        may pop less if not enough items in ``CA``.
         :returns: A ``tuple`` of the items popped, right to left.
 
         """
