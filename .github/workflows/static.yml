@@ -42,7 +42,7 @@ jobs:
       - name: Build Release Docs
         run: |
           pip install pythonic-fp-circulararray
-          docs/gen_conf.py release ${{ env.RELEASE }} CircularArray circulararray > docs/source/conf.py
+          docs/gen_conf.py release ${{ env.RELEASE }} Circulararray circulararray > docs/source/conf.py
           sphinx-build -M html docs/source docs/build/release
 
       - name: Build Development Docs
