@@ -609,7 +609,8 @@ def caf[T](*ts: T, cap: int = 2) -> CAF[T]:
     """
     .. admonition:: Circular array factory function
 
-        Produce a circular array from a variable number of arguments.
+        Produce a fixed capacity circular array from
+        a variable number of arguments.
 
     :param ts: Initial items for a new fixed capacity circular array.
     :param cap: The minimum storage capacity to set.

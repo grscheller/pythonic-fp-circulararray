@@ -23,7 +23,7 @@ nada: Final[NoValue] = NoValue()
 
 class CA[X]:
     """
-    .. admonition:: Variable storage capacity circular array CA
+    .. admonition:: Auto resizing circular array CA
 
         - O(1) pops either end
         - O(1) amortized pushes either end
@@ -739,7 +739,8 @@ def ca[T](*ts: T) -> CA[T]:
     """
     .. admonition:: Circular array factory function
 
-        Produce a circular array from a variable number of arguments.
+        Produce a auto resizing circular array from
+        a variable number of arguments.
 
     :param ts: Initial items for a new auto-resizing circular array.
     :returns: New variable storage capacity circular array.
