@@ -48,12 +48,6 @@ class CAF[X]:
         :raises ValueError: When more than one parameter is provided.
         :raises TypeError: When passed a non-iterable parameter.
 
-        :param xs: Takes 0 or 1 iterable parameters to initially
-                   populate the ``CAF`` left (front) to right (back).
-        :param cap: Minimum fixed storage capacity of circular array.
-        :raises ValueError: When more than one iterable is provided.
-        :raises TypeError: When passed a non-iterable positional parameter.
-
         """
         cap = max(2, cap)
         if (size := len(xs)) > 1:
@@ -77,9 +71,26 @@ class CAF[X]:
             self._rear = cnt - 1
 
     def __bool__(self) -> bool:
+        """
+        .. admonition:: Bool
+
+            - falsy if either empty or full
+            - truthy otherwise
+
+        :returns: ``True`` when partially filled, ``False`` otherwise.
+
+        """
         return 0 < self._cnt < self._cap
 
     def __len__(self) -> int:
+        """
+        .. admonition:: Length
+
+            Number of items in the ``CAF``.
+
+        :returns: The number of items in the ``CAF``.
+
+        """
         return self._cnt
 
     def __eq__(self, other: object) -> bool:
@@ -132,6 +143,22 @@ class CAF[X]:
         return True
 
     def __iter__(self) -> Iterator[X]:
+        """
+        .. admonition:: Iterate
+
+            Iterates circular array, front (left) to rear (right).
+
+            .. warning
+
+                Not thread safe, especially for long living iterators.
+
+                .. tip::
+
+                    Cache contents to make more thread tolerant. Put
+                    a lock around circular array during caching process
+                    to make threadsafe.
+
+        """
         if self._cnt > 0:
             (
                 cap,
@@ -151,6 +178,22 @@ class CAF[X]:
             yield cast(X, current_state[position])
 
     def __reversed__(self) -> Iterator[X]:
+        """
+        .. admonition:: Reverse iterate
+
+            Iterates circular array, rear (right) to front (left).
+
+            .. warning
+
+                Not thread safe, especially for long living iterators.
+
+                .. tip::
+
+                    Cache contents to make more thread tolerant. Put
+                    a lock around circular array during caching process
+                    to make threadsafe.
+
+        """
         if self._cnt > 0:
             (
                 cap,
@@ -170,6 +213,13 @@ class CAF[X]:
             yield cast(X, current_state[position])
 
     def __getitem__(self, idx: int) -> X:
+        """
+        .. admonition:: Getitem
+
+            Fixed capacity circular arrays are indexable but
+            not sliceable.
+
+        """
         cnt = self._cnt
         if 0 <= idx < cnt:
             return cast(X, self._xs[(self._front + idx) % self._cap])
@@ -187,6 +237,13 @@ class CAF[X]:
         raise IndexError(msg1 + msg2 + msg3)
 
     def __setitem__(self, idx: int, val: X) -> None:
+        """
+        .. admonition:: Setitem
+
+            Fixed capacity circular arrays are indexable but
+            not sliceable.
+
+        """
         cnt = self._cnt
         if 0 <= idx < cnt:
             self._xs[(self._front + idx) % self._cap] = val
@@ -202,6 +259,13 @@ class CAF[X]:
             raise IndexError(msg1 + msg2 + msg3)
 
     def __delitem__(self, idx: int) -> None:
+        """
+        .. admonition:: Delitem
+
+            Fixed capacity circular arrays are indexable but
+            not sliceable.
+
+        """
         item_list = list(self)
         del item_list[idx]
         _ca = CAF(item_list, cap = self._cap)
@@ -220,7 +284,7 @@ class CAF[X]:
 
     def __repr__(self) -> str:
         """
-        .. admonition:: String representation
+        .. admonition:: Representation string
 
             Construct string 'CAF(x₁, x₂, … xₙ)' where
 

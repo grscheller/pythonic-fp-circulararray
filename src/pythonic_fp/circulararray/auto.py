@@ -144,9 +144,26 @@ class CA[X]:
                     )
 
     def __bool__(self) -> bool:
+        """
+        .. admonition:: Bool
+
+            - falsy when empty
+            - truthy when not empty
+
+        :returns: ``True`` when not empty, ``False`` otherwise.
+
+        """
         return self._cnt > 0
 
     def __len__(self) -> int:
+        """
+        .. admonition:: Length
+
+            Number of items in the ``CA``.
+
+        :returns: The number of items in the ``CA``.
+
+        """
         return self._cnt
 
     def __eq__(self, other: object) -> bool:
@@ -199,6 +216,22 @@ class CA[X]:
         return True
 
     def __iter__(self) -> Iterator[X]:
+        """
+        .. admonition:: Iterate
+
+            Iterates circular array, front (left) to rear (right).
+
+            .. warning
+
+                Not thread safe, especially for long living iterators.
+
+                .. tip::
+
+                    Cache contents to make more thread tolerant. Put
+                    a lock around circular array during caching process
+                    to make threadsafe.
+
+        """
         if self._cnt > 0:
             (
                 capacity,
@@ -218,6 +251,22 @@ class CA[X]:
             yield cast(X, current_state[position])
 
     def __reversed__(self) -> Iterator[X]:
+        """
+        .. admonition:: Reverse iterate
+
+            Iterates circular array, rear (right) to front (left).
+
+            .. warning
+
+                Not thread safe, especially for long living iterators.
+
+                .. tip::
+
+                    Cache contents to make more thread tolerant. Put
+                    a lock around circular array during caching process
+                    to make threadsafe.
+
+        """
         if self._cnt > 0:
             (
                 capacity,
@@ -242,6 +291,13 @@ class CA[X]:
     def __getitem__(self, idx: slice) -> 'CA[X]': ...
 
     def __getitem__(self, idx: int | slice) -> X | 'CA[X]':
+        """
+        .. admonition:: Getitem
+
+            Auto resizing circular arrays are fully indexable
+            and sliceable.
+
+        """
         if isinstance(idx, slice):
             return CA(list(self)[idx])
 
@@ -267,6 +323,13 @@ class CA[X]:
     def __setitem__(self, idx: slice, vals: Iterable[X]) -> None: ...
 
     def __setitem__(self, idx: int | slice, vals: X | Iterable[X]) -> None:
+        """
+        .. admonition:: Setitem
+
+            Auto resizing circular arrays are fully indexable
+            and sliceable.
+
+        """
         if isinstance(idx, slice):
             if isinstance(vals, Iterable):
                 item_list = list(self)
@@ -310,6 +373,13 @@ class CA[X]:
     def __delitem__(self, idx: slice) -> None: ...
 
     def __delitem__(self, idx: int | slice) -> None:
+        """
+        .. admonition:: Delitem
+
+            Auto resizing circular arrays are fully indexable
+            and sliceable.
+
+        """
         item_list = list(self)
         del item_list[idx]
         _ca = CA(item_list)
@@ -330,7 +400,7 @@ class CA[X]:
 
     def __repr__(self) -> str:
         """
-        .. admonition:: String representation
+        .. admonition:: Representation string
 
             Construct string 'CA(x₁, x₂, … xₙ)' where
 
