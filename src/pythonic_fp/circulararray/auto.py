@@ -332,9 +332,9 @@ class CA[X]:
         """
         .. admonition:: String representation
 
-            Return 'CA("repr(x1)", "repr(x2)", ..., "repr(xn)")'
-            where x1, x2, ..., xn are the circular array's
-            contents and "repr(xi)" is the repr-string for xi.
+            Construct string 'CA(x₁, x₂, … xₙ)' where
+
+            - x₁, x₂, … xₙ are the contents displayed with ``repr()``
 
         :returns: A string to reproduce the ``CA``. 
 
@@ -345,9 +345,9 @@ class CA[X]:
         r"""
         .. admonition:: User string
 
-            Return string '(\| x1, x2, ..., xn \|)'
-            where x1, x2, ..., xn are the circular array's
-            contents displayed as strings.
+            Construct string '(\| x₁, x₂, … xₙ \|)' where
+
+            - x₁, x₂, ..., xₙ are the contents displayed with ``str()``
 
         :returns: A string meaningful to an end user.
 
