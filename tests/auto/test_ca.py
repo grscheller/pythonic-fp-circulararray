@@ -300,11 +300,11 @@ class TestCircularArrayResizing:
         ca0.pushr(42, 0)
         ca0.pushl(0, 1)
         assert repr(ca0) == 'ca(1, 0, 2, 42, 0)'
-        assert str(ca0) == '(|1, 0, 2, 42, 0|)'
+        assert str(ca0) == '(| 1, 0, 2, 42, 0 |)'
 
         ca0 = CA(range(1, 11))
         assert repr(ca0) == 'ca(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)'
-        assert str(ca0) == '(|1, 2, 3, 4, 5, 6, 7, 8, 9, 10|)'
+        assert str(ca0) == '(| 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 |)'
         assert len(ca0) == 10
         tup3 = ca0.poplt(3)
         tup4 = ca0.poprt(4)

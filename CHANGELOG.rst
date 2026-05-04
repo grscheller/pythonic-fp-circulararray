@@ -17,6 +17,15 @@ See `Semantic Versioning 2.0.0 <https://semver.org>`_.
 Releases and Important Milestones
 ---------------------------------
 
+PyPI 6.1.0 - 2026-05-03
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Migrated to the new document build system I developed for the
+queue project.
+
+Had to bump minor version number due to a small difference on what
+CAF.__str__ and CA.__str__ now display.
+
 PyPI 6.0.3 - 2026-04-25
 ~~~~~~~~~~~~~~~~~~~~~~~
 

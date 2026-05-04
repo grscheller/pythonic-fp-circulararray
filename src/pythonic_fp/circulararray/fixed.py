@@ -213,24 +213,24 @@ class CAF[X]:
         """
         .. admonition:: String representation
 
-            Construct a string to reproduce the ``CAF``. 
+            Return 'CAF("repr(x1)", "repr(x2)", ..., "repr(xn)")'
+            where x1, x2, ..., xn are the circular array's
+            contents and "repr(xi)" is the repr-string for xi.
 
-        :returns: The string 'CAF(repr(x1), repr(x2), ..., repr(xn))'
-                  where x1, x2, ..., xn are the circular array's
-                  contents.
+        :returns: A string to reproduce the ``CAF``.
 
         """
         return 'caf(' + ', '.join(map(repr, self)) + ')'
 
     def __str__(self) -> str:
-        """
+        r"""
         .. admonition:: User string
 
-            Construct a string meaningful to an end user.
+            Return '(\|x1, x2, ..., xn\|)'
+            where x1, x2, ..., xn are the circular array's
+            contents displayed as strings.
 
-        :returns: The string '(|x1, x2, ..., xn|)'
-                  where x1, x2, ..., xn are the circular array's
-                  contents.
+        :returns: A string meaningful to an end user.
 
         """
         return '(|' + ', '.join(map(str, self)) + '|)'
