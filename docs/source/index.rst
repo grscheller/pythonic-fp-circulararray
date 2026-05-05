@@ -1,11 +1,11 @@
 pythonic-fp-circulararray
 =========================
 
-PyPI Project
+Project
 `Pythonic FP - Circulararray <https://pypi.org/project/pythonic-fp-circulararray/>`_
 one of the
 `Pythonic FP <https://grscheller.github.io/pythonic-fp/>`_
-projects.
+PyPI projects.
 
 |RELEASE_STRING|
 

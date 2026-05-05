@@ -3,8 +3,8 @@
 # Last and future releases
 #  - former needs to agree with PyPI
 #  - later needs to agree with pyproject.toml
-PROJECT_NAME = CircularArray
-PYPI_NAME = circularArray
+PROJECT_NAME = Circular Array
+PYPI_NAME = circulararray
 RELEASE_VERSION = 6.1.0
 DEVEL_VERSION = 6.1.1
 CUSTOM_VERSION = 0.0.0

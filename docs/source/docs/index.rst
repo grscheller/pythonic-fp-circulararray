@@ -1,8 +1,10 @@
 Circular Arrays
----------------
+===============
 
 .. automodule:: pythonic_fp.circulararray
-    :synopsis:
+    :no-members:
+    :ignore-module-all:
+    :no-index:
 
 .. toctree::
     :caption: Auto resizing circular array
