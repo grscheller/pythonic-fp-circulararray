@@ -29,7 +29,7 @@ class CAF[X]:
         - O(1) pops and pushes either end
         - O(1) indexing, does not support slicing
         - fixed total storage capacity
-        - iterable but not threadsafe
+        - iterable (see __iter__ method below)
         - comparisons compare identity before equality, like builtins
         - in boolean context, falsy when either empty or full,
           otherwise truthy
@@ -151,9 +151,9 @@ class CAF[X]:
 
             Iterates circular array, front (left) to rear (right).
 
-            .. warning
+            .. warning::
 
-                Not thread safe, especially for long living iterators.
+                Not threadsafe, especially for long living iterators.
 
                 .. tip::
 

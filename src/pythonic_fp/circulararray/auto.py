@@ -30,7 +30,7 @@ class CA[X]:
         - O(1) indexing, fully supports slicing
         - auto-resizing more storage capacity when necessary,
           manually compatible
-        - iterable but not threadsafe
+        - iterable (see __iter__ method below)
         - comparisons compare identity before equality, like builtins
         - in boolean context, falsy when empty, otherwise truthy
         - function ``ca`` produces auto-resizing circular array
@@ -224,9 +224,9 @@ class CA[X]:
 
             Iterates circular array, front (left) to rear (right).
 
-            .. warning
+            .. warning::
 
-                Not thread safe, especially for long living iterators.
+                Not threadsafe, especially for long living iterators.
 
                 .. tip::
 
