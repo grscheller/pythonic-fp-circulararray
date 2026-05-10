@@ -17,7 +17,7 @@ See `Semantic Versioning 2.0.0 <https://semver.org>`_.
 Releases and Important Milestones
 ---------------------------------
 
-PyPI 6.1.0 - 2026-05-10
+PyPI 6.1.1 - 2026-05-10
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 Documentation is now complete and is now in maintenance mode.
