@@ -46,7 +46,7 @@ class CAF[X]:
             Initialize ``CAF`` with 0 or 1 iterables to populate
             the array left (front) to right (rear).
 
-            :param ds: Takes 0 or 1 iterable parameters.
+            :param xs: Takes 0 or 1 iterable parameters.
             :raises ValueError: When more than one parameter is provided.
             :raises TypeError: When passed a non-iterable parameter.
 
@@ -290,8 +290,7 @@ class CAF[X]:
         .. admonition:: repr string
 
             Construct string 'CAF(x₁, x₂, … xₙ)' where
-
-            - x₁, x₂, … xₙ are the contents displayed with ``repr()``
+            x₁, x₂, … xₙ are the contents displayed with ``repr()``.
 
             :returns: A string to reproduce the ``CAF``.
 
@@ -301,10 +300,8 @@ class CAF[X]:
     def __str__(self) -> str:
         r"""
         .. admonition:: user string
-
             Construct string '(\|x₁, x₂, … xₙ\|)' where
-
-            - x₁, x₂, ..., xₙ are the contents displayed with ``str()``
+            x₁, x₂, ..., xₙ are the contents displayed with ``str()``.
 
             :returns: A string meaningful to an end user.
 

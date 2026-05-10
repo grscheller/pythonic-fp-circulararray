@@ -46,7 +46,7 @@ class CA[X]:
             Initialize ``CA`` with 0 or 1 iterables to populate
             the array left (front) to right (rear).
 
-            :param ds: Takes 0 or 1 iterable parameters.
+            :param xs: Takes 0 or 1 iterable parameters.
             :raises ValueError: When more than one parameter is provided.
             :raises TypeError: When passed a non-iterable parameter.
 
@@ -406,8 +406,7 @@ class CA[X]:
         .. admonition:: repr string
 
             Construct string 'CA(x₁, x₂, … xₙ)' where
-
-            - x₁, x₂, … xₙ are the contents displayed with ``repr()``
+            x₁, x₂, … xₙ are the contents displayed with ``repr()``.
 
             :returns: A string to reproduce the ``CA``. 
 
@@ -419,10 +418,9 @@ class CA[X]:
         .. admonition:: user string
 
             Construct string '(\| x₁, x₂, … xₙ \|)' where
+            x₁, x₂, ..., xₙ are the contents displayed with ``str()``.
 
-            - x₁, x₂, ..., xₙ are the contents displayed with ``str()``
-
-            :returns: A string meaningful to an end user.
+            :returns: A estring meaningful to an end user.
 
         """
         return '(| ' + ', '.join(map(str, self)) + ' |)'
