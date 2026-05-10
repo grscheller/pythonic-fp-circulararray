@@ -28,25 +28,27 @@ class CA[X]:
         - O(1) pops either end
         - O(1) amortized pushes either end
         - O(1) indexing, fully supports slicing
-        - auto-resizing more storage capacity when necessary, manually compatible
+        - auto-resizing more storage capacity when necessary,
+          manually compatible
         - iterable but not threadsafe
         - comparisons compare identity before equality, like builtins
         - in boolean context, falsy when empty, otherwise truthy
-        - function ``ca`` produces auto-resizing circular array from arguments
+        - function ``ca`` produces auto-resizing circular array
+          from arguments
 
     """
     __slots__ = '_xs', '_cnt', '_cap', '_front', '_rear'
 
     def __init__(self, *xs: Iterable[X]) -> None:
         """
-        .. admonition:: Initializer
+        .. admonition:: initializer
 
             Initialize ``CA`` with 0 or 1 iterables to populate
             the array left (front) to right (rear).
 
-        :param ds: Takes 0 or 1 iterable parameters.
-        :raises ValueError: When more than one parameter is provided.
-        :raises TypeError: When passed a non-iterable parameter.
+            :param ds: Takes 0 or 1 iterable parameters.
+            :raises ValueError: When more than one parameter is provided.
+            :raises TypeError: When passed a non-iterable parameter.
 
         """
         if (size := len(xs)) > 1:
@@ -145,37 +147,38 @@ class CA[X]:
 
     def __bool__(self) -> bool:
         """
-        .. admonition:: Bool
+        .. admonition:: bool
 
             - falsy when empty
             - truthy when not empty
 
-        :returns: ``True`` when not empty, ``False`` otherwise.
+            :returns: ``True`` when not empty,
+                      ``False`` otherwise.
 
         """
         return self._cnt > 0
 
     def __len__(self) -> int:
         """
-        .. admonition:: Length
+        .. admonition:: length
 
             Number of items in the ``CA``.
 
-        :returns: The number of items in the ``CA``.
+            :returns: The number of items in the ``CA``.
 
         """
         return self._cnt
 
     def __eq__(self, other: object) -> bool:
         """
-        .. admonition:: Equality comparison
+        .. admonition:: equality comparison
 
             Efficiently compare ``CA`` to another object.
 
-        :param other: The object to be compared.
-        :returns: ``True`` if ``other`` is another ``CA`` whose
-                  contents compare as equal to the corresponding
-                  contents of the ``CA``, otherwise ``False``.
+            :param other: The object to be compared.
+            :returns: ``True`` if ``other`` is another ``CA`` whose
+                      contents compare as equal to the corresponding
+                      contents of the ``CA``, otherwise ``False``.
 
         """
         if self is other:
@@ -217,7 +220,7 @@ class CA[X]:
 
     def __iter__(self) -> Iterator[X]:
         """
-        .. admonition:: Iterate
+        .. admonition:: iterate
 
             Iterates circular array, front (left) to rear (right).
 
@@ -252,7 +255,7 @@ class CA[X]:
 
     def __reversed__(self) -> Iterator[X]:
         """
-        .. admonition:: Reverse iterate
+        .. admonition:: reverse iterate
 
             Iterates circular array, rear (right) to front (left).
 
@@ -292,7 +295,7 @@ class CA[X]:
 
     def __getitem__(self, idx: int | slice) -> X | 'CA[X]':
         """
-        .. admonition:: Getitem
+        .. admonition:: getitem
 
             Auto resizing circular arrays are fully indexable
             and sliceable.
@@ -324,7 +327,7 @@ class CA[X]:
 
     def __setitem__(self, idx: int | slice, vals: X | Iterable[X]) -> None:
         """
-        .. admonition:: Setitem
+        .. admonition:: setitem
 
             Auto resizing circular arrays are fully indexable
             and sliceable.
@@ -374,7 +377,7 @@ class CA[X]:
 
     def __delitem__(self, idx: int | slice) -> None:
         """
-        .. admonition:: Delitem
+        .. admonition:: delitem
 
             Auto resizing circular arrays are fully indexable
             and sliceable.
@@ -400,38 +403,39 @@ class CA[X]:
 
     def __repr__(self) -> str:
         """
-        .. admonition:: Representation string
+        .. admonition:: repr string
 
             Construct string 'CA(x₁, x₂, … xₙ)' where
 
             - x₁, x₂, … xₙ are the contents displayed with ``repr()``
 
-        :returns: A string to reproduce the ``CA``. 
+            :returns: A string to reproduce the ``CA``. 
 
         """
         return 'ca(' + ', '.join(map(repr, self)) + ')'
 
     def __str__(self) -> str:
         r"""
-        .. admonition:: User string
+        .. admonition:: user string
 
             Construct string '(\| x₁, x₂, … xₙ \|)' where
 
             - x₁, x₂, ..., xₙ are the contents displayed with ``str()``
 
-        :returns: A string meaningful to an end user.
+            :returns: A string meaningful to an end user.
 
         """
         return '(| ' + ', '.join(map(str, self)) + ' |)'
 
     def pushl(self, *xs: X) -> None:
         """
-        .. admonition:: Push left
+        .. admonition:: push left
 
             Push items from the left onto the ``CA`` in the
             order they were iterated.
 
-        :param xs: Items to be pushed onto the front of the ``CA`` from the left.
+            :param xs: Items to be pushed onto the front of the ``CA``
+                       from the left.
 
         """
         for x in xs:
@@ -449,12 +453,13 @@ class CA[X]:
 
     def pushr(self, *xs: X) -> None:
         """
-        .. admonition:: Push right
+        .. admonition:: push right
 
             Push items from the right onto the ``CA`` in the
             order they were iterated.
 
-        :param xs: Items to be pushed onto the rear of the ``CA`` from the right.
+            :param xs: Items to be pushed onto the rear of
+                       the ``CA`` from the right.
 
         """
         for item in xs:
@@ -472,12 +477,12 @@ class CA[X]:
 
     def popl(self) -> X:
         """
-        .. admonition:: Pop left
+        .. admonition:: pop left
 
             Pop a single items off the left side of the ``CA``.
 
-        :returns: Item popped from left side (front) of the ``CA``.
-        :raises ValueError: When called on an empty ``CA``.
+            :returns: Item popped from left side (front) of the ``CA``.
+            :raises ValueError: When called on an empty ``CA``.
 
         """
         if self._cnt > 1:
@@ -513,12 +518,12 @@ class CA[X]:
 
     def popr(self) -> X:
         """
-        .. admonition:: Pop right
+        .. admonition:: pop right
 
             Pop a single items off the right side of the ``CA``.
 
-        :returns: Item popped from right side (rear) of the ``CA``.
-        :raises ValueError: When called on an empty ``CA``.
+            :returns: Item popped from right side (rear) of the ``CA``.
+            :raises ValueError: When called on an empty ``CA``.
 
         """
         if self._cnt > 1:
@@ -554,14 +559,14 @@ class CA[X]:
 
     def popld(self, default: X) -> X:
         """
-        .. admonition:: Pop Left with default
+        .. admonition:: pop Left with default
 
             Pop a single items off the left side of the ``CA``.
 
-        :param default: Default value to return if ``CA`` is empty.
-        :returns: Item popped from left side (front) of the ``CA``
-                  if not empty, otherwise return the provided default
-                  value.
+            :param default: Default value to return if ``CA`` is empty.
+            :returns: Item popped from left side (front) of the ``CA``
+                      if not empty, otherwise return the provided
+                      default value.
 
         """
         try:
@@ -571,14 +576,14 @@ class CA[X]:
 
     def poprd(self, default: X) -> X:
         """
-        .. admonition:: Pop Right with default
+        .. admonition:: pop Right with default
 
             Pop a single items off the right side of the ``CA``.
 
-        :param default: Default value to return if ``CA`` is empty.
-        :returns: Item popped from right side (rear) of the ``CA``
-                  if not empty, otherwise return the provided default
-                  value.
+            :param default: Default value to return if ``CA`` is empty.
+            :returns: Item popped from right side (rear) of the ``CA``
+                      if not empty, otherwise return the provided
+                      default value.
 
         """
         try:
@@ -592,9 +597,9 @@ class CA[X]:
 
             Pop items off the left side of the ``CA``.
 
-        :param maximum: Maximum number of items to pop,
-                        may pop less if not enough items in ``CA``.
-        :returns: A ``tuple`` of the items popped, left to right.
+            :param maximum: Maximum number of items to pop,
+                            may pop less if not enough items in ``CA``.
+            :returns: A ``tuple`` of the items popped, left to right.
 
         """
         xs: list[X] = []
@@ -615,9 +620,9 @@ class CA[X]:
 
             Pop items off the right side of the ``CA``.
 
-        :param maximum: Maximum number of items to pop,
-                        may pop less if not enough items in ``CA``.
-        :returns: A ``tuple`` of the items popped, right to left.
+            :param maximum: Maximum number of items to pop,
+                            may pop less if not enough items in ``CA``.
+            :returns: A ``tuple`` of the items popped, right to left.
 
         """
         item_list: list[X] = []
@@ -637,7 +642,8 @@ class CA[X]:
             Rotate contents of ``CA`` to the left putting first
             item onto rear.
 
-        :param n: Number of times to shift items left. Default 1 time.
+            :param n: Number of times to shift items left.
+                      Default 1 time.
 
         """
         if self._cnt < 2:
@@ -652,7 +658,8 @@ class CA[X]:
             Rotate contents of ``CA`` to the right putting last
             item onto front.
 
-        :param n: Number of times to shift items right. Default 1 time.
+            :param n: Number of times to shift items right.
+                      Default 1 time.
 
         """
         if self._cnt < 2:
@@ -666,8 +673,8 @@ class CA[X]:
 
             Apply function ``f`` over the circular array's contents.
 
-        :param f: Callable from type ``X`` to type ``Y``.
-        :returns: New auto-resizing circular array instance.
+            :param f: Callable from type ``X`` to type ``Y``.
+            :returns: New auto-resizing circular array instance.
 
         """
         return CA(map(f, self))
@@ -683,10 +690,12 @@ class CA[X]:
 
             Fold ``CA`` left with a function and optional starting item.
 
-        :param f: Folding function, first argument to ``f`` is for the accumulator.
-        :param start: Optional starting item.
-        :returns: Reduced value produced by the left fold.
-        :raises ValueError: When circular array empty and ``start`` not given.
+            :param f: Folding function, first argument to ``f`` is for
+                      the accumulator.
+            :param start: Optional starting item.
+            :returns: Reduced value produced by the left fold.
+            :raises ValueError: When circular array empty and ``start``
+                                not given.
 
         """
         if self._cnt == 0:
@@ -717,10 +726,12 @@ class CA[X]:
 
             Fold ``CA`` right with a function and optional starting item.
 
-        :param f: Folding function, second argument to ``f`` is for the accumulator.
-        :param start: Optional starting item.
-        :returns: Reduced value produced by the right fold.
-        :raises ValueError: When circular array empty and ``start`` not given.
+            :param f: Folding function, second argument to ``f`` is for
+                      the accumulator.
+            :param start: Optional starting item.
+            :returns: Reduced value produced by the right fold.
+            :raises ValueError: When circular array empty and ``start``
+                                not given.
 
         """
         if self._cnt == 0:
@@ -746,7 +757,7 @@ class CA[X]:
 
             Get the current storage capacity of the circular array.
 
-        :returns: Current storage capacity.
+            :returns: Current storage capacity.
 
         """
         return self._cap
@@ -776,7 +787,7 @@ class CA[X]:
 
             Find fraction of the storage capacity which is filled.
 
-        :returns: The ratio count/capacity.
+            :returns: The ratio count/capacity.
 
         """
         return self._cnt / self._cap
@@ -789,7 +800,8 @@ class CA[X]:
             minimum storage capacity. To just compact the circular
             array, do not provide ``minimum_capacity``.
 
-        :param minimum_capacity: Minimum storage capacity to compact the circular array.
+        :param minimum_capacity: Minimum storage capacity to compact
+                                 the circular array.
 
         """
         self._compact_storage_capacity()
@@ -812,8 +824,8 @@ def ca[T](*ts: T) -> CA[T]:
         Produce a auto resizing circular array from
         a variable number of arguments.
 
-    :param ts: Initial items for a new auto-resizing circular array.
-    :returns: New variable storage capacity circular array.
+        :param ts: Initial items for a new auto-resizing circular array.
+        :returns: New variable storage capacity circular array.
 
     """
     return CA(ts)

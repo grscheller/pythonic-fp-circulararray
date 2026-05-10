@@ -31,22 +31,24 @@ class CAF[X]:
         - fixed total storage capacity
         - iterable but not threadsafe
         - comparisons compare identity before equality, like builtins
-        - in boolean context, falsy when either empty or full, otherwise truthy
-        - function ``caf`` produces fixed capacity circular array from arguments
+        - in boolean context, falsy when either empty or full,
+          otherwise truthy
+        - function ``caf`` produces fixed capacity circular array
+          from arguments
 
     """
     __slots__ = '_xs', '_cnt', '_cap', '_front', '_rear'
 
     def __init__(self, *xs: Iterable[X], cap: int = 2) -> None:
         """
-        .. admonition:: Initializer
+        .. admonition:: initializer
 
             Initialize ``CAF`` with 0 or 1 iterables to populate
             the array left (front) to right (rear).
 
-        :param ds: Takes 0 or 1 iterable parameters.
-        :raises ValueError: When more than one parameter is provided.
-        :raises TypeError: When passed a non-iterable parameter.
+            :param ds: Takes 0 or 1 iterable parameters.
+            :raises ValueError: When more than one parameter is provided.
+            :raises TypeError: When passed a non-iterable parameter.
 
         """
         cap = max(2, cap)
@@ -72,37 +74,38 @@ class CAF[X]:
 
     def __bool__(self) -> bool:
         """
-        .. admonition:: Bool
+        .. admonition:: bool
 
             - falsy if either empty or full
             - truthy otherwise
 
-        :returns: ``True`` when partially filled, ``False`` otherwise.
+            :returns: ``True`` when partially filled,
+                      ``False`` otherwise.
 
         """
         return 0 < self._cnt < self._cap
 
     def __len__(self) -> int:
         """
-        .. admonition:: Length
+        .. admonition:: length
 
             Number of items in the ``CAF``.
 
-        :returns: The number of items in the ``CAF``.
+            :returns: The number of items in the ``CAF``.
 
         """
         return self._cnt
 
     def __eq__(self, other: object) -> bool:
         """
-        .. admonition:: Equality comparison
+        .. admonition:: equality comparison
 
             Efficiently compare ``CAF`` to another object.
 
-        :param other: The object to be compared.
-        :returns: ``True`` if ``other`` is another ``CAF`` whose
-                  contents compare as equal to the corresponding
-                  contents of the ``CAF``, otherwise ``False``.
+            :param other: The object to be compared.
+            :returns: ``True`` if ``other`` is another ``CAF`` whose
+                      contents compare as equal to the corresponding
+                      contents of the ``CAF``, otherwise ``False``.
 
         """
         if self is other:
@@ -144,7 +147,7 @@ class CAF[X]:
 
     def __iter__(self) -> Iterator[X]:
         """
-        .. admonition:: Iterate
+        .. admonition:: iterate
 
             Iterates circular array, front (left) to rear (right).
 
@@ -179,7 +182,7 @@ class CAF[X]:
 
     def __reversed__(self) -> Iterator[X]:
         """
-        .. admonition:: Reverse iterate
+        .. admonition:: reverse iterate
 
             Iterates circular array, rear (right) to front (left).
 
@@ -214,7 +217,7 @@ class CAF[X]:
 
     def __getitem__(self, idx: int) -> X:
         """
-        .. admonition:: Getitem
+        .. admonition:: getitem
 
             Fixed capacity circular arrays are indexable but
             not sliceable.
@@ -238,7 +241,7 @@ class CAF[X]:
 
     def __setitem__(self, idx: int, val: X) -> None:
         """
-        .. admonition:: Setitem
+        .. admonition:: setitem
 
             Fixed capacity circular arrays are indexable but
             not sliceable.
@@ -260,7 +263,7 @@ class CAF[X]:
 
     def __delitem__(self, idx: int) -> None:
         """
-        .. admonition:: Delitem
+        .. admonition:: delitem
 
             Fixed capacity circular arrays are indexable but
             not sliceable.
@@ -284,38 +287,40 @@ class CAF[X]:
 
     def __repr__(self) -> str:
         """
-        .. admonition:: Representation string
+        .. admonition:: repr string
 
             Construct string 'CAF(x₁, x₂, … xₙ)' where
 
             - x₁, x₂, … xₙ are the contents displayed with ``repr()``
 
-        :returns: A string to reproduce the ``CAF``.
+            :returns: A string to reproduce the ``CAF``.
 
         """
         return 'caf(' + ', '.join(map(repr, self)) + ')'
 
     def __str__(self) -> str:
         r"""
-        .. admonition:: User string
+        .. admonition:: user string
 
             Construct string '(\|x₁, x₂, … xₙ\|)' where
 
             - x₁, x₂, ..., xₙ are the contents displayed with ``str()``
 
-        :returns: A string meaningful to an end user.
+            :returns: A string meaningful to an end user.
 
         """
         return '(|' + ', '.join(map(str, self)) + '|)'
 
     def pushl(self, x: X) -> None:
         """
-        .. admonition:: Push left
+        .. admonition:: push left
 
             Push single item from the left onto the ``CAF``.
 
-        :param x: Single item to be pushed onto the front of the ``CAF`` from the left.
-        :raises ValueError: When called on a full fixed storage capacity circular array.
+            :param x: Single item to be pushed onto the front of
+                      the ``CAF`` from the left.
+            :raises ValueError: When called on a full fixed storage
+                                capacity circular array.
 
         """
         if self._cnt == self._cap:
@@ -334,12 +339,14 @@ class CAF[X]:
 
     def pushr(self, x: X) -> None:
         """
-        .. admonition:: Push right
+        .. admonition:: push right
 
             Push single item from the right onto the ``CAF``.
 
-        :param x: Single item to be pushed onto the rear of the ``CAF`` from the right.
-        :raises ValueError: When called on a full fixed storage capacity circular array.
+            :param x: Single item to be pushed onto the rear of
+                      the ``CAF`` from the right.
+            :raises ValueError: When called on a full fixed
+                                storage capacity circular array.
 
         """
         if self._cnt == self._cap:
@@ -358,12 +365,12 @@ class CAF[X]:
 
     def popl(self) -> X:
         """
-        .. admonition:: Pop left
+        .. admonition:: pop left
 
             Pop a single items off the left side of the ``CAF``.
 
-        :returns: Item popped from left side (front) of the ``CAF``.
-        :raises ValueError: When called on an empty circular array.
+            :returns: Item popped from left side (front) of the ``CAF``.
+            :raises ValueError: When called on an empty ``CAF``.
 
         """
         if self._cnt > 1:
@@ -399,12 +406,12 @@ class CAF[X]:
 
     def popr(self) -> X:
         """
-        .. admonition:: Pop right
+        .. admonition:: pop right
 
             Pop a single items off the right side of the ``CAF``.
 
-        :returns: Item popped from right side (rear) of the ``CAF``.
-        :raises ValueError: When called on an empty ``CAF``.
+            :returns: Item popped from right side (rear) of the ``CAF``.
+            :raises ValueError: When called on an empty ``CAF``.
 
         """
         if self._cnt > 1:
@@ -440,14 +447,14 @@ class CAF[X]:
 
     def popld(self, default: X) -> X:
         """
-        .. admonition:: Pop Left with default
+        .. admonition:: pop Left with default
 
             Pop a single items off the left side of the ``CAF``.
 
-        :param default: Default value to return if ``CAF`` is empty.
-        :returns: Item popped from left side (front) of the ``CAF``
-                  if not empty, otherwise return the provided default
-                  value.
+            :param default: Default value to return if ``CAF`` is empty.
+            :returns: Item popped from left side (front) of the ``CAF``
+                      if not empty, otherwise return the provided
+                      default value.
 
         """
         try:
@@ -457,14 +464,14 @@ class CAF[X]:
 
     def poprd(self, default: X) -> X:
         """
-        .. admonition:: Pop Right with default
+        .. admonition:: pop Right with default
 
             Pop a single items off the right side of the ``CAF``.
 
-        :param default: Default value to return if ``CAF`` is empty.
-        :returns: Item popped from right side (rear) of the ``CAF``
-                  if not empty, otherwise return the provided default
-                  value.
+            :param default: Default value to return if ``CAF`` is empty.
+            :returns: Item popped from right side (rear) of the ``CAF``
+                      if not empty, otherwise return the provided
+                      default value.
 
         """
         try:
@@ -478,9 +485,9 @@ class CAF[X]:
 
             Pop items off the left side of the ``CAF``.
 
-        :param maximum: Maximum number of items to pop,
-                        may pop less if not enough items in ``CAF``.
-        :returns: A ``tuple`` of the items popped, left to right.
+            :param maximum: Maximum number of items to pop,
+                            may pop less if not enough items in ``CAF``.
+            :returns: A ``tuple`` of the items popped, left to right.
 
         """
         xs: list[X] = []
@@ -501,9 +508,9 @@ class CAF[X]:
 
             Pop items off the right side of the ``CAF``.
 
-        :param maximum: Maximum number of items to pop,
-                        may pop less if not enough items in ``CAF``.
-        :returns: A ``tuple`` of the items popped, right to left.
+            :param maximum: Maximum number of items to pop,
+                            may pop less if not enough items in ``CAF``.
+            :returns: A ``tuple`` of the items popped, right to left.
 
         """
         xs: list[X] = []
@@ -523,7 +530,8 @@ class CAF[X]:
             Rotate contents of ``CAF`` to the left putting first
             item onto rear.
 
-        :param n: Number of times to shift items left. Default 1 time.
+            :param n: Number of times to shift items left.
+                      Default 1 time.
 
         """
         if self._cnt < 2:
@@ -538,7 +546,8 @@ class CAF[X]:
             Rotate contents of ``CAF`` to the right putting last
             item onto front.
 
-        :param n: Number of times to shift items right. Default 1 time.
+            :param n: Number of times to shift items right.
+                      Default 1 time.
 
         """
         if self._cnt < 2:
@@ -552,8 +561,8 @@ class CAF[X]:
 
             Apply function ``f`` over the circular array's contents.
 
-        :param f: Callable from type ``X`` to type ``Y``.
-        :returns: New fixed capacity circular array instance.
+            :param f: Callable from type ``X`` to type ``Y``.
+            :returns: New fixed capacity circular array instance.
 
         """
         return CAF(map(f, self), cap = self._cap)
@@ -569,10 +578,12 @@ class CAF[X]:
 
             Fold ``CAF`` left with a function and optional starting item.
 
-        :param f: Folding function, first argument to ``f`` is for the accumulator.
-        :param start: Optional starting item.
-        :returns: Reduced value produced by the left fold.
-        :raises ValueError: When circular array empty and ``start`` not given.
+            :param f: Folding function, first argument to ``f`` is for
+                      the accumulator.
+            :param start: Optional starting item.
+            :returns: Reduced value produced by the left fold.
+            :raises ValueError: When circular array empty and ``start``
+                                not given.
 
         """
         if self._cnt == 0:
@@ -603,10 +614,12 @@ class CAF[X]:
 
             Fold ``CAF`` right left with a function and optional starting item.
 
-        :param f: Folding function, second argument to ``f`` is for the accumulator.
-        :param start: Optional starting item.
-        :returns: Reduced value produced by the right fold.
-        :raises ValueError: When circular array empty and ``start`` not given.
+            :param f: Folding function, second argument to ``f`` is for
+                      the accumulator.
+            :param start: Optional starting item.
+            :returns: Reduced value produced by the right fold.
+            :raises ValueError: When circular array empty and ``start``
+                                not given.
 
         """
         if self._cnt == 0:
@@ -632,8 +645,7 @@ class CAF[X]:
 
             Get the fixed storage capacity of the circular array.
 
-
-        :returns: Fixed storage capacity.
+            :returns: Fixed storage capacity.
 
         """
         return self._cap
@@ -663,7 +675,7 @@ class CAF[X]:
 
             Find fraction of the storage capacity which is filled.
 
-        :returns: The ratio count/capacity.
+            :returns: The ratio count/capacity.
 
         """
         return self._cnt / self._cap
@@ -676,9 +688,9 @@ def caf[T](*ts: T, cap: int = 2) -> CAF[T]:
         Produce a fixed capacity circular array from
         a variable number of arguments.
 
-    :param ts: Initial items for a new fixed capacity circular array.
-    :param cap: The minimum storage capacity to set.
-    :returns: New fixed storage capacity circular array.
+        :param ts: Initial items for a new fixed capacity circular array.
+        :param cap: The minimum storage capacity to set.
+        :returns: New fixed storage capacity circular array.
 
     """
     return CAF(ts, cap=cap)
