@@ -17,8 +17,10 @@ See `Semantic Versioning 2.0.0 <https://semver.org>`_.
 Releases and Important Milestones
 ---------------------------------
 
-Development Status Reappraisal - 2026-05-05
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+PyPI 6.1.0 - 2026-05-10
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Documentation is now complete and is now in maintenance mode.
 
 Maintainer appraises the Development Status for
 pythonic-fp-circulararray to be ``"5 - Production/Stable"``.

@@ -43,8 +43,8 @@ class CA[X]:
         """
         .. admonition:: initializer
 
-            Initialize ``CA`` with 0 or 1 iterables to populate
-            the array left (front) to right (rear).
+            Populate ``CA`` with an optional iterable
+            from front (left) to rear (right).
 
             :param xs: Takes 0 or 1 iterable parameters.
             :raises ValueError: When more than one parameter is provided.
