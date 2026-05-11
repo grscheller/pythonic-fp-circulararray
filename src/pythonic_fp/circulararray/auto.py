@@ -420,7 +420,7 @@ class CA[X]:
             Construct string '(\| x₁, x₂, … xₙ \|)' where
             x₁, x₂, ..., xₙ are the contents displayed with ``str()``.
 
-            :returns: A estring meaningful to an end user.
+            :returns: A string meaningful to an end user.
 
         """
         return '(| ' + ', '.join(map(str, self)) + ' |)'
