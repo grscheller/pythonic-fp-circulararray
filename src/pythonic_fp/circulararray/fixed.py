@@ -46,7 +46,7 @@ class CAF[X]:
             Populate ``CAF`` with an optional iterable
             from front (left) to rear (right).
 
-            :param xs: Takes 0 or 1 iterable parameters.
+            :param xs: Takes an optional iterable parameter.
             :raises ValueError: When more than one parameter is provided.
             :raises TypeError: When passed a non-iterable parameter.
 
@@ -96,6 +96,80 @@ class CAF[X]:
         """
         return self._cnt
 
+    def __iter__(self) -> Iterator[X]:
+        """
+        .. admonition:: iterate
+
+            Iterates circular array, left (front) to right (rear).
+
+            :yields: The ``CA`` contents front to rear.
+
+            .. warning::
+
+                Not threadsafe, especially for long living iterators.
+
+                .. tip::
+
+                    Cache contents to make more thread tolerant. Put
+                    a lock around circular array during caching process
+                    to make threadsafe.
+
+        """
+        if self._cnt > 0:
+            (
+                cap,
+                rear,
+                position,
+                current_state,
+            ) = (
+                self._cap,
+                self._rear,
+                self._front,
+                self._xs.copy(),
+            )
+
+            while position != rear:
+                yield cast(X, current_state[position])
+                position = (position + 1) % cap
+            yield cast(X, current_state[position])
+
+    def __reversed__(self) -> Iterator[X]:
+        """
+        .. admonition:: reverse iterate
+
+            Iterates circular array, right (rear) to left (front).
+
+            :yields: The ``CAF`` contents rear to front.
+
+            .. warning
+
+                Not thread safe, especially for long living iterators.
+
+                .. tip::
+
+                    Cache contents to make more thread tolerant. Put
+                    a lock around circular array during caching process
+                    to make threadsafe.
+
+        """
+        if self._cnt > 0:
+            (
+                cap,
+                front,
+                position,
+                current_state,
+            ) = (
+                self._cap,
+                self._front,
+                self._rear,
+                self._xs.copy(),
+            )
+
+            while position != front:
+                yield cast(X, current_state[position])
+                position = (position - 1) % cap
+            yield cast(X, current_state[position])
+
     def __eq__(self, other: object) -> bool:
         """
         .. admonition:: equality comparison
@@ -144,76 +218,6 @@ class CAF[X]:
             ):
                 return False
         return True
-
-    def __iter__(self) -> Iterator[X]:
-        """
-        .. admonition:: iterate
-
-            Iterates circular array, front (left) to rear (right).
-
-            .. warning::
-
-                Not threadsafe, especially for long living iterators.
-
-                .. tip::
-
-                    Cache contents to make more thread tolerant. Put
-                    a lock around circular array during caching process
-                    to make threadsafe.
-
-        """
-        if self._cnt > 0:
-            (
-                cap,
-                rear,
-                position,
-                current_state,
-            ) = (
-                self._cap,
-                self._rear,
-                self._front,
-                self._xs.copy(),
-            )
-
-            while position != rear:
-                yield cast(X, current_state[position])
-                position = (position + 1) % cap
-            yield cast(X, current_state[position])
-
-    def __reversed__(self) -> Iterator[X]:
-        """
-        .. admonition:: reverse iterate
-
-            Iterates circular array, rear (right) to front (left).
-
-            .. warning
-
-                Not thread safe, especially for long living iterators.
-
-                .. tip::
-
-                    Cache contents to make more thread tolerant. Put
-                    a lock around circular array during caching process
-                    to make threadsafe.
-
-        """
-        if self._cnt > 0:
-            (
-                cap,
-                front,
-                position,
-                current_state,
-            ) = (
-                self._cap,
-                self._front,
-                self._rear,
-                self._xs.copy(),
-            )
-
-            while position != front:
-                yield cast(X, current_state[position])
-                position = (position - 1) % cap
-            yield cast(X, current_state[position])
 
     def __getitem__(self, idx: int) -> X:
         """
