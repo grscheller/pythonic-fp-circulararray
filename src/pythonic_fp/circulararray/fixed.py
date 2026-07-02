@@ -22,7 +22,6 @@ nada: Final[NoValue] = NoValue()
 
 
 class CAF[X]:
-
     """
     .. admonition:: Fixed storage capacity circular array CAF
 
@@ -37,6 +36,7 @@ class CAF[X]:
           from arguments
 
     """
+
     __slots__ = '_xs', '_cnt', '_cap', '_front', '_rear'
 
     def __init__(self, *xs: Iterable[X], cap: int = 2) -> None:
@@ -207,15 +207,9 @@ class CAF[X]:
             return False
 
         for nn in range(cnt1):
-            if (
-                self._xs[(front1 + nn) % cap1]
-                is other._xs[(front2 + nn) % cap2]
-            ):
+            if self._xs[(front1 + nn) % cap1] is other._xs[(front2 + nn) % cap2]:
                 continue
-            if (
-                self._xs[(front1 + nn) % cap1]
-                != other._xs[(front2 + nn) % cap2]
-            ):
+            if self._xs[(front1 + nn) % cap1] != other._xs[(front2 + nn) % cap2]:
                 return False
         return True
 
@@ -275,7 +269,7 @@ class CAF[X]:
         """
         item_list = list(self)
         del item_list[idx]
-        _ca = CAF(item_list, cap = self._cap)
+        _ca = CAF(item_list, cap=self._cap)
         (
             self._xs,
             self._cnt,
@@ -566,7 +560,7 @@ class CAF[X]:
             :returns: New fixed capacity circular array instance.
 
         """
-        return CAF(map(f, self), cap = self._cap)
+        return CAF(map(f, self), cap=self._cap)
 
     @overload
     def foldl[L](self, f: Callable[[X, X], X]) -> X: ...

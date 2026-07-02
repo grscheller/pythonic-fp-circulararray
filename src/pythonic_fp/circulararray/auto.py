@@ -37,6 +37,7 @@ class CA[X]:
           from arguments
 
     """
+
     __slots__ = '_xs', '_cnt', '_cap', '_front', '_rear'
 
     def __init__(self, *xs: Iterable[X]) -> None:
@@ -83,9 +84,7 @@ class CA[X]:
                 self._front,
                 self._cap,
             ) = (
-                self._xs[: self._front]
-                + [nada] * self._cap
-                + self._xs[self._front :],
+                self._xs[: self._front] + [nada] * self._cap + self._xs[self._front :],
                 self._front + self._cap,
                 2 * self._cap,
             )
@@ -412,7 +411,7 @@ class CA[X]:
             Construct string 'CA(x₁, x₂, … xₙ)' where
             x₁, x₂, … xₙ are the contents displayed with ``repr()``.
 
-            :returns: A string to reproduce the ``CA``. 
+            :returns: A string to reproduce the ``CA``.
 
         """
         return 'ca(' + ', '.join(map(repr, self)) + ')'
