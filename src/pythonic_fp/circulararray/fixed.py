@@ -13,7 +13,8 @@
 # limitations under the License.
 
 from collections.abc import Callable, Iterable, Iterator
-from typing import cast, Final, overload
+from typing import Final, cast, overload
+
 from pythonic_fp.gadgets.sentinels.novalue import NoValue
 
 __all__ = ['CAF', 'caf']
