@@ -1,14 +1,20 @@
-Pythonic FP - Circular Array
-============================
-
-PyPI project
-`pythonic-fp-circulararray
-<https://pypi.org/project/pythonic-fp-circulararray>`_.
+# Pythonic FP - Circular Array
 
 Python module implementing stateful circular array data structures.
 
-- variable storage capacity circular array
+PyPI project
+[pythonic-fp-circulararray](https://pypi.org/project/pythonic-fp-circulararray).
 
+Part of the
+[pythonic-fp](https://grscheller.github.io/pythonic-fp/)
+PyPI projects.
+
+## Documentation
+
+Documentation and other links for this project are hosted on
+[GitHub Pages](https://grscheller.github.io/pythonic-fp/projects/circulararray.html).
+
+- variable storage capacity circular array
   - O(1) pops either end 
   - O(1) amortized pushes either end 
   - O(1) indexing, fully supports slicing
@@ -17,9 +23,7 @@ Python module implementing stateful circular array data structures.
   - comparisons compare identity before equality, like builtins
   - in boolean context, falsy when empty, otherwise truthy
   - function ``ca`` produces auto-resizing circular array from arguments
-
 - fixed storage capacity circular array
-
   - O(1) pops and pushes either end 
   - O(1) indexing, does not support slicing
   - fixed total storage capacity
@@ -28,20 +32,7 @@ Python module implementing stateful circular array data structures.
   - in boolean context, falsy when either empty or full, otherwise truthy
   - function ``caf`` produces fixed capacity circular array from arguments
 
-Part of the
-`pythonic-fp
-<https://grscheller.github.io/pythonic-fp/>`_
-PyPI projects.
-
-Documentation
--------------
-
-Documentation and other links for this project are hosted on
-`GitHub Pages
-<https://grscheller.github.io/pythonic-fp/projects/circulararray.html>`_.
-
-Copyright and License
----------------------
+## Copyright and License
 
 Copyright (c) 2023-2026 Geoffrey R. Scheller. Licensed under the Apache
 License, Version 2.0. See the LICENSE file for details.
