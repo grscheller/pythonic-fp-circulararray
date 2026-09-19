@@ -35,6 +35,7 @@ description = "Circular array datastructures."
 
 [project.urls]
 Changelog = "https://github.com/grscheller/pythonic-fp-circulararray/blob/main/CHANGELOG.md"
+Documentation ="https://grscheller.github.io/pythonic-fp-circulararray/release/html/"
 Homepage = "https://grscheller.github.io/pythonic-fp/"
 Source = "https://github.com/grscheller/pythonic-fp-circulararray"
 
