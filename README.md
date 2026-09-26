@@ -1,6 +1,6 @@
 # Pythonic FP - Circular Array
 
-Python module implementing stateful circular array data structures.
+Stateful circular array data structures.
 
 PyPI project
 [pythonic-fp-circulararray](https://pypi.org/project/pythonic-fp-circulararray).
@@ -8,10 +8,7 @@ Part of the
 [pythonic-fp](https://grscheller.github.io/pythonic-fp/)
 PyPI projects.
 
-## Documentation
-
-Documentation and other links for this project are hosted on
-[GitHub Pages](https://grscheller.github.io/pythonic-fp/projects/circulararray.html).
+## Description
 
 - variable storage capacity circular array
   - O(1) pops either end 

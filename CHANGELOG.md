@@ -15,6 +15,11 @@ See [Semantic Versioning 2.0.0](https://semver.org>).
 
 ## Releases and Important Milestones
 
+### PyPI release 6.2.0 - 2026-09-25
+
+First release done with uv dependency resolution. Devel version
+tentatively 6.2.1 (updated after PyPI release).
+
 ### PyPI 6.1.1 - 2026-05-10
 
 Documentation is now complete and is now in maintenance mode.
