@@ -4,7 +4,7 @@ build-backend = "flit_core.buildapi"
 
 [project]
 name = "pythonic-fp-circulararray"
-version = "6.2.0"
+version = "6.2.1"
 description = "Circular array datastructures."
 readme = "README.md"
 requires-python = ">=3.14"  # floor: PEP 649/749 deferred annotations — class-level self-reference (SBool in its own ClassVar annotation) NameErrors on <3.14
@@ -56,6 +56,11 @@ name = "pythonic_fp.circulararray"
 exclude = [
   "docs/",
   "tests/",
+  "**/.mypy_cache/",
+  "**/.ruff_cache/",
+  "**/.pytest_cache/",
+  "**/__pycache__/",
+  "**/.dmypy.json",
 ]
 
 [tool.pytest]

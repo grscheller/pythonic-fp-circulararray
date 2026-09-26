@@ -16,7 +16,7 @@ uv.lock
 # for Neovim
 **/.dmypy.json
 **/.mypy_cache/
-**/.ruff_cache
+**/.ruff_cache/
 
 # pytest files
 **/.pytest_cache/
