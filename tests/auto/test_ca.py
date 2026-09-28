@@ -434,7 +434,7 @@ class TestCircularArrayResizing:
             assert False
 
         foo = CA(range(1042)).map(lambda i: i * i)
-        for ii in range(0, 1042):
+        for ii in range(1042):
             assert ii * ii == foo[ii]
         for ii in range(-1042, 0):
             assert foo[ii] == foo[1042 + ii]

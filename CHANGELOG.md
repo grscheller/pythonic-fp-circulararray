@@ -15,10 +15,13 @@ See [Semantic Versioning 2.0.0](https://semver.org>).
 
 ## Releases and Important Milestones
 
+### PyPI release 6.2.2 - 2026-09-28
+
+Removed *.pyi files from source. Removed quotes from type annotations.
+
 ### PyPI release 6.2.1 - 2026-09-26
 
-First release done with uv dependency resolution. Devel version
-6.2.2 tentatively for now.
+First release done with uv dependency resolution.
 
 Had to yank version 6.2.0 due to .mypy_cache clutter. Fixed for future
 releases via pyproject.toml file.

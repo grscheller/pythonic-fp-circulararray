@@ -36,8 +36,8 @@ class TestFoldingWithNone:
 
         ca1 = caf(1, 2, 3, 4, 5, 6, 7)
         ca2 = caf(1, None, 3, 4, 5, None, 7)
-        tup = tuple([-1, 0])                     # = -1, 0
-        tup0 = tuple()                           # = ()
+        tup = -1, 0                     # = -1, 0
+        tup0 = ()                           # = ()
         tup1 = 1, 2, 3, 4, 5, 6, 7
         tup2 = -1, 0, 1, 3, 4, 5, 7
         assert ca1.foldl(tuple_no_none_left, tup0) == tup1
@@ -52,9 +52,9 @@ class TestFoldingWithNone:
 
         ca1_f = caf(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0)
         ca2_f = caf(None, 2.0, None, 4.0, 5.0, 6.0, None, None)
-        tup_f = tuple([9, 10, 11])
-        tup0_f = tuple()
-        tup1_f = tuple((1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0))
+        tup_f = 9, 10, 11
+        tup0_f = ()
+        tup1_f = 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0
         tup2_f = 2.0, 4.0, 5.0, 6.0, 9.0, 10.0, 11.0
         assert ca1_f.foldr(tuple_no_none_right, tup0_f) == tup1_f
         assert ca2_f.foldr(tuple_no_none_right, tup_f) == tup2_f

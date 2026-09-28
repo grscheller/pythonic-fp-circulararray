@@ -39,7 +39,7 @@ class CA[X]:
 
     """
 
-    __slots__ = '_xs', '_cnt', '_cap', '_front', '_rear'
+    __slots__ = '_cap', '_cnt', '_front', '_rear', '_xs'
 
     def __init__(self, *xs: Iterable[X]) -> None:
         """
@@ -295,9 +295,9 @@ class CA[X]:
     @overload
     def __getitem__(self, idx: int) -> X: ...
     @overload
-    def __getitem__(self, idx: slice) -> 'CA[X]': ...
+    def __getitem__(self, idx: slice) -> CA[X]: ...
 
-    def __getitem__(self, idx: int | slice) -> X | 'CA[X]':
+    def __getitem__(self, idx: int | slice) -> X | CA[X]:
         """
         .. admonition:: getitem
 
@@ -669,7 +669,7 @@ class CA[X]:
         for _ in range(n, 0, -1):
             self.pushl(self.popr())
 
-    def map[Y](self, f: Callable[[X], Y]) -> 'CA[Y]':
+    def map[Y](self, f: Callable[[X], Y]) -> CA[Y]:
         """
         .. admonition:: Map function over the CA
 
@@ -686,7 +686,7 @@ class CA[X]:
     @overload
     def foldl[L](self, f: Callable[[L, X], L], start: L) -> L: ...
 
-    def foldl[L](self, f: Callable[[L, X], L], start: L | NoValue = NoValue()) -> L:
+    def foldl[L](self, f: Callable[[L, X], L], start: L | NoValue = nada) -> L:
         """
         .. admonition:: Fold left
 

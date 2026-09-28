@@ -5,8 +5,8 @@
 #  - later needs to agree with pyproject.toml
 PROJECT_NAME = Circular Array
 PYPI_NAME = circulararray
-RELEASE_VERSION = 6.2.1
-DEVEL_VERSION = 6.2.2
+RELEASE_VERSION = 6.2.2
+DEVEL_VERSION = 6.2.3
 CUSTOM_VERSION = 0.0.0
 
 SPHINXOPTS ?=

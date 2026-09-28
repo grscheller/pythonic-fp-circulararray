@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from pythonic_fp.circulararray.auto import ca, CA
+from pythonic_fp.circulararray.auto import CA, ca
 
 
 class TestReprResizing:

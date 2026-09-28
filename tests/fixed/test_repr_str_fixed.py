@@ -12,13 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from pythonic_fp.circulararray.fixed import caf, CAF
+from pythonic_fp.circulararray.fixed import CAF, caf
 
 
 class TestReprFixed:
-    """Functionality testing"""
     def test_repr(self) -> None:
-        """Functionality test"""
         ca0: CAF[int] = CAF()
         assert repr(ca0) == 'caf()'
         foo: CAF[int] = eval('caf()')

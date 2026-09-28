@@ -38,7 +38,7 @@ class CAF[X]:
 
     """
 
-    __slots__ = '_xs', '_cnt', '_cap', '_front', '_rear'
+    __slots__ = '_cap', '_cnt', '_front', '_rear', '_xs',
 
     def __init__(self, *xs: Iterable[X], cap: int = 2) -> None:
         """
@@ -551,7 +551,7 @@ class CAF[X]:
         for _ in range(n, 0, -1):
             self.pushl(self.popr())
 
-    def map[Y](self, f: Callable[[X], Y]) -> 'CAF[Y]':
+    def map[Y](self, f: Callable[[X], Y]) -> CAF[Y]:
         """
         .. admonition:: Map function over the CAF
 

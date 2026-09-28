@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from pythonic_fp.circulararray.fixed import caf as caf, CAF as CAF
+from pythonic_fp.circulararray.fixed import CAF, caf
 
 
 class TestCapacityFixed:
