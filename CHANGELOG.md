@@ -15,6 +15,13 @@ See [Semantic Versioning 2.0.0](https://semver.org>).
 
 ## Releases and Important Milestones
 
+### PyPI release 6.3.0 - 2026-10-10
+
+Put <6 caps on dependencies, all pythonic-fp projects will be bumped
+up to the 6.0.0 release level, if not already at the 6.x.y level.
+The next pythonic-fp release will be 6.0.0 to track these for
+integration testing.
+
 ### PyPI release 6.2.2 - 2026-09-28
 
 Removed *.pyi files from source. Removed quotes from type annotations.
