@@ -3,23 +3,32 @@
 PyPI **pythonic-fp-circulararray** project. Fixed and variable capacity
 circular array data structures.
 
-## Semantic Versioning
+## Release Versioning
 
-Strict 3 digit semantic versioning adopted 2025-05-19.
+A tiered strict 3 digit semantic versioning will be used
 
-- **MAJOR** version incremented for incompatible API changes
-- **MINOR** version incremented for backward compatible added functionality
-- **PATCH** version incremented for backward compatible bug fixes
+- **MAJOR** incremented for incompatible API changes across Pythonic FP libraries
+- **MINOR** incremented for backward compatible added functionality
+- **PATCH** incremented for backward compatible bug fixes
 
-See [Semantic Versioning 2.0.0](https://semver.org>).
+All versions with the same major release numbers should be consistent
+with each other. Note that lower floors will still be used.
 
 ## Releases and Important Milestones
 
+### PyPI release 6.4.0 - 2026-10-TBA
+
+No substantive changes were made to this library.
+
+Going forward, consistent releases of the Pythonic FP libraries will
+share a common major release number. Will use caps to keep the major
+release lines from mixing.
+
 ### PyPI release 6.3.0 - 2026-10-10
 
-Put <6 caps on dependencies, all pythonic-fp projects will be bumped
-up to the 6.0.0 release level, if not already at the 6.x.y level.
-The next pythonic-fp release will be 6.0.0 to track these for
+Put `<6` caps on dependencies, all pythonic-fp projects will be bumped
+up to the `6.0.0` release level, if not already at the `6.x.y` level.
+The next pythonic-fp release will be `6.0.0` to track these for
 integration testing.
 
 ### PyPI release 6.2.2 - 2026-09-28
@@ -30,7 +39,7 @@ Removed *.pyi files from source. Removed quotes from type annotations.
 
 First release done with uv dependency resolution.
 
-Had to yank version 6.2.0 due to .mypy_cache clutter. Fixed for future
+Had to yank version `6.2.0` due to .mypy_cache clutter. Fixed for future
 releases via pyproject.toml file.
 
 ### PyPI 6.1.1 - 2026-05-10
@@ -118,7 +127,7 @@ API addition, removed position only parameters from API `/`
 
 Documentation across pythonic-fp namespace projects brought closer into agreement.
 
-PyPI 5.1.1 - 2025-07-06
+### PyPI 5.1.1 - 2025-07-06
 
 Devel environment and documentation changes only.
 
@@ -385,9 +394,9 @@ First stable PyPI release, dropped minimum Python requirement to 3.10.
 
 ### PyPI 0.1.1 - 2024-01-30
 
-Changed circular-array from a package to just a module, actually a breaking API
-change. Version number should have been 0.2.0 Also, gave CircularArray class
-`foldL` & `foldR` methods.
+Changed circular-array from a package to just a module, actually
+a breaking API change. Version number should have been `0.2.0` Also,
+gave CircularArray class `foldL` & `foldR` methods.
 
 ### PyPI 0.1.0 - 2024-01-28
 
@@ -405,5 +414,6 @@ Pushed repo up to GitHub, created README.md file for project.
 
 ### Version 0.0.1 - 2024-01-28
 
-Decided to split Circulararray class out of grscheller.datastructures, will make it its own PyPI
-project. Got it working with datastructures locally.
+Decided to split Circulararray class out of grscheller.datastructures,
+will make it its own PyPI project. Got it working with datastructures
+locally.
