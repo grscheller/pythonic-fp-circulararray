@@ -31,7 +31,8 @@ classifiers = [
   "Typing :: Typed",
 ]
 dependencies = [
-  "pythonic-fp-gadgets>=6",
+  # "pythonic-fp-gadgets>=6",
+  "pythonic-fp-gadgets",
 ]
 
 [project.urls]
