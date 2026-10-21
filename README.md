@@ -5,10 +5,13 @@ Stateful circular array data structures.
 PyPI project
 [pythonic-fp-circulararray](https://pypi.org/project/pythonic-fp-circulararray).
 Part of the
-[pythonic-fp](https://grscheller.github.io/pythonic-fp/)
+[pythonic-fp](https://grscheller.github.io/pythonic-fp)
 PyPI projects.
 
-## Description
+## Documentation
+
+Documentation and other links for this project are hosted on
+[GitHub Pages](https://grscheller.github.io/pythonic-fp-circulararray).
 
 - variable storage capacity circular array
   - O(1) pops either end 
@@ -18,7 +21,7 @@ PyPI projects.
   - iterable, safely mutates while iterators iterating over previous state
   - comparisons compare identity before equality, like builtins
   - in boolean context, falsy when empty, otherwise truthy
-  - function ``ca`` produces auto-resizing circular array from arguments
+  - function `ca` produces auto-resizing circular array from arguments
 - fixed storage capacity circular array
   - O(1) pops and pushes either end 
   - O(1) indexing, does not support slicing
@@ -26,7 +29,7 @@ PyPI projects.
   - iterable, safely mutates while iterators iterating over previous state
   - comparisons compare identity before equality, like builtins
   - in boolean context, falsy when either empty or full, otherwise truthy
-  - function ``caf`` produces fixed capacity circular array from arguments
+  - function `caf` produces fixed capacity circular array from arguments
 
 ## Copyright and License
 
