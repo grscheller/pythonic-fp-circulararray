@@ -7,7 +7,7 @@ circular array data structures.
 
 A tiered strict 3 digit semantic versioning will be used
 
-- **MAJOR** incremented for incompatible API changes across Pythonic FP libraries
+- **MAJOR** incremented for incompatible API changes across Pythonic FP projects
 - **MINOR** incremented for backward compatible added functionality
 - **PATCH** incremented for backward compatible bug fixes
 
@@ -16,13 +16,14 @@ with each other. Note that lower floors will still be used.
 
 ## Releases and Important Milestones
 
-### PyPI release 6.4.0 - 2026-10-TBA
+### PyPI release 6.4.0 - 2026-11-TBA
 
 No substantive changes were made to this library.
 
 Going forward, consistent releases of the Pythonic FP libraries will
 share a common major release number. Will use caps to keep the major
-release lines from mixing.
+release lines from mixing. Major release numbers will represent a
+consecutive series of rolling releases.:want
 
 ### PyPI release 6.3.0 - 2026-10-10
 
